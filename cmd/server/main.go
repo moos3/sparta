@@ -39,6 +39,7 @@ type server struct {
 	crtShPlugin  CrtShScanPlugin
 	chaosPlugin  ChaosScanPlugin
 	shodanPlugin ShodanScanPlugin
+	otxPlugin    OTXScanPlugin
 }
 
 type DNSScanPlugin interface {
@@ -117,6 +118,22 @@ type ShodanScanPlugin interface {
 	}, error)
 }
 
+type OTXScanPlugin interface {
+	Initialize() error
+	Name() string
+	SetDatabase(*db.Database)
+	SetConfig(*config.Config)
+	ScanOTX(domain string, dnsScanID string) (db.OTXSecurityResult, error)
+	InsertOTXScanResult(domain string, dnsScanID string, result db.OTXSecurityResult) (string, error)
+	GetOTXScanResultsByDomain(domain string) ([]struct {
+		ID        string
+		Domain    string
+		DNSScanID string
+		Result    db.OTXSecurityResult
+		CreatedAt time.Time
+	}, error)
+}
+
 func main() {
 	cfg, err := config.Load("config.yaml")
 	if err != nil {
@@ -142,6 +159,7 @@ func main() {
 	var crtShPlugin CrtShScanPlugin
 	var chaosPlugin ChaosScanPlugin
 	var shodanPlugin ShodanScanPlugin
+	var otxPlugin OTXScanPlugin
 	var initializedPlugins []plugin.Plugin
 	for i, p := range plugins {
 		pluginName := p.Name()
@@ -224,6 +242,22 @@ func main() {
 			continue
 		}
 
+		// Try casting to OTXScanPlugin
+		if otxSp, ok := p.(OTXScanPlugin); ok && pluginName == "ScanOTX" {
+			log.Printf("Setting database and config for plugin %s", pluginName)
+			otxSp.SetDatabase(db)
+			otxSp.SetConfig(cfg)
+			log.Printf("Initializing plugin %s", pluginName)
+			if err := otxSp.Initialize(); err != nil {
+				log.Printf("Failed to initialize plugin %s: %v", pluginName, err)
+				continue
+			}
+			otxPlugin = otxSp
+			initializedPlugins = append(initializedPlugins, p)
+			log.Printf("Successfully initialized plugin %s", pluginName)
+			continue
+		}
+
 		// Initialize as generic plugin
 		log.Printf("Initializing non-specific plugin %s", pluginName)
 		if err := p.Initialize(); err != nil {
@@ -258,6 +292,11 @@ func main() {
 	} else {
 		log.Printf("ScanShodan plugin loaded successfully")
 	}
+	if otxPlugin == nil {
+		log.Printf("Warning: ScanOTX plugin not loaded")
+	} else {
+		log.Printf("ScanOTX plugin loaded successfully")
+	}
 
 	s := &server{
 		db:           db,
@@ -269,6 +308,7 @@ func main() {
 		crtShPlugin:  crtShPlugin,
 		chaosPlugin:  chaosPlugin,
 		shodanPlugin: shodanPlugin,
+		otxPlugin:    otxPlugin,
 	}
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Server.GRPCPort))
@@ -920,6 +960,135 @@ func (s *server) GetShodanScanResultsByDomain(ctx context.Context, req *pb.GetSh
 				Hosts:  hosts,
 				Errors: r.Result.Errors,
 			},
+			CreatedAt: r.CreatedAt.Format(time.RFC3339),
+		})
+	}
+	return response, nil
+}
+
+func (s *server) ScanOTX(ctx context.Context, req *pb.ScanOTXRequest) (*pb.ScanOTXResponse, error) {
+	if s.otxPlugin == nil {
+		return nil, status.Error(codes.Unavailable, "ScanOTX plugin not loaded")
+	}
+
+	domain := strings.TrimSpace(strings.ToLower(req.GetDomain()))
+	dnsScanID := req.GetDnsScanId()
+	if domain == "" {
+		return nil, status.Error(codes.InvalidArgument, "Domain is required")
+	}
+	if dnsScanID == "" {
+		return nil, status.Error(codes.InvalidArgument, "DNS scan ID is required")
+	}
+
+	var exists bool
+	err := s.db.QueryRow("SELECT EXISTS (SELECT 1 FROM dns_scan_results WHERE id = $1)", dnsScanID).Scan(&exists)
+	if err != nil || !exists {
+		return nil, status.Error(codes.InvalidArgument, "Invalid DNS scan ID")
+	}
+
+	result, err := s.otxPlugin.ScanOTX(domain, dnsScanID)
+	if err != nil {
+		return nil, status.Error(codes.Internal, fmt.Sprintf("Failed to scan OTX: %v", err))
+	}
+
+	id, err := s.otxPlugin.InsertOTXScanResult(domain, dnsScanID, result)
+	if err != nil {
+		return nil, status.Error(codes.Internal, fmt.Sprintf("Failed to store OTX scan result: %v", err))
+	}
+
+	response := &pb.ScanOTXResponse{
+		Result: &pb.OTXSecurityResult{
+			Malware:    make([]*pb.OTXMalware, len(result.Malware)),
+			Urls:       make([]*pb.OTXURL, len(result.URLs)),
+			PassiveDns: make([]*pb.OTXPassiveDNS, len(result.PassiveDNS)),
+			Errors:     result.Errors,
+		},
+		ScanId: id,
+	}
+	if result.GeneralInfo != nil {
+		response.Result.GeneralInfo = &pb.OTXGeneralInfo{
+			PulseCount: int32(result.GeneralInfo.PulseCount),
+			Pulses:     result.GeneralInfo.Pulses,
+		}
+	}
+	for i, m := range result.Malware {
+		response.Result.Malware[i] = &pb.OTXMalware{
+			Hash:     m.Hash,
+			Datetime: m.Datetime,
+		}
+	}
+	for i, u := range result.URLs {
+		response.Result.Urls[i] = &pb.OTXURL{
+			Url:      u.URL,
+			Datetime: u.Datetime,
+		}
+	}
+	for i, d := range result.PassiveDNS {
+		response.Result.PassiveDns[i] = &pb.OTXPassiveDNS{
+			Address:  d.Address,
+			Hostname: d.Hostname,
+			Record:   d.Record,
+			Datetime: d.Datetime,
+		}
+	}
+
+	return response, nil
+}
+
+func (s *server) GetOTXScanResultsByDomain(ctx context.Context, req *pb.GetOTXScanResultsByDomainRequest) (*pb.GetOTXScanResultsByDomainResponse, error) {
+	if s.otxPlugin == nil {
+		return nil, status.Error(codes.Unavailable, "ScanOTX plugin not loaded")
+	}
+
+	domain := strings.TrimSpace(strings.ToLower(req.GetDomain()))
+	if domain == "" {
+		return nil, status.Error(codes.InvalidArgument, "Domain is required")
+	}
+
+	results, err := s.otxPlugin.GetOTXScanResultsByDomain(domain)
+	if err != nil {
+		return nil, status.Error(codes.Internal, fmt.Sprintf("Failed to retrieve OTX scan results: %v", err))
+	}
+
+	response := &pb.GetOTXScanResultsByDomainResponse{}
+	for _, r := range results {
+		otxResult := &pb.OTXSecurityResult{
+			Malware:    make([]*pb.OTXMalware, len(r.Result.Malware)),
+			Urls:       make([]*pb.OTXURL, len(r.Result.URLs)),
+			PassiveDns: make([]*pb.OTXPassiveDNS, len(r.Result.PassiveDNS)),
+			Errors:     r.Result.Errors,
+		}
+		if r.Result.GeneralInfo != nil {
+			otxResult.GeneralInfo = &pb.OTXGeneralInfo{
+				PulseCount: int32(r.Result.GeneralInfo.PulseCount),
+				Pulses:     r.Result.GeneralInfo.Pulses,
+			}
+		}
+		for i, m := range r.Result.Malware {
+			otxResult.Malware[i] = &pb.OTXMalware{
+				Hash:     m.Hash,
+				Datetime: m.Datetime,
+			}
+		}
+		for i, u := range r.Result.URLs {
+			otxResult.Urls[i] = &pb.OTXURL{
+				Url:      u.URL,
+				Datetime: u.Datetime,
+			}
+		}
+		for i, d := range r.Result.PassiveDNS {
+			otxResult.PassiveDns[i] = &pb.OTXPassiveDNS{
+				Address:  d.Address,
+				Hostname: d.Hostname,
+				Record:   d.Record,
+				Datetime: d.Datetime,
+			}
+		}
+		response.Results = append(response.Results, &pb.OTXScanResult{
+			Id:        r.ID,
+			Domain:    r.Domain,
+			DnsScanId: r.DNSScanID,
+			Result:    otxResult,
 			CreatedAt: r.CreatedAt.Format(time.RFC3339),
 		})
 	}

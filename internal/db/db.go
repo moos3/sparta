@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"time"
 
@@ -112,6 +111,36 @@ type ShodanSecurityResult struct {
 	Errors []string     `json:"errors"`
 }
 
+type OTXGeneralInfo struct {
+	PulseCount int      `json:"pulse_count"`
+	Pulses     []string `json:"pulses"`
+}
+
+type OTXMalware struct {
+	Hash     string `json:"hash"`
+	Datetime string `json:"datetime"`
+}
+
+type OTXURL struct {
+	URL      string `json:"url"`
+	Datetime string `json:"datetime"`
+}
+
+type OTXPassiveDNS struct {
+	Address  string `json:"address"`
+	Hostname string `json:"hostname"`
+	Record   string `json:"record_type"`
+	Datetime string `json:"datetime"`
+}
+
+type OTXSecurityResult struct {
+	GeneralInfo *OTXGeneralInfo `json:"general_info"`
+	Malware     []OTXMalware    `json:"malware"`
+	URLs        []OTXURL        `json:"urls"`
+	PassiveDNS  []OTXPassiveDNS `json:"passive_dns"`
+	Errors      []string        `json:"errors"`
+}
+
 func New(cfg *config.Config) (*Database, error) {
 	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable search_path=public",
 		cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.DBName)
@@ -185,62 +214,6 @@ func (d *Database) ListUsers() ([]struct {
 		users = append(users, user)
 	}
 	return users, nil
-}
-
-func (d *Database) InsertDNSScanResult(domain string, result DNSSecurityResult) (string, error) {
-	id := uuid.New().String()
-	resultJSON, err := json.Marshal(result)
-	if err != nil {
-		return "", fmt.Errorf("failed to marshal result: %w", err)
-	}
-	_, err = d.conn.Exec(
-		"INSERT INTO dns_scan_results (id, domain, result, created_at) VALUES ($1, $2, $3, $4)",
-		id, domain, resultJSON, time.Now())
-	if err != nil {
-		return "", fmt.Errorf("failed to insert scan result: %w", err)
-	}
-	return id, nil
-}
-
-func (d *Database) GetDNSScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	Result    DNSSecurityResult
-	CreatedAt time.Time
-}, error) {
-	rows, err := d.conn.Query(
-		"SELECT id, domain, result, created_at FROM dns_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		domain)
-	if err != nil {
-		return nil, fmt.Errorf("failed to query scan results: %w", err)
-	}
-	defer rows.Close()
-
-	var results []struct {
-		ID        string
-		Domain    string
-		Result    DNSSecurityResult
-		CreatedAt time.Time
-	}
-	for rows.Next() {
-		var id, domain string
-		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &resultJSON, &createdAt); err != nil {
-			return nil, fmt.Errorf("failed to scan row: %w", err)
-		}
-		var result DNSSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
-			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
-		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			Result    DNSSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, Result: result, CreatedAt: createdAt})
-	}
-	return results, nil
 }
 
 func (d *Database) QueryRow(query string, args ...interface{}) *sql.Row {

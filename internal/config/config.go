@@ -35,6 +35,11 @@ type Config struct {
 		APIKey       string `yaml:"api_key"`
 		RequestDelay int    `yaml:"request_delay"` // in milliseconds
 	} `yaml:"shodan"`
+	OTX struct {
+		APIKey       string `yaml:"apikey"`
+		BaseURL      string `yaml:"baseurl"`
+		RequestDelay int    `yaml:"request_delay"`
+	} `yaml:"otx"`
 }
 
 func Load(path string) (*Config, error) {

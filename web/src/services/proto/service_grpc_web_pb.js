@@ -1111,5 +1111,127 @@ proto.service.UserServicePromiseClient.prototype.getShodanScanResultsByDomain =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.service.ScanOTXRequest,
+ *   !proto.service.ScanOTXResponse>}
+ */
+const methodDescriptor_UserService_ScanOTX = new grpc.web.MethodDescriptor(
+  '/service.UserService/ScanOTX',
+  grpc.web.MethodType.UNARY,
+  proto.service.ScanOTXRequest,
+  proto.service.ScanOTXResponse,
+  /**
+   * @param {!proto.service.ScanOTXRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.service.ScanOTXResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.service.ScanOTXRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.service.ScanOTXResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.service.ScanOTXResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.service.UserServiceClient.prototype.scanOTX =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/service.UserService/ScanOTX',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_ScanOTX,
+      callback);
+};
+
+
+/**
+ * @param {!proto.service.ScanOTXRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.service.ScanOTXResponse>}
+ *     Promise that resolves to the response
+ */
+proto.service.UserServicePromiseClient.prototype.scanOTX =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/service.UserService/ScanOTX',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_ScanOTX);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.service.GetOTXScanResultsByDomainRequest,
+ *   !proto.service.GetOTXScanResultsByDomainResponse>}
+ */
+const methodDescriptor_UserService_GetOTXScanResultsByDomain = new grpc.web.MethodDescriptor(
+  '/service.UserService/GetOTXScanResultsByDomain',
+  grpc.web.MethodType.UNARY,
+  proto.service.GetOTXScanResultsByDomainRequest,
+  proto.service.GetOTXScanResultsByDomainResponse,
+  /**
+   * @param {!proto.service.GetOTXScanResultsByDomainRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.service.GetOTXScanResultsByDomainResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.service.GetOTXScanResultsByDomainRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.service.GetOTXScanResultsByDomainResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.service.GetOTXScanResultsByDomainResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.service.UserServiceClient.prototype.getOTXScanResultsByDomain =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/service.UserService/GetOTXScanResultsByDomain',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_GetOTXScanResultsByDomain,
+      callback);
+};
+
+
+/**
+ * @param {!proto.service.GetOTXScanResultsByDomainRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.service.GetOTXScanResultsByDomainResponse>}
+ *     Promise that resolves to the response
+ */
+proto.service.UserServicePromiseClient.prototype.getOTXScanResultsByDomain =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/service.UserService/GetOTXScanResultsByDomain',
+      request,
+      metadata || {},
+      methodDescriptor_UserService_GetOTXScanResultsByDomain);
+};
+
+
 module.exports = proto.service;
 

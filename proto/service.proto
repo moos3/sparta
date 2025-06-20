@@ -4,6 +4,7 @@ syntax = "proto3";
 package service;
 option go_package = "github.com/moos3/sparta/proto";
 
+// User Service: Core user management RPCs
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
@@ -12,18 +13,27 @@ service UserService {
   rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
   rpc InviteUser(InviteUserRequest) returns (InviteUserResponse);
   rpc ValidateInvite(ValidateInviteRequest) returns (ValidateInviteResponse);
+  // DNS Scan Plugin
   rpc ScanDomain(ScanDomainRequest) returns (ScanDomainResponse);
   rpc GetDNSScanResultsByDomain(GetDNSScanResultsByDomainRequest) returns (GetDNSScanResultsByDomainResponse);
+  // TLS Scan Plugin
   rpc ScanTLS(ScanTLSRequest) returns (ScanTLSResponse);
   rpc GetTLSScanResultsByDomain(GetTLSScanResultsByDomainRequest) returns (GetTLSScanResultsByDomainResponse);
+  // CrtSh Scan Plugin
   rpc ScanCrtSh(ScanCrtShRequest) returns (ScanCrtShResponse);
   rpc GetCrtShScanResultsByDomain(GetCrtShScanResultsByDomainRequest) returns (GetCrtShScanResultsByDomainResponse);
+  // Chaos Scan Plugin
   rpc ScanChaos(ScanChaosRequest) returns (ScanChaosResponse);
   rpc GetChaosScanResultsByDomain(GetChaosScanResultsByDomainRequest) returns (GetChaosScanResultsByDomainResponse);
+  // Shodan Scan Plugin
   rpc ScanShodan(ScanShodanRequest) returns (ScanShodanResponse);
   rpc GetShodanScanResultsByDomain(GetShodanScanResultsByDomainRequest) returns (GetShodanScanResultsByDomainResponse);
+  // OTX Scan Plugin
+  rpc ScanOTX(ScanOTXRequest) returns (ScanOTXResponse);
+  rpc GetOTXScanResultsByDomain(GetOTXScanResultsByDomainRequest) returns (GetOTXScanResultsByDomainResponse);
 }
 
+// User-related messages
 message CreateUserRequest {
   string email = 1;
   string name = 2;
@@ -85,6 +95,7 @@ message ValidateInviteResponse {
   bool valid = 1;
 }
 
+// DNS Scan Plugin messages
 message ScanDomainRequest {
   string domain = 1;
 }
@@ -98,70 +109,6 @@ message GetDNSScanResultsByDomainRequest {
 }
 message GetDNSScanResultsByDomainResponse {
   repeated DNSScanResult results = 1;
-}
-
-message ScanTLSRequest {
-  string domain = 1;
-  string dns_scan_id = 2;
-}
-message ScanTLSResponse {
-  TLSSecurityResult result = 1;
-  string scan_id = 2;
-}
-
-message GetTLSScanResultsByDomainRequest {
-  string domain = 1;
-}
-message GetTLSScanResultsByDomainResponse {
-  repeated TLSScanResult results = 1;
-}
-
-message ScanCrtShRequest {
-  string domain = 1;
-  string dns_scan_id = 2;
-}
-message ScanCrtShResponse {
-  CrtShSecurityResult result = 1;
-  string scan_id = 2;
-}
-
-message GetCrtShScanResultsByDomainRequest {
-  string domain = 1;
-}
-message GetCrtShScanResultsByDomainResponse {
-  repeated CrtShScanResult results = 1;
-}
-
-message ScanChaosRequest {
-  string domain = 1;
-  string dns_scan_id = 2;
-}
-message ScanChaosResponse {
-  ChaosSecurityResult result = 1;
-  string scan_id = 2;
-}
-
-message GetChaosScanResultsByDomainRequest {
-  string domain = 1;
-}
-message GetChaosScanResultsByDomainResponse {
-  repeated ChaosScanResult results = 1;
-}
-
-message ScanShodanRequest {
-  string domain = 1;
-  string dns_scan_id = 2;
-}
-message ScanShodanResponse {
-  ShodanSecurityResult result = 1;
-  string scan_id = 2;
-}
-
-message GetShodanScanResultsByDomainRequest {
-  string domain = 1;
-}
-message GetShodanScanResultsByDomainResponse {
-  repeated ShodanScanResult results = 1;
 }
 
 message DNSSecurityResult {
@@ -184,6 +131,30 @@ message DNSSecurityResult {
   repeated string errors = 17;
 }
 
+message DNSScanResult {
+  string id = 1;
+  string domain = 2;
+  DNSSecurityResult result = 3;
+  string created_at = 4;
+}
+
+// TLS Scan Plugin messages
+message ScanTLSRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanTLSResponse {
+  TLSSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetTLSScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetTLSScanResultsByDomainResponse {
+  repeated TLSScanResult results = 1;
+}
+
 message TLSSecurityResult {
   string tls_version = 1;
   string cipher_suite = 2;
@@ -197,6 +168,31 @@ message TLSSecurityResult {
   int32 cert_key_strength = 10;
   string cert_signature_algorithm = 11;
   repeated string errors = 12;
+}
+
+message TLSScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  TLSSecurityResult result = 4;
+  string created_at = 5;
+}
+
+// CrtSh Scan Plugin messages
+message ScanCrtShRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanCrtShResponse {
+  CrtShSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetCrtShScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetCrtShScanResultsByDomainResponse {
+  repeated CrtShScanResult results = 1;
 }
 
 message CrtShCertificate {
@@ -216,9 +212,59 @@ message CrtShSecurityResult {
   repeated string errors = 3;
 }
 
+message CrtShScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  CrtShSecurityResult result = 4;
+  string created_at = 5;
+}
+
+// Chaos Scan Plugin messages
+message ScanChaosRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanChaosResponse {
+  ChaosSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetChaosScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetChaosScanResultsByDomainResponse {
+  repeated ChaosScanResult results = 1;
+}
+
 message ChaosSecurityResult {
   repeated string subdomains = 1;
   repeated string errors = 2;
+}
+
+message ChaosScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  ChaosSecurityResult result = 4;
+  string created_at = 5;
+}
+
+// Shodan Scan Plugin messages
+message ScanShodanRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanShodanResponse {
+  ShodanSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetShodanScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetShodanScanResultsByDomainResponse {
+  repeated ShodanScanResult results = 1;
 }
 
 message ShodanLocation {
@@ -236,7 +282,6 @@ message ShodanSSL {
 
 message ShodanMetadata {
   string module = 1;
-  string region = 2;
 }
 
 message ShodanHost {
@@ -261,41 +306,65 @@ message ShodanSecurityResult {
   repeated string errors = 2;
 }
 
-message DNSScanResult {
-  string id = 1;
-  string domain = 2;
-  DNSSecurityResult result = 3;
-  string created_at = 4;
-}
-
-message TLSScanResult {
-  string id = 1;
-  string domain = 2;
-  string dns_scan_id = 3;
-  TLSSecurityResult result = 4;
-  string created_at = 5;
-}
-
-message CrtShScanResult {
-  string id = 1;
-  string domain = 2;
-  string dns_scan_id = 3;
-  CrtShSecurityResult result = 4;
-  string created_at = 5;
-}
-
-message ChaosScanResult {
-  string id = 1;
-  string domain = 2;
-  string dns_scan_id = 3;
-  ChaosSecurityResult result = 4;
-  string created_at = 5;
-}
-
 message ShodanScanResult {
   string id = 1;
   string domain = 2;
   string dns_scan_id = 3;
   ShodanSecurityResult result = 4;
+  string created_at = 5;
+}
+
+// OTX Scan Plugin messages
+message ScanOTXRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanOTXResponse {
+  OTXSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetOTXScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetOTXScanResultsByDomainResponse {
+  repeated OTXScanResult results = 1;
+}
+
+message OTXGeneralInfo {
+  int32 pulse_count = 1;
+  repeated string pulses = 2;
+}
+
+message OTXMalware {
+  string hash = 1;
+  string datetime = 2;
+}
+
+message OTXURL {
+  string url = 1;
+  string datetime = 2;
+}
+
+message OTXPassiveDNS {
+  string address = 1;
+  string hostname = 2;
+  string record = 3;
+  string datetime = 4;
+}
+
+message OTXSecurityResult {
+  OTXGeneralInfo general_info = 1;
+  repeated OTXMalware malware = 2;
+  repeated OTXURL urls = 3;
+  repeated OTXPassiveDNS passive_dns = 4;
+  repeated string errors = 5;
+}
+
+message OTXScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  OTXSecurityResult result = 4;
   string created_at = 5;
 }

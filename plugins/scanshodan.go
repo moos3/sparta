@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	//"database/sql"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -139,18 +138,14 @@ func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.Shoda
 			ispStr = *host.ISP
 		}
 		var ssl *db.ShodanSSL
-		if host.SSL != nil {
+		if host.SSL != nil && host.SSL.Cert.Issuer.CN != "" {
 			issuer := ""
-			if host.SSL.Cert.Issuer != nil {
-				if host.SSL.Cert.Issuer.CN != nil {
-					issuer = host.SSL.Cert.Issuer.CN
-				}
+			if host.SSL.Cert.Issuer.CN != "" {
+				issuer = host.SSL.Cert.Issuer.CN
 			}
 			subject := ""
-			if host.SSL.Cert.Subject != nil {
-				if host.SSL.Cert.Subject.CN != nil {
-					subject = host.SSL.Cert.Subject.CN
-				}
+			if host.SSL.Cert.Subject.CN != "" {
+				subject = host.SSL.Cert.Subject.CN
 			}
 			ssl = &db.ShodanSSL{
 				Issuer:  issuer,

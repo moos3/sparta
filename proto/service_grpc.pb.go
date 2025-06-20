@@ -38,11 +38,15 @@ const (
 	UserService_GetChaosScanResultsByDomain_FullMethodName  = "/service.UserService/GetChaosScanResultsByDomain"
 	UserService_ScanShodan_FullMethodName                   = "/service.UserService/ScanShodan"
 	UserService_GetShodanScanResultsByDomain_FullMethodName = "/service.UserService/GetShodanScanResultsByDomain"
+	UserService_ScanOTX_FullMethodName                      = "/service.UserService/ScanOTX"
+	UserService_GetOTXScanResultsByDomain_FullMethodName    = "/service.UserService/GetOTXScanResultsByDomain"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// User Service: Core user management RPCs
 type UserServiceClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
@@ -51,16 +55,24 @@ type UserServiceClient interface {
 	ListUsers(ctx context.Context, in *ListUsersRequest, opts ...grpc.CallOption) (*ListUsersResponse, error)
 	InviteUser(ctx context.Context, in *InviteUserRequest, opts ...grpc.CallOption) (*InviteUserResponse, error)
 	ValidateInvite(ctx context.Context, in *ValidateInviteRequest, opts ...grpc.CallOption) (*ValidateInviteResponse, error)
+	// DNS Scan Plugin
 	ScanDomain(ctx context.Context, in *ScanDomainRequest, opts ...grpc.CallOption) (*ScanDomainResponse, error)
 	GetDNSScanResultsByDomain(ctx context.Context, in *GetDNSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetDNSScanResultsByDomainResponse, error)
+	// TLS Scan Plugin
 	ScanTLS(ctx context.Context, in *ScanTLSRequest, opts ...grpc.CallOption) (*ScanTLSResponse, error)
 	GetTLSScanResultsByDomain(ctx context.Context, in *GetTLSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetTLSScanResultsByDomainResponse, error)
+	// CrtSh Scan Plugin
 	ScanCrtSh(ctx context.Context, in *ScanCrtShRequest, opts ...grpc.CallOption) (*ScanCrtShResponse, error)
 	GetCrtShScanResultsByDomain(ctx context.Context, in *GetCrtShScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetCrtShScanResultsByDomainResponse, error)
+	// Chaos Scan Plugin
 	ScanChaos(ctx context.Context, in *ScanChaosRequest, opts ...grpc.CallOption) (*ScanChaosResponse, error)
 	GetChaosScanResultsByDomain(ctx context.Context, in *GetChaosScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetChaosScanResultsByDomainResponse, error)
+	// Shodan Scan Plugin
 	ScanShodan(ctx context.Context, in *ScanShodanRequest, opts ...grpc.CallOption) (*ScanShodanResponse, error)
 	GetShodanScanResultsByDomain(ctx context.Context, in *GetShodanScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetShodanScanResultsByDomainResponse, error)
+	// OTX Scan Plugin
+	ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error)
+	GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error)
 }
 
 type userServiceClient struct {
@@ -241,9 +253,31 @@ func (c *userServiceClient) GetShodanScanResultsByDomain(ctx context.Context, in
 	return out, nil
 }
 
+func (c *userServiceClient) ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanOTXResponse)
+	err := c.cc.Invoke(ctx, UserService_ScanOTX_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetOTXScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, UserService_GetOTXScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
+//
+// User Service: Core user management RPCs
 type UserServiceServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
@@ -252,16 +286,24 @@ type UserServiceServer interface {
 	ListUsers(context.Context, *ListUsersRequest) (*ListUsersResponse, error)
 	InviteUser(context.Context, *InviteUserRequest) (*InviteUserResponse, error)
 	ValidateInvite(context.Context, *ValidateInviteRequest) (*ValidateInviteResponse, error)
+	// DNS Scan Plugin
 	ScanDomain(context.Context, *ScanDomainRequest) (*ScanDomainResponse, error)
 	GetDNSScanResultsByDomain(context.Context, *GetDNSScanResultsByDomainRequest) (*GetDNSScanResultsByDomainResponse, error)
+	// TLS Scan Plugin
 	ScanTLS(context.Context, *ScanTLSRequest) (*ScanTLSResponse, error)
 	GetTLSScanResultsByDomain(context.Context, *GetTLSScanResultsByDomainRequest) (*GetTLSScanResultsByDomainResponse, error)
+	// CrtSh Scan Plugin
 	ScanCrtSh(context.Context, *ScanCrtShRequest) (*ScanCrtShResponse, error)
 	GetCrtShScanResultsByDomain(context.Context, *GetCrtShScanResultsByDomainRequest) (*GetCrtShScanResultsByDomainResponse, error)
+	// Chaos Scan Plugin
 	ScanChaos(context.Context, *ScanChaosRequest) (*ScanChaosResponse, error)
 	GetChaosScanResultsByDomain(context.Context, *GetChaosScanResultsByDomainRequest) (*GetChaosScanResultsByDomainResponse, error)
+	// Shodan Scan Plugin
 	ScanShodan(context.Context, *ScanShodanRequest) (*ScanShodanResponse, error)
 	GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error)
+	// OTX Scan Plugin
+	ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error)
+	GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -322,6 +364,12 @@ func (UnimplementedUserServiceServer) ScanShodan(context.Context, *ScanShodanReq
 }
 func (UnimplementedUserServiceServer) GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetShodanScanResultsByDomain not implemented")
+}
+func (UnimplementedUserServiceServer) ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanOTX not implemented")
+}
+func (UnimplementedUserServiceServer) GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOTXScanResultsByDomain not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -650,6 +698,42 @@ func _UserService_GetShodanScanResultsByDomain_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_ScanOTX_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanOTXRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).ScanOTX(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_ScanOTX_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).ScanOTX(ctx, req.(*ScanOTXRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetOTXScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOTXScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetOTXScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetOTXScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetOTXScanResultsByDomain(ctx, req.(*GetOTXScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -724,6 +808,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetShodanScanResultsByDomain",
 			Handler:    _UserService_GetShodanScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "ScanOTX",
+			Handler:    _UserService_ScanOTX_Handler,
+		},
+		{
+			MethodName: "GetOTXScanResultsByDomain",
+			Handler:    _UserService_GetOTXScanResultsByDomain_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
