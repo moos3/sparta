@@ -1,0 +1,143 @@
+# Go Lang (Backend gRPC Server)
+##############################
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.wasm
+# Test binary, generated with `go test -c`
+*.test
+# Coverage output profile, generated with `go test -coverprofile`
+*.out
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*.swp
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs and Editors
+.idea/             # IntelliJ IDEA / GoLand
+.vscode/           # VS Code
+*.sublime-project
+*.sublime-workspace
+.project           # Eclipse
+.classpath
+.settings/
+.env               # Environment variables file
+
+# Dependencies
+vendor/            # Go modules vendor directory (if used, often committed in CI/CD, but good to ignore during development)
+go.mod.bak         # Go modules backup file (rare, but can appear)
+go.sum             # This file should generally be committed
+
+# Go build cache
+.cache/go-build/   # Go build cache (older versions)
+# New Go 1.11+ build cache locations
+# Typically in GOCACHE, which defaults to ~/.cache/go-build
+# No need to explicitly ignore if it's outside the project,
+# but if you change GOCACHE to be project-local, uncomment:
+# .go_cache/
+
+# Cross-compilation outputs (if you build for multiple platforms)
+# bin/              # If you compile binaries directly into a 'bin' folder
+# dist/             # Common output folder for compiled binaries
+# pkg/              # If you use older Go workspaces or custom build output
+
+
+# Node.js (Frontend Web)
+########################
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Production build output
+dist/              # Common output directory for compiled web assets (e.g., webpack, Parcel, Vite)
+build/             # Another common output directory
+.cache/            # Webpack, Babel, etc. caches
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime files
+*.pid
+*.seed
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+.env.*
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Other temporary files
+tmp/
+temp/
+
+# Compiled files
+*.js.map           # JavaScript source maps
+*.css.map          # CSS source maps
+
+# Package managers
+package-lock.json  # npm (usually committed, but sometimes ignored in specific workflows)
+npm-shrinkwrap.json
+yarn.lock          # Yarn (usually committed)
+
+# Gulp & Grunt
+.gulp/
+.grunt/
+
+# Nginx/Proxy related config
+*.conf             # If you're putting specific local proxy configs here
+
+# Protobuf generated files (Go and Node.js)
+##########################################
+# These can sometimes live in specific directories or next to .proto files.
+# Adjust paths if your generated files are nested.
+# Example: If your generated Go code is in `pkg/pb/` or `your_project/gen/pb/`
+# Example: If your generated JS code is in `web/src/pb/`
+
+# Go generated files (usually *.pb.go)
+# If these are auto-generated from .proto files and you manage them via 'go generate'
+# you might want to commit them. However, if they are recreated on every build,
+# and you prefer to keep the repo clean of generated code, you can ignore them.
+# Common practice is to *commit* generated Go code for gRPC/protobuf.
+# If you choose to ignore, uncomment the relevant lines.
+# **/pb/*.pb.go
+# **/*_grpc.pb.go
+# **/*_proto.go # Older convention
+
+# Node.js generated files (e.g., *.js, *.d.ts from protoc or grpc-tools)
+# Similar to Go, often committed, but if not, exclude:
+# **/*.proto.js
+# **/*.proto.d.ts
+# **/*_grpc_web_pb.js
+# **/*_pb.js
+
+# Custom output directory for generated protobuf files, if you have one
+# For example, if you generate into a `gen` directory in your root
+# gen/ # Uncomment if `gen` solely contains generated files you don't commit
