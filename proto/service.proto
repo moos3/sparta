@@ -1,0 +1,301 @@
+// proto/service.proto
+syntax = "proto3";
+
+package service;
+option go_package = "github.com/moos3/sparta/proto";
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc InviteUser(InviteUserRequest) returns (InviteUserResponse);
+  rpc ValidateInvite(ValidateInviteRequest) returns (ValidateInviteResponse);
+  rpc ScanDomain(ScanDomainRequest) returns (ScanDomainResponse);
+  rpc GetDNSScanResultsByDomain(GetDNSScanResultsByDomainRequest) returns (GetDNSScanResultsByDomainResponse);
+  rpc ScanTLS(ScanTLSRequest) returns (ScanTLSResponse);
+  rpc GetTLSScanResultsByDomain(GetTLSScanResultsByDomainRequest) returns (GetTLSScanResultsByDomainResponse);
+  rpc ScanCrtSh(ScanCrtShRequest) returns (ScanCrtShResponse);
+  rpc GetCrtShScanResultsByDomain(GetCrtShScanResultsByDomainRequest) returns (GetCrtShScanResultsByDomainResponse);
+  rpc ScanChaos(ScanChaosRequest) returns (ScanChaosResponse);
+  rpc GetChaosScanResultsByDomain(GetChaosScanResultsByDomainRequest) returns (GetChaosScanResultsByDomainResponse);
+  rpc ScanShodan(ScanShodanRequest) returns (ScanShodanResponse);
+  rpc GetShodanScanResultsByDomain(GetShodanScanResultsByDomainRequest) returns (GetShodanScanResultsByDomainResponse);
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string name = 2;
+}
+message CreateUserResponse {
+  string user_id = 1;
+  string api_key = 2;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+message GetUserResponse {
+  string user_id = 1;
+  string email = 2;
+  string name = 3;
+  string created_at = 4;
+}
+
+message UpdateUserRequest {
+  string user_id = 1;
+  string email = 2;
+  string name = 3;
+}
+message UpdateUserResponse {
+  string user_id = 1;
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+}
+message DeleteUserResponse {
+  bool success = 1;
+}
+
+message ListUsersRequest {}
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+message User {
+  string user_id = 1;
+  string email = 2;
+  string name = 3;
+  string created_at = 4;
+}
+
+message InviteUserRequest {
+  string email = 1;
+}
+message InviteUserResponse {
+  string invite_token = 1;
+}
+
+message ValidateInviteRequest {
+  string token = 1;
+}
+message ValidateInviteResponse {
+  bool valid = 1;
+}
+
+message ScanDomainRequest {
+  string domain = 1;
+}
+message ScanDomainResponse {
+  DNSSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetDNSScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetDNSScanResultsByDomainResponse {
+  repeated DNSScanResult results = 1;
+}
+
+message ScanTLSRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanTLSResponse {
+  TLSSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetTLSScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetTLSScanResultsByDomainResponse {
+  repeated TLSScanResult results = 1;
+}
+
+message ScanCrtShRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanCrtShResponse {
+  CrtShSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetCrtShScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetCrtShScanResultsByDomainResponse {
+  repeated CrtShScanResult results = 1;
+}
+
+message ScanChaosRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanChaosResponse {
+  ChaosSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetChaosScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetChaosScanResultsByDomainResponse {
+  repeated ChaosScanResult results = 1;
+}
+
+message ScanShodanRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+message ScanShodanResponse {
+  ShodanSecurityResult result = 1;
+  string scan_id = 2;
+}
+
+message GetShodanScanResultsByDomainRequest {
+  string domain = 1;
+}
+message GetShodanScanResultsByDomainResponse {
+  repeated ShodanScanResult results = 1;
+}
+
+message DNSSecurityResult {
+  string spf_record = 1;
+  bool spf_valid = 2;
+  string spf_policy = 3;
+  string dkim_record = 4;
+  bool dkim_valid = 5;
+  string dkim_validation_error = 6;
+  string dmarc_record = 7;
+  string dmarc_policy = 8;
+  bool dmarc_valid = 9;
+  string dmarc_validation_error = 10;
+  bool dnssec_enabled = 11;
+  bool dnssec_valid = 12;
+  string dnssec_validation_error = 13;
+  repeated string ip_addresses = 14;
+  repeated string mx_records = 15;
+  repeated string ns_records = 16;
+  repeated string errors = 17;
+}
+
+message TLSSecurityResult {
+  string tls_version = 1;
+  string cipher_suite = 2;
+  bool hsts_header = 3;
+  bool certificate_valid = 4;
+  string cert_issuer = 5;
+  string cert_subject = 6;
+  string cert_not_before = 7;
+  string cert_not_after = 8;
+  repeated string cert_dns_names = 9;
+  int32 cert_key_strength = 10;
+  string cert_signature_algorithm = 11;
+  repeated string errors = 12;
+}
+
+message CrtShCertificate {
+  int64 id = 1;
+  string common_name = 2;
+  string issuer = 3;
+  string not_before = 4;
+  string not_after = 5;
+  string serial_number = 6;
+  repeated string dns_names = 7;
+  string signature_algorithm = 8;
+}
+
+message CrtShSecurityResult {
+  repeated CrtShCertificate certificates = 1;
+  repeated string subdomains = 2;
+  repeated string errors = 3;
+}
+
+message ChaosSecurityResult {
+  repeated string subdomains = 1;
+  repeated string errors = 2;
+}
+
+message ShodanLocation {
+  string city = 1;
+  string country_name = 2;
+  double latitude = 3;
+  double longitude = 4;
+}
+
+message ShodanSSL {
+  string issuer = 1;
+  string subject = 2;
+  string expires = 3;
+}
+
+message ShodanMetadata {
+  string module = 1;
+  string region = 2;
+}
+
+message ShodanHost {
+  string ip = 1;
+  int32 port = 2;
+  repeated string hostnames = 3;
+  string os = 4;
+  string banner = 5;
+  repeated string tags = 6;
+  ShodanLocation location = 7;
+  ShodanSSL ssl = 8;
+  repeated string domains = 9;
+  string asn = 10;
+  string org = 11;
+  string isp = 12;
+  string timestamp = 13;
+  ShodanMetadata shodan_meta = 14;
+}
+
+message ShodanSecurityResult {
+  repeated ShodanHost hosts = 1;
+  repeated string errors = 2;
+}
+
+message DNSScanResult {
+  string id = 1;
+  string domain = 2;
+  DNSSecurityResult result = 3;
+  string created_at = 4;
+}
+
+message TLSScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  TLSSecurityResult result = 4;
+  string created_at = 5;
+}
+
+message CrtShScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  CrtShSecurityResult result = 4;
+  string created_at = 5;
+}
+
+message ChaosScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  ChaosSecurityResult result = 4;
+  string created_at = 5;
+}
+
+message ShodanScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  ShodanSecurityResult result = 4;
+  string created_at = 5;
+}
