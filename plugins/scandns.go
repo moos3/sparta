@@ -1,8 +1,8 @@
 package main
 
 import (
-	"context"
-	"database/sql"
+	"crypto/x509"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -10,10 +10,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/miekg/dns"
 	"github.com/moos3/sparta/internal/db"
 )
 
-// ScanDNSPlugin implements the DNS scan plugin
+// ScanDNSPlugin implements the Plugin interface expected by the server
 type ScanDNSPlugin struct {
 	name string
 	db   *db.Database
@@ -42,39 +43,99 @@ func (p *ScanDNSPlugin) SetDatabase(db *db.Database) {
 	log.Printf("Database connection set for plugin %s", p.name)
 }
 
-// ScanDomain performs a DNS security scan
+// ScanDomain performs DNS security checks and stores results
 func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) {
 	if p.db == nil {
 		return db.DNSSecurityResult{}, fmt.Errorf("database connection not provided")
 	}
 
-	domain = strings.TrimSpace(strings.ToLower(domain))
 	result := db.DNSSecurityResult{
 		Errors: []string{},
 	}
 
-	// Placeholder: Mock DNS scan logic
-	result.SPFRecord = "v=spf1 include:_spf.example.com -all"
-	result.SPFValid = true
-	result.SPFPolicy = "hardfail"
-	result.DKIMRecord = "v=DKIM1; k=rsa; p=..."
-	result.DKIMValid = true
-	result.DMARCRecord = "v=DMARC1; p=reject;"
-	result.DMARCPolicy = "reject"
-	result.DMARCValid = true
-	result.DNSSECEnabled = true
-	result.DNSSECValid = true
-	result.IPAddresses = []string{"93.184.216.34"}
-	result.MXRecords = []string{"mail.example.com"}
-	result.NSRecords = []string{"ns1.example.com"}
+	// Normalize domain
+	domain = strings.TrimSpace(strings.ToLower(domain))
+	if !strings.HasSuffix(domain, ".") {
+		domain = domain + "."
+	}
+
+	// DNS client
+	client := new(dns.Client)
+	server := "8.8.8.8:53" // Google DNS
+
+	// Lookup SPF
+	spfRecord, spfValid, spfPolicy, err := lookupSPF(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("SPF lookup error: %v", err))
+	} else {
+		result.SPFRecord = spfRecord
+		result.SPFValid = spfValid
+		result.SPFPolicy = spfPolicy
+	}
+
+	// Lookup DKIM
+	dkimRecord, dkimValid, dkimError, err := lookupAndValidateDKIM(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("DKIM lookup error: %v", err))
+	} else {
+		result.DKIMRecord = dkimRecord
+		result.DKIMValid = dkimValid
+		result.DKIMValidationError = dkimError
+	}
+
+	// Lookup DMARC
+	dmarcRecord, dmarcPolicy, dmarcValid, dmarcError, err := lookupAndValidateDMARC(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("DMARC lookup error: %v", err))
+	} else {
+		result.DMARCRecord = dmarcRecord
+		result.DMARCPolicy = dmarcPolicy
+		result.DMARCValid = dmarcValid
+		result.DMARCValidationError = dmarcError
+	}
+
+	// Check DNSSEC
+	dnssecEnabled, dnssecValid, dnssecError, err := checkAndValidateDNSSEC(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("DNSSEC check error: %v", err))
+	} else {
+		result.DNSSECEnabled = dnssecEnabled
+		result.DNSSECValid = dnssecValid
+		result.DNSSECValidationError = dnssecError
+	}
+
+	// Lookup IPs
+	ips, err := lookupIPs(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("IP lookup error: %v", err))
+	} else {
+		result.IPAddresses = ips
+	}
+
+	// Lookup MX
+	mxRecords, err := lookupMX(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("MX lookup error: %v", err))
+	} else {
+		result.MXRecords = mxRecords
+	}
+
+	// Lookup NS
+	nsRecords, err := lookupNS(client, server, domain)
+	if err != nil {
+		result.Errors = append(result.Errors, fmt.Sprintf("NS lookup error: %v", err))
+	} else {
+		result.NSRecords = nsRecords
+	}
 
 	// Store result
-	id, err := p.InsertDNSScanResult(domain, result)
+	domainTrimmed := strings.TrimSuffix(domain, ".")
+	id, err := p.InsertDNSScanResult(domainTrimmed, result)
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("Database storage error: %v", err))
-		log.Printf("Failed to store DNS scan result for %s: %v", domain, err)
+		log.Printf("Failed to store scan result for %s: %v", domainTrimmed, err)
 	} else {
-		log.Printf("Stored DNS scan result for %s with ID: %s", domain, id)
+		log.Printf("Stored scan result for %s with ID: %s", domainTrimmed, id)
 	}
 
 	return result, nil
@@ -142,6 +203,308 @@ func (p *ScanDNSPlugin) GetDNSScanResultsByDomain(domain string) ([]struct {
 		}{ID: id, Domain: domain, Result: result, CreatedAt: createdAt})
 	}
 	return results, nil
+}
+
+// lookupSPF queries TXT records for SPF
+func lookupSPF(client *dns.Client, server, domain string) (string, bool, string, error) {
+	m := new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeTXT)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return "", false, "", err
+	}
+
+	for _, ans := range r.Answer {
+		if txt, ok := ans.(*dns.TXT); ok {
+			for _, record := range txt.Txt {
+				if strings.HasPrefix(record, "v=spf1") {
+					policy := extractSPFPolicy(record)
+					return record, isSPFValid(record), policy, nil
+				}
+			}
+		}
+	}
+	return "", false, "", nil
+}
+
+// extractSPFPolicy extracts the SPF policy
+func extractSPFPolicy(record string) string {
+	parts := strings.Fields(record)
+	for _, part := range parts {
+		if part == "-all" || part == "~all" || part == "+all" || part == "?all" {
+			return part
+		}
+	}
+	return ""
+}
+
+// isSPFValid performs basic SPF validation
+func isSPFValid(record string) bool {
+	return strings.HasPrefix(record, "v=spf1") && (strings.Contains(record, "-all") || strings.Contains(record, "~all"))
+}
+
+// lookupAndValidateDKIM queries and validates DKIM records
+func lookupAndValidateDKIM(client *dns.Client, server, domain string) (string, bool, string, error) {
+	dkimDomain := "default._domainkey." + strings.TrimSuffix(domain, ".")
+	m := new(dns.Msg)
+	m.SetQuestion(dkimDomain, dns.TypeTXT)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return "", false, "", err
+	}
+
+	for _, ans := range r.Answer {
+		if txt, ok := ans.(*dns.TXT); ok {
+			for _, record := range txt.Txt {
+				if strings.HasPrefix(record, "v=DKIM1") {
+					validationError := validateDKIMRecord(record)
+					return record, validationError == "", validationError, nil
+				}
+			}
+		}
+	}
+	return "", false, "No DKIM record found", nil
+}
+
+// validateDKIMRecord checks DKIM record format and public key
+func validateDKIMRecord(record string) string {
+	if !strings.HasPrefix(record, "v=DKIM1") {
+		return "Invalid DKIM version"
+	}
+
+	parts := strings.Split(record, ";")
+	var keyType, pubKey string
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if strings.HasPrefix(part, "k=") {
+			keyType = strings.TrimPrefix(part, "k=")
+		} else if strings.HasPrefix(part, "p=") {
+			pubKey = strings.TrimPrefix(part, "p=")
+		}
+	}
+
+	if keyType != "rsa" {
+		return "Unsupported key type: " + keyType
+	}
+	if pubKey == "" {
+		return "Missing public key"
+	}
+
+	// Decode and validate public key
+	pubKeyBytes, err := base64.StdEncoding.DecodeString(pubKey)
+	if err != nil {
+		return "Invalid public key encoding: " + err.Error()
+	}
+	_, err = x509.ParsePKIXPublicKey(pubKeyBytes)
+	if err != nil {
+		return "Invalid public key format: " + err.Error()
+	}
+
+	return ""
+}
+
+// lookupAndValidateDMARC queries and validates DMARC records
+func lookupAndValidateDMARC(client *dns.Client, server, domain string) (string, string, bool, string, error) {
+	dmarcDomain := "_dmarc." + strings.TrimSuffix(domain, ".")
+	m := new(dns.Msg)
+	m.SetQuestion(dmarcDomain, dns.TypeTXT)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return "", "", false, "", err
+	}
+
+	for _, ans := range r.Answer {
+		if txt, ok := ans.(*dns.TXT); ok {
+			for _, record := range txt.Txt {
+				if strings.HasPrefix(record, "v=DMARC1") {
+					policy, valid, validationError := validateDMARCRecord(record)
+					return record, policy, valid, validationError, nil
+				}
+			}
+		}
+	}
+	return "", "", false, "No DMARC record found", nil
+}
+
+// validateDMARCRecord validates DMARC record
+func validateDMARCRecord(record string) (string, bool, string) {
+	if !strings.HasPrefix(record, "v=DMARC1") {
+		return "", false, "Invalid DMARC version"
+	}
+
+	parts := strings.Split(record, ";")
+	policy := ""
+	hasPolicy := false
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if strings.HasPrefix(part, "p=") {
+			policy = strings.TrimPrefix(part, "p=")
+			hasPolicy = true
+			break
+		}
+	}
+
+	if !hasPolicy {
+		return "", false, "Missing policy (p=) field"
+	}
+	if policy != "none" && policy != "quarantine" && policy != "reject" {
+		return policy, false, "Invalid policy: " + policy
+	}
+
+	// Check for recommended fields (e.g., rua)
+	hasRua := false
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if strings.HasPrefix(part, "rua=") {
+			hasRua = true
+			break
+		}
+	}
+	if !hasRua {
+		return policy, true, "Missing recommended rua field"
+	}
+
+	return policy, true, ""
+}
+
+// checkAndValidateDNSSEC checks and validates DNSSEC
+func checkAndValidateDNSSEC(client *dns.Client, server, domain string) (bool, bool, string, error) {
+	// Check for DS or DNSKEY records
+	m := new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeDS)
+	m.SetEdns0(4096, true) // Enable DNSSEC
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return false, false, "", err
+	}
+	hasDS := len(r.Answer) > 0
+
+	// Query DNSKEY records
+	m = new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeDNSKEY)
+	m.SetEdns0(4096, true)
+	r, _, err = client.Exchange(m, server)
+	if err != nil {
+		return false, false, "", err
+	}
+	hasDNSKEY := len(r.Answer) > 0
+
+	if !hasDS && !hasDNSKEY {
+		return false, false, "No DS or DNSKEY records found", nil
+	}
+
+	// Collect DNSKEYs
+	var dnskeys []*dns.DNSKEY
+	for _, ans := range r.Answer {
+		if key, ok := ans.(*dns.DNSKEY); ok {
+			dnskeys = append(dnskeys, key)
+		}
+	}
+	if len(dnskeys) == 0 {
+		return true, false, "No DNSKEY records found", nil
+	}
+
+	// Query A records with RRSIG
+	m = new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeA)
+	m.SetEdns0(4096, true)
+	r, _, err = client.Exchange(m, server)
+	if err != nil {
+		return true, false, "Failed to query A records: " + err.Error(), nil
+	}
+
+	// Collect A records
+	var aRecords []dns.RR
+	for _, ans := range r.Answer {
+		if _, ok := ans.(*dns.A); ok {
+			aRecords = append(aRecords, ans)
+		}
+	}
+	if len(aRecords) == 0 {
+		return true, false, "No A records found", nil
+	}
+
+	// Find RRSIG for A records
+	for _, sig := range r.Answer {
+		if rrsig, ok := sig.(*dns.RRSIG); ok && rrsig.TypeCovered == dns.TypeA {
+			for _, dnskey := range dnskeys {
+				err := rrsig.Verify(dnskey, aRecords)
+				if err == nil {
+					return true, true, "", nil
+				}
+				log.Printf("DNSSEC verification failed with DNSKEY: %v", err)
+			}
+			return true, false, "DNSSEC signature verification failed for all DNSKEYs", nil
+		}
+	}
+
+	return true, false, "No valid RRSIG found for A records", nil
+}
+
+// lookupIPs queries A and AAAA records
+func lookupIPs(client *dns.Client, server, domain string) ([]string, error) {
+	var ips []string
+
+	m := new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeA)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return nil, err
+	}
+	for _, ans := range r.Answer {
+		if a, ok := ans.(*dns.A); ok {
+			ips = append(ips, a.A.String())
+		}
+	}
+
+	m.SetQuestion(domain, dns.TypeAAAA)
+	r, _, err = client.Exchange(m, server)
+	if err != nil {
+		return nil, err
+	}
+	for _, ans := range r.Answer {
+		if aaaa, ok := ans.(*dns.AAAA); ok {
+			ips = append(ips, aaaa.AAAA.String())
+		}
+	}
+
+	return ips, nil
+}
+
+// lookupMX queries MX records
+func lookupMX(client *dns.Client, server, domain string) ([]string, error) {
+	m := new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeMX)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return nil, err
+	}
+
+	var mxRecords []string
+	for _, ans := range r.Answer {
+		if mx, ok := ans.(*dns.MX); ok {
+			mxRecords = append(mxRecords, mx.Mx)
+		}
+	}
+	return mxRecords, nil
+}
+
+// lookupNS queries NS records
+func lookupNS(client *dns.Client, server, domain string) ([]string, error) {
+	m := new(dns.Msg)
+	m.SetQuestion(domain, dns.TypeNS)
+	r, _, err := client.Exchange(m, server)
+	if err != nil {
+		return nil, err
+	}
+
+	var nsRecords []string
+	for _, ans := range r.Answer {
+		if ns, ok := ans.(*dns.NS); ok {
+			nsRecords = append(nsRecords, ns.Ns)
+		}
+	}
+	return nsRecords, nil
 }
 
 // Plugin instance exported for the server
