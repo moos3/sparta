@@ -1,24 +1,27 @@
-package main
+package plugins
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/google/uuid"
 	"log"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/moos3/sparta/internal/db"
+	"github.com/moos3/sparta/internal/interfaces"
+	"github.com/moos3/sparta/proto"
 	"golang.org/x/time/rate"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-// ScanCrtShPlugin implements the Plugin interface
+// ScanCrtShPlugin implements the CrtShScanPlugin interface
 type ScanCrtShPlugin struct {
 	name        string
-	db          *db.Database
+	db          db.Database
 	rateLimiter *rate.Limiter
 }
 
@@ -41,18 +44,18 @@ func (p *ScanCrtShPlugin) Initialize() error {
 }
 
 // SetDatabase sets the database connection
-func (p *ScanCrtShPlugin) SetDatabase(db *db.Database) {
+func (p *ScanCrtShPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
 }
 
 // ScanCrtSh queries crt.sh for certificate and subdomain information
-func (p *ScanCrtShPlugin) ScanCrtSh(domain string, dnsScanID string) (db.CrtShSecurityResult, error) {
+func (p *ScanCrtShPlugin) ScanCrtSh(domain string, dnsScanID string) (*proto.CrtShSecurityResult, error) {
 	if p.db == nil {
-		return db.CrtShSecurityResult{}, fmt.Errorf("database connection not provided")
+		return nil, fmt.Errorf("database connection not provided")
 	}
 
-	result := db.CrtShSecurityResult{
+	result := &proto.CrtShSecurityResult{
 		Errors: []string{},
 	}
 
@@ -81,7 +84,7 @@ func (p *ScanCrtShPlugin) ScanCrtSh(domain string, dnsScanID string) (db.CrtShSe
 }
 
 // InsertCrtShScanResult inserts a crt.sh scan result into the database
-func (p *ScanCrtShPlugin) InsertCrtShScanResult(domain string, dnsScanID string, result db.CrtShSecurityResult) (string, error) {
+func (p *ScanCrtShPlugin) InsertCrtShScanResult(domain string, dnsScanID string, result *proto.CrtShSecurityResult) (string, error) {
 	if p.db == nil {
 		return "", fmt.Errorf("database connection not provided")
 	}
@@ -90,9 +93,11 @@ func (p *ScanCrtShPlugin) InsertCrtShScanResult(domain string, dnsScanID string,
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal result: %w", err)
 	}
-	_, err = p.db.Exec(
-		"INSERT INTO crtsh_scan_results (id, domain, dns_scan_id, result, created_at) VALUES ($1, $2, $3, $4, $5)",
-		id, domain, dnsScanID, resultJSON, time.Now())
+	query := `
+		INSERT INTO crtsh_scan_results (id, domain, dns_scan_id, result, created_at)
+		VALUES ($1, $2, $3, $4, $5)
+	`
+	_, err = p.db.Exec(query, id, domain, dnsScanID, resultJSON, time.Now())
 	if err != nil {
 		return "", fmt.Errorf("failed to insert crt.sh scan result: %w", err)
 	}
@@ -100,55 +105,55 @@ func (p *ScanCrtShPlugin) InsertCrtShScanResult(domain string, dnsScanID string,
 }
 
 // GetCrtShScanResultsByDomain retrieves historical crt.sh scan results
-func (p *ScanCrtShPlugin) GetCrtShScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	DNSScanID string
-	Result    db.CrtShSecurityResult
-	CreatedAt time.Time
-}, error) {
+func (p *ScanCrtShPlugin) GetCrtShScanResultsByDomain(domain string) ([]interfaces.CrtShScanResult, error) {
 	if p.db == nil {
 		return nil, fmt.Errorf("database connection not provided")
 	}
-	rows, err := p.db.Query(
-		"SELECT id, domain, dns_scan_id, result, created_at FROM crtsh_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		strings.TrimSpace(strings.ToLower(domain)))
+	query := `
+		SELECT id, domain, dns_scan_id, result, created_at
+		FROM crtsh_scan_results
+		WHERE domain = $1
+		ORDER BY created_at DESC
+	`
+	rows, err := p.db.Query(query, strings.TrimSpace(strings.ToLower(domain)))
 	if err != nil {
 		return nil, fmt.Errorf("failed to query crt.sh scan results: %w", err)
 	}
 	defer rows.Close()
 
-	var results []struct {
-		ID        string
-		Domain    string
-		DNSScanID string
-		Result    db.CrtShSecurityResult
-		CreatedAt time.Time
-	}
+	var results []interfaces.CrtShScanResult
 	for rows.Next() {
-		var id, domain, dnsScanID string
+		var r interfaces.CrtShScanResult
 		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &dnsScanID, &resultJSON, &createdAt); err != nil {
+		if err := rows.Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
-		var result db.CrtShSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
+		var scanResult proto.CrtShSecurityResult
+		if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
 		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			DNSScanID string
-			Result    db.CrtShSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, DNSScanID: dnsScanID, Result: result, CreatedAt: createdAt})
+		r.Result = scanResult
+		results = append(results, r)
 	}
 	return results, nil
 }
 
+// Scan implements the GenericPlugin interface
+func (p *ScanCrtShPlugin) Scan(ctx context.Context, domain, dnsScanID string) (interface{}, error) {
+	return p.ScanCrtSh(domain, dnsScanID)
+}
+
+// InsertResult implements the GenericPlugin interface
+func (p *ScanCrtShPlugin) InsertResult(domain, dnsScanID string, result interface{}) (string, error) {
+	crtShResult, ok := result.(*proto.CrtShSecurityResult)
+	if !ok {
+		return "", fmt.Errorf("invalid result type")
+	}
+	return p.InsertCrtShScanResult(domain, dnsScanID, crtShResult)
+}
+
 // queryCrtSh queries crt.sh API for certificates and subdomains
-func (p *ScanCrtShPlugin) queryCrtSh(domain string) ([]db.CrtShCertificate, []string, error) {
+func (p *ScanCrtShPlugin) queryCrtSh(domain string) ([]*proto.CrtShCertificate, []string, error) {
 	ctx := context.Background()
 	client := &http.Client{Timeout: 10 * time.Second}
 
@@ -185,7 +190,7 @@ func (p *ScanCrtShPlugin) queryCrtSh(domain string) ([]db.CrtShCertificate, []st
 	}
 
 	// Process certificates and extract subdomains
-	var certs []db.CrtShCertificate
+	var certs []*proto.CrtShCertificate
 	subdomainSet := make(map[string]struct{})
 	for _, entry := range entries {
 		// Parse dates
@@ -206,14 +211,14 @@ func (p *ScanCrtShPlugin) queryCrtSh(domain string) ([]db.CrtShCertificate, []st
 			dnsNames[i] = strings.TrimSpace(name)
 		}
 
-		certs = append(certs, db.CrtShCertificate{
-			ID:                 entry.ID,
+		certs = append(certs, &proto.CrtShCertificate{
+			Id:                 entry.ID,
 			CommonName:         entry.CommonName,
 			Issuer:             entry.Issuer,
-			NotBefore:          notBefore,
-			NotAfter:           notAfter,
+			NotBefore:          timestamppb.New(notBefore),
+			NotAfter:           timestamppb.New(notAfter),
 			SerialNumber:       entry.SerialNumber,
-			DNSNames:           dnsNames,
+			DnsNames:           dnsNames,
 			SignatureAlgorithm: entry.SignatureAlgorithm,
 		})
 
@@ -233,6 +238,3 @@ func (p *ScanCrtShPlugin) queryCrtSh(domain string) ([]db.CrtShCertificate, []st
 
 	return certs, subdomains, nil
 }
-
-// Plugin instance exported for the server
-var Plugin ScanCrtShPlugin

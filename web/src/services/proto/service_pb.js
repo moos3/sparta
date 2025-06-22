@@ -21,8 +21,20 @@ var global =
     (function () { return this; }).call(null) ||
     Function('return this')();
 
+var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
+goog.object.extend(proto, google_protobuf_timestamp_pb);
+goog.exportSymbol('proto.service.APIKey', null, global);
+goog.exportSymbol('proto.service.AbuseChIOC', null, global);
+goog.exportSymbol('proto.service.AbuseChScanResult', null, global);
+goog.exportSymbol('proto.service.AbuseChSecurityResult', null, global);
+goog.exportSymbol('proto.service.ActivateAPIKeyRequest', null, global);
+goog.exportSymbol('proto.service.ActivateAPIKeyResponse', null, global);
+goog.exportSymbol('proto.service.CalculateRiskScoreRequest', null, global);
+goog.exportSymbol('proto.service.CalculateRiskScoreResponse', null, global);
 goog.exportSymbol('proto.service.ChaosScanResult', null, global);
 goog.exportSymbol('proto.service.ChaosSecurityResult', null, global);
+goog.exportSymbol('proto.service.CreateAPIKeyRequest', null, global);
+goog.exportSymbol('proto.service.CreateAPIKeyResponse', null, global);
 goog.exportSymbol('proto.service.CreateUserRequest', null, global);
 goog.exportSymbol('proto.service.CreateUserResponse', null, global);
 goog.exportSymbol('proto.service.CrtShCertificate', null, global);
@@ -30,12 +42,20 @@ goog.exportSymbol('proto.service.CrtShScanResult', null, global);
 goog.exportSymbol('proto.service.CrtShSecurityResult', null, global);
 goog.exportSymbol('proto.service.DNSScanResult', null, global);
 goog.exportSymbol('proto.service.DNSSecurityResult', null, global);
+goog.exportSymbol('proto.service.DeactivateAPIKeyRequest', null, global);
+goog.exportSymbol('proto.service.DeactivateAPIKeyResponse', null, global);
 goog.exportSymbol('proto.service.DeleteUserRequest', null, global);
 goog.exportSymbol('proto.service.DeleteUserResponse', null, global);
+goog.exportSymbol('proto.service.GenerateReportRequest', null, global);
+goog.exportSymbol('proto.service.GenerateReportResponse', null, global);
+goog.exportSymbol('proto.service.GetAbuseChScanResultsByDomainRequest', null, global);
+goog.exportSymbol('proto.service.GetAbuseChScanResultsByDomainResponse', null, global);
 goog.exportSymbol('proto.service.GetChaosScanResultsByDomainRequest', null, global);
 goog.exportSymbol('proto.service.GetChaosScanResultsByDomainResponse', null, global);
 goog.exportSymbol('proto.service.GetCrtShScanResultsByDomainRequest', null, global);
 goog.exportSymbol('proto.service.GetCrtShScanResultsByDomainResponse', null, global);
+goog.exportSymbol('proto.service.GetDNSScanResultByIDRequest', null, global);
+goog.exportSymbol('proto.service.GetDNSScanResultByIDResponse', null, global);
 goog.exportSymbol('proto.service.GetDNSScanResultsByDomainRequest', null, global);
 goog.exportSymbol('proto.service.GetDNSScanResultsByDomainResponse', null, global);
 goog.exportSymbol('proto.service.GetOTXScanResultsByDomainRequest', null, global);
@@ -46,16 +66,29 @@ goog.exportSymbol('proto.service.GetTLSScanResultsByDomainRequest', null, global
 goog.exportSymbol('proto.service.GetTLSScanResultsByDomainResponse', null, global);
 goog.exportSymbol('proto.service.GetUserRequest', null, global);
 goog.exportSymbol('proto.service.GetUserResponse', null, global);
+goog.exportSymbol('proto.service.GetWhoisScanResultsByDomainRequest', null, global);
+goog.exportSymbol('proto.service.GetWhoisScanResultsByDomainResponse', null, global);
 goog.exportSymbol('proto.service.InviteUserRequest', null, global);
 goog.exportSymbol('proto.service.InviteUserResponse', null, global);
+goog.exportSymbol('proto.service.ListAPIKeysRequest', null, global);
+goog.exportSymbol('proto.service.ListAPIKeysResponse', null, global);
+goog.exportSymbol('proto.service.ListReportsRequest', null, global);
+goog.exportSymbol('proto.service.ListReportsResponse', null, global);
 goog.exportSymbol('proto.service.ListUsersRequest', null, global);
 goog.exportSymbol('proto.service.ListUsersResponse', null, global);
+goog.exportSymbol('proto.service.LoginRequest', null, global);
+goog.exportSymbol('proto.service.LoginResponse', null, global);
 goog.exportSymbol('proto.service.OTXGeneralInfo', null, global);
 goog.exportSymbol('proto.service.OTXMalware', null, global);
 goog.exportSymbol('proto.service.OTXPassiveDNS', null, global);
 goog.exportSymbol('proto.service.OTXScanResult', null, global);
 goog.exportSymbol('proto.service.OTXSecurityResult', null, global);
 goog.exportSymbol('proto.service.OTXURL', null, global);
+goog.exportSymbol('proto.service.Report', null, global);
+goog.exportSymbol('proto.service.RotateAPIKeyRequest', null, global);
+goog.exportSymbol('proto.service.RotateAPIKeyResponse', null, global);
+goog.exportSymbol('proto.service.ScanAbuseChRequest', null, global);
+goog.exportSymbol('proto.service.ScanAbuseChResponse', null, global);
 goog.exportSymbol('proto.service.ScanChaosRequest', null, global);
 goog.exportSymbol('proto.service.ScanChaosResponse', null, global);
 goog.exportSymbol('proto.service.ScanCrtShRequest', null, global);
@@ -68,6 +101,8 @@ goog.exportSymbol('proto.service.ScanShodanRequest', null, global);
 goog.exportSymbol('proto.service.ScanShodanResponse', null, global);
 goog.exportSymbol('proto.service.ScanTLSRequest', null, global);
 goog.exportSymbol('proto.service.ScanTLSResponse', null, global);
+goog.exportSymbol('proto.service.ScanWhoisRequest', null, global);
+goog.exportSymbol('proto.service.ScanWhoisResponse', null, global);
 goog.exportSymbol('proto.service.ShodanHost', null, global);
 goog.exportSymbol('proto.service.ShodanLocation', null, global);
 goog.exportSymbol('proto.service.ShodanMetadata', null, global);
@@ -81,6 +116,155 @@ goog.exportSymbol('proto.service.UpdateUserResponse', null, global);
 goog.exportSymbol('proto.service.User', null, global);
 goog.exportSymbol('proto.service.ValidateInviteRequest', null, global);
 goog.exportSymbol('proto.service.ValidateInviteResponse', null, global);
+goog.exportSymbol('proto.service.WhoisScanResult', null, global);
+goog.exportSymbol('proto.service.WhoisSecurityResult', null, global);
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GenerateReportRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GenerateReportRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GenerateReportRequest.displayName = 'proto.service.GenerateReportRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GenerateReportResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GenerateReportResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GenerateReportResponse.displayName = 'proto.service.GenerateReportResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ListReportsRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ListReportsRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ListReportsRequest.displayName = 'proto.service.ListReportsRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.Report = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.Report, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.Report.displayName = 'proto.service.Report';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ListReportsResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ListReportsResponse.repeatedFields_, null);
+};
+goog.inherits(proto.service.ListReportsResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ListReportsResponse.displayName = 'proto.service.ListReportsResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.CalculateRiskScoreRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.CalculateRiskScoreRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CalculateRiskScoreRequest.displayName = 'proto.service.CalculateRiskScoreRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.CalculateRiskScoreResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.CalculateRiskScoreResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CalculateRiskScoreResponse.displayName = 'proto.service.CalculateRiskScoreResponse';
+}
 /**
  * Generated by JsPbCodeGenerator.
  * @param {Array=} opt_data Optional initial data array, typically from a
@@ -322,6 +506,279 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
+proto.service.CreateAPIKeyRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.CreateAPIKeyRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CreateAPIKeyRequest.displayName = 'proto.service.CreateAPIKeyRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.CreateAPIKeyResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.CreateAPIKeyResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CreateAPIKeyResponse.displayName = 'proto.service.CreateAPIKeyResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.RotateAPIKeyRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.RotateAPIKeyRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.RotateAPIKeyRequest.displayName = 'proto.service.RotateAPIKeyRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.RotateAPIKeyResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.RotateAPIKeyResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.RotateAPIKeyResponse.displayName = 'proto.service.RotateAPIKeyResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ActivateAPIKeyRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ActivateAPIKeyRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ActivateAPIKeyRequest.displayName = 'proto.service.ActivateAPIKeyRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ActivateAPIKeyResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ActivateAPIKeyResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ActivateAPIKeyResponse.displayName = 'proto.service.ActivateAPIKeyResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.DeactivateAPIKeyRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.DeactivateAPIKeyRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.DeactivateAPIKeyRequest.displayName = 'proto.service.DeactivateAPIKeyRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.DeactivateAPIKeyResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.DeactivateAPIKeyResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.DeactivateAPIKeyResponse.displayName = 'proto.service.DeactivateAPIKeyResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ListAPIKeysRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ListAPIKeysRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ListAPIKeysRequest.displayName = 'proto.service.ListAPIKeysRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ListAPIKeysResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ListAPIKeysResponse.repeatedFields_, null);
+};
+goog.inherits(proto.service.ListAPIKeysResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ListAPIKeysResponse.displayName = 'proto.service.ListAPIKeysResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.APIKey = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.APIKey, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.APIKey.displayName = 'proto.service.APIKey';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.LoginRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.LoginRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.LoginRequest.displayName = 'proto.service.LoginRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.LoginResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.LoginResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.LoginResponse.displayName = 'proto.service.LoginResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.service.InviteUserRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -448,90 +905,6 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.service.GetDNSScanResultsByDomainRequest = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.GetDNSScanResultsByDomainRequest, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.GetDNSScanResultsByDomainRequest.displayName = 'proto.service.GetDNSScanResultsByDomainRequest';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.GetDNSScanResultsByDomainResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.GetDNSScanResultsByDomainResponse.repeatedFields_, null);
-};
-goog.inherits(proto.service.GetDNSScanResultsByDomainResponse, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.GetDNSScanResultsByDomainResponse.displayName = 'proto.service.GetDNSScanResultsByDomainResponse';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.DNSSecurityResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.DNSSecurityResult.repeatedFields_, null);
-};
-goog.inherits(proto.service.DNSSecurityResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.DNSSecurityResult.displayName = 'proto.service.DNSSecurityResult';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.DNSScanResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.DNSScanResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.DNSScanResult.displayName = 'proto.service.DNSScanResult';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.service.ScanTLSRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -605,27 +978,6 @@ if (goog.DEBUG && !COMPILED) {
    * @override
    */
   proto.service.GetTLSScanResultsByDomainResponse.displayName = 'proto.service.GetTLSScanResultsByDomainResponse';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.TLSSecurityResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.TLSSecurityResult.repeatedFields_, null);
-};
-goog.inherits(proto.service.TLSSecurityResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.TLSSecurityResult.displayName = 'proto.service.TLSSecurityResult';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -742,48 +1094,6 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.service.CrtShCertificate = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.CrtShCertificate.repeatedFields_, null);
-};
-goog.inherits(proto.service.CrtShCertificate, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.CrtShCertificate.displayName = 'proto.service.CrtShCertificate';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.CrtShSecurityResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.CrtShSecurityResult.repeatedFields_, null);
-};
-goog.inherits(proto.service.CrtShSecurityResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.CrtShSecurityResult.displayName = 'proto.service.CrtShSecurityResult';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.service.CrtShScanResult = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -878,27 +1188,6 @@ if (goog.DEBUG && !COMPILED) {
    * @override
    */
   proto.service.GetChaosScanResultsByDomainResponse.displayName = 'proto.service.GetChaosScanResultsByDomainResponse';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.ChaosSecurityResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ChaosSecurityResult.repeatedFields_, null);
-};
-goog.inherits(proto.service.ChaosSecurityResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ChaosSecurityResult.displayName = 'proto.service.ChaosSecurityResult';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -1015,111 +1304,6 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.service.ShodanLocation = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.ShodanLocation, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ShodanLocation.displayName = 'proto.service.ShodanLocation';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.ShodanSSL = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.ShodanSSL, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ShodanSSL.displayName = 'proto.service.ShodanSSL';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.ShodanMetadata = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.service.ShodanMetadata, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ShodanMetadata.displayName = 'proto.service.ShodanMetadata';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.ShodanHost = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ShodanHost.repeatedFields_, null);
-};
-goog.inherits(proto.service.ShodanHost, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ShodanHost.displayName = 'proto.service.ShodanHost';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.service.ShodanSecurityResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ShodanSecurityResult.repeatedFields_, null);
-};
-goog.inherits(proto.service.ShodanSecurityResult, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  /**
-   * @public
-   * @override
-   */
-  proto.service.ShodanSecurityResult.displayName = 'proto.service.ShodanSecurityResult';
-}
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.service.ShodanScanResult = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -1214,6 +1398,552 @@ if (goog.DEBUG && !COMPILED) {
    * @override
    */
   proto.service.GetOTXScanResultsByDomainResponse.displayName = 'proto.service.GetOTXScanResultsByDomainResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.OTXScanResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.OTXScanResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.OTXScanResult.displayName = 'proto.service.OTXScanResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ScanWhoisRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ScanWhoisRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ScanWhoisRequest.displayName = 'proto.service.ScanWhoisRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ScanWhoisResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ScanWhoisResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ScanWhoisResponse.displayName = 'proto.service.ScanWhoisResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetWhoisScanResultsByDomainRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetWhoisScanResultsByDomainRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetWhoisScanResultsByDomainRequest.displayName = 'proto.service.GetWhoisScanResultsByDomainRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetWhoisScanResultsByDomainResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.GetWhoisScanResultsByDomainResponse.repeatedFields_, null);
+};
+goog.inherits(proto.service.GetWhoisScanResultsByDomainResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetWhoisScanResultsByDomainResponse.displayName = 'proto.service.GetWhoisScanResultsByDomainResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.WhoisScanResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.WhoisScanResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.WhoisScanResult.displayName = 'proto.service.WhoisScanResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ScanAbuseChRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ScanAbuseChRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ScanAbuseChRequest.displayName = 'proto.service.ScanAbuseChRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ScanAbuseChResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ScanAbuseChResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ScanAbuseChResponse.displayName = 'proto.service.ScanAbuseChResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetAbuseChScanResultsByDomainRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetAbuseChScanResultsByDomainRequest.displayName = 'proto.service.GetAbuseChScanResultsByDomainRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.GetAbuseChScanResultsByDomainResponse.repeatedFields_, null);
+};
+goog.inherits(proto.service.GetAbuseChScanResultsByDomainResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetAbuseChScanResultsByDomainResponse.displayName = 'proto.service.GetAbuseChScanResultsByDomainResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.AbuseChScanResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.AbuseChScanResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.AbuseChScanResult.displayName = 'proto.service.AbuseChScanResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetDNSScanResultsByDomainRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetDNSScanResultsByDomainRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetDNSScanResultsByDomainRequest.displayName = 'proto.service.GetDNSScanResultsByDomainRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetDNSScanResultsByDomainResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.GetDNSScanResultsByDomainResponse.repeatedFields_, null);
+};
+goog.inherits(proto.service.GetDNSScanResultsByDomainResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetDNSScanResultsByDomainResponse.displayName = 'proto.service.GetDNSScanResultsByDomainResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetDNSScanResultByIDRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetDNSScanResultByIDRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetDNSScanResultByIDRequest.displayName = 'proto.service.GetDNSScanResultByIDRequest';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.GetDNSScanResultByIDResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.GetDNSScanResultByIDResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.GetDNSScanResultByIDResponse.displayName = 'proto.service.GetDNSScanResultByIDResponse';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.DNSScanResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.DNSScanResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.DNSScanResult.displayName = 'proto.service.DNSScanResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.DNSSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.DNSSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.DNSSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.DNSSecurityResult.displayName = 'proto.service.DNSSecurityResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.TLSSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.TLSSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.TLSSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.TLSSecurityResult.displayName = 'proto.service.TLSSecurityResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.CrtShCertificate = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.CrtShCertificate.repeatedFields_, null);
+};
+goog.inherits(proto.service.CrtShCertificate, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CrtShCertificate.displayName = 'proto.service.CrtShCertificate';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.CrtShSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.CrtShSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.CrtShSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.CrtShSecurityResult.displayName = 'proto.service.CrtShSecurityResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ChaosSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ChaosSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.ChaosSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ChaosSecurityResult.displayName = 'proto.service.ChaosSecurityResult';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ShodanLocation = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ShodanLocation, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ShodanLocation.displayName = 'proto.service.ShodanLocation';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ShodanSSL = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ShodanSSL, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ShodanSSL.displayName = 'proto.service.ShodanSSL';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ShodanMetadata = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.service.ShodanMetadata, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ShodanMetadata.displayName = 'proto.service.ShodanMetadata';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ShodanHost = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ShodanHost.repeatedFields_, null);
+};
+goog.inherits(proto.service.ShodanHost, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ShodanHost.displayName = 'proto.service.ShodanHost';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.ShodanSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.ShodanSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.ShodanSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.ShodanSecurityResult.displayName = 'proto.service.ShodanSecurityResult';
 }
 /**
  * Generated by JsPbCodeGenerator.
@@ -1330,17 +2060,1341 @@ if (goog.DEBUG && !COMPILED) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.service.OTXScanResult = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+proto.service.WhoisSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.WhoisSecurityResult.repeatedFields_, null);
 };
-goog.inherits(proto.service.OTXScanResult, jspb.Message);
+goog.inherits(proto.service.WhoisSecurityResult, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   /**
    * @public
    * @override
    */
-  proto.service.OTXScanResult.displayName = 'proto.service.OTXScanResult';
+  proto.service.WhoisSecurityResult.displayName = 'proto.service.WhoisSecurityResult';
 }
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.AbuseChIOC = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.AbuseChIOC.repeatedFields_, null);
+};
+goog.inherits(proto.service.AbuseChIOC, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.AbuseChIOC.displayName = 'proto.service.AbuseChIOC';
+}
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.service.AbuseChSecurityResult = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.service.AbuseChSecurityResult.repeatedFields_, null);
+};
+goog.inherits(proto.service.AbuseChSecurityResult, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  /**
+   * @public
+   * @override
+   */
+  proto.service.AbuseChSecurityResult.displayName = 'proto.service.AbuseChSecurityResult';
+}
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GenerateReportRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GenerateReportRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GenerateReportRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GenerateReportRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GenerateReportRequest}
+ */
+proto.service.GenerateReportRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GenerateReportRequest;
+  return proto.service.GenerateReportRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GenerateReportRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GenerateReportRequest}
+ */
+proto.service.GenerateReportRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GenerateReportRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GenerateReportRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GenerateReportRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GenerateReportRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GenerateReportRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GenerateReportRequest} returns this
+ */
+proto.service.GenerateReportRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GenerateReportResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GenerateReportResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GenerateReportResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GenerateReportResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+reportId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+score: jspb.Message.getFieldWithDefault(msg, 3, 0),
+riskTier: jspb.Message.getFieldWithDefault(msg, 4, ""),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GenerateReportResponse}
+ */
+proto.service.GenerateReportResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GenerateReportResponse;
+  return proto.service.GenerateReportResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GenerateReportResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GenerateReportResponse}
+ */
+proto.service.GenerateReportResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setReportId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setScore(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRiskTier(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GenerateReportResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GenerateReportResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GenerateReportResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GenerateReportResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getReportId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      3,
+      f
+    );
+  }
+  f = message.getRiskTier();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string report_id = 1;
+ * @return {string}
+ */
+proto.service.GenerateReportResponse.prototype.getReportId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GenerateReportResponse} returns this
+ */
+proto.service.GenerateReportResponse.prototype.setReportId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.GenerateReportResponse.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GenerateReportResponse} returns this
+ */
+proto.service.GenerateReportResponse.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional int32 score = 3;
+ * @return {number}
+ */
+proto.service.GenerateReportResponse.prototype.getScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.service.GenerateReportResponse} returns this
+ */
+proto.service.GenerateReportResponse.prototype.setScore = function(value) {
+  return jspb.Message.setProto3IntField(this, 3, value);
+};
+
+
+/**
+ * optional string risk_tier = 4;
+ * @return {string}
+ */
+proto.service.GenerateReportResponse.prototype.getRiskTier = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GenerateReportResponse} returns this
+ */
+proto.service.GenerateReportResponse.prototype.setRiskTier = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.GenerateReportResponse.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.GenerateReportResponse} returns this
+*/
+proto.service.GenerateReportResponse.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.GenerateReportResponse} returns this
+ */
+proto.service.GenerateReportResponse.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.GenerateReportResponse.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ListReportsRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ListReportsRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ListReportsRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListReportsRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ListReportsRequest}
+ */
+proto.service.ListReportsRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ListReportsRequest;
+  return proto.service.ListReportsRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ListReportsRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ListReportsRequest}
+ */
+proto.service.ListReportsRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ListReportsRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ListReportsRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ListReportsRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListReportsRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ListReportsRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ListReportsRequest} returns this
+ */
+proto.service.ListReportsRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.Report.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.Report.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.Report} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.Report.toObject = function(includeInstance, msg) {
+  var f, obj = {
+reportId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+score: jspb.Message.getFieldWithDefault(msg, 4, 0),
+riskTier: jspb.Message.getFieldWithDefault(msg, 5, ""),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.Report}
+ */
+proto.service.Report.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.Report;
+  return proto.service.Report.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.Report} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.Report}
+ */
+proto.service.Report.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setReportId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setScore(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRiskTier(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.Report.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.Report.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.Report} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.Report.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getReportId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = message.getRiskTier();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string report_id = 1;
+ * @return {string}
+ */
+proto.service.Report.prototype.getReportId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.setReportId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.Report.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.Report.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional int32 score = 4;
+ * @return {number}
+ */
+proto.service.Report.prototype.getScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.setScore = function(value) {
+  return jspb.Message.setProto3IntField(this, 4, value);
+};
+
+
+/**
+ * optional string risk_tier = 5;
+ * @return {string}
+ */
+proto.service.Report.prototype.getRiskTier = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.setRiskTier = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.Report.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.Report} returns this
+*/
+proto.service.Report.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.Report} returns this
+ */
+proto.service.Report.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.Report.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.ListReportsResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ListReportsResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ListReportsResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ListReportsResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListReportsResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+reportsList: jspb.Message.toObjectList(msg.getReportsList(),
+    proto.service.Report.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ListReportsResponse}
+ */
+proto.service.ListReportsResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ListReportsResponse;
+  return proto.service.ListReportsResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ListReportsResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ListReportsResponse}
+ */
+proto.service.ListReportsResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.Report;
+      reader.readMessage(value,proto.service.Report.deserializeBinaryFromReader);
+      msg.addReports(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ListReportsResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ListReportsResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ListReportsResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListReportsResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getReportsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.Report.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated Report reports = 1;
+ * @return {!Array<!proto.service.Report>}
+ */
+proto.service.ListReportsResponse.prototype.getReportsList = function() {
+  return /** @type{!Array<!proto.service.Report>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.Report, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.Report>} value
+ * @return {!proto.service.ListReportsResponse} returns this
+*/
+proto.service.ListReportsResponse.prototype.setReportsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.Report=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.Report}
+ */
+proto.service.ListReportsResponse.prototype.addReports = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.Report, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.ListReportsResponse} returns this
+ */
+proto.service.ListReportsResponse.prototype.clearReportsList = function() {
+  return this.setReportsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.CalculateRiskScoreRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.CalculateRiskScoreRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.CalculateRiskScoreRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CalculateRiskScoreRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.CalculateRiskScoreRequest}
+ */
+proto.service.CalculateRiskScoreRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.CalculateRiskScoreRequest;
+  return proto.service.CalculateRiskScoreRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.CalculateRiskScoreRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.CalculateRiskScoreRequest}
+ */
+proto.service.CalculateRiskScoreRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.CalculateRiskScoreRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.CalculateRiskScoreRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.CalculateRiskScoreRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CalculateRiskScoreRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.CalculateRiskScoreRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CalculateRiskScoreRequest} returns this
+ */
+proto.service.CalculateRiskScoreRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.CalculateRiskScoreResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.CalculateRiskScoreResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.CalculateRiskScoreResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CalculateRiskScoreResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+score: jspb.Message.getFieldWithDefault(msg, 1, 0),
+riskTier: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.CalculateRiskScoreResponse}
+ */
+proto.service.CalculateRiskScoreResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.CalculateRiskScoreResponse;
+  return proto.service.CalculateRiskScoreResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.CalculateRiskScoreResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.CalculateRiskScoreResponse}
+ */
+proto.service.CalculateRiskScoreResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setScore(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRiskTier(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.CalculateRiskScoreResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.CalculateRiskScoreResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.CalculateRiskScoreResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CalculateRiskScoreResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getRiskTier();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 score = 1;
+ * @return {number}
+ */
+proto.service.CalculateRiskScoreResponse.prototype.getScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.service.CalculateRiskScoreResponse} returns this
+ */
+proto.service.CalculateRiskScoreResponse.prototype.setScore = function(value) {
+  return jspb.Message.setProto3IntField(this, 1, value);
+};
+
+
+/**
+ * optional string risk_tier = 2;
+ * @return {string}
+ */
+proto.service.CalculateRiskScoreResponse.prototype.getRiskTier = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CalculateRiskScoreResponse} returns this
+ */
+proto.service.CalculateRiskScoreResponse.prototype.setRiskTier = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
 
 
 
@@ -1373,8 +3427,11 @@ proto.service.CreateUserRequest.prototype.toObject = function(opt_includeInstanc
  */
 proto.service.CreateUserRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-email: jspb.Message.getFieldWithDefault(msg, 1, ""),
-name: jspb.Message.getFieldWithDefault(msg, 2, "")
+firstName: jspb.Message.getFieldWithDefault(msg, 1, ""),
+lastName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+email: jspb.Message.getFieldWithDefault(msg, 3, ""),
+password: jspb.Message.getFieldWithDefault(msg, 4, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 5, false)
   };
 
   if (includeInstance) {
@@ -1413,11 +3470,23 @@ proto.service.CreateUserRequest.deserializeBinaryFromReader = function(msg, read
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setEmail(value);
+      msg.setFirstName(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setLastName(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAdmin(value);
       break;
     default:
       reader.skipField();
@@ -1448,17 +3517,38 @@ proto.service.CreateUserRequest.prototype.serializeBinary = function() {
  */
 proto.service.CreateUserRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getEmail();
+  f = message.getFirstName();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getName();
+  f = message.getLastName();
   if (f.length > 0) {
     writer.writeString(
       2,
+      f
+    );
+  }
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getIsAdmin();
+  if (f) {
+    writer.writeBool(
+      5,
       f
     );
   }
@@ -1466,10 +3556,10 @@ proto.service.CreateUserRequest.serializeBinaryToWriter = function(message, writ
 
 
 /**
- * optional string email = 1;
+ * optional string first_name = 1;
  * @return {string}
  */
-proto.service.CreateUserRequest.prototype.getEmail = function() {
+proto.service.CreateUserRequest.prototype.getFirstName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -1478,16 +3568,16 @@ proto.service.CreateUserRequest.prototype.getEmail = function() {
  * @param {string} value
  * @return {!proto.service.CreateUserRequest} returns this
  */
-proto.service.CreateUserRequest.prototype.setEmail = function(value) {
+proto.service.CreateUserRequest.prototype.setFirstName = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string name = 2;
+ * optional string last_name = 2;
  * @return {string}
  */
-proto.service.CreateUserRequest.prototype.getName = function() {
+proto.service.CreateUserRequest.prototype.getLastName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -1496,8 +3586,62 @@ proto.service.CreateUserRequest.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.service.CreateUserRequest} returns this
  */
-proto.service.CreateUserRequest.prototype.setName = function(value) {
+proto.service.CreateUserRequest.prototype.setLastName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string email = 3;
+ * @return {string}
+ */
+proto.service.CreateUserRequest.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CreateUserRequest} returns this
+ */
+proto.service.CreateUserRequest.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string password = 4;
+ * @return {string}
+ */
+proto.service.CreateUserRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CreateUserRequest} returns this
+ */
+proto.service.CreateUserRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional bool is_admin = 5;
+ * @return {boolean}
+ */
+proto.service.CreateUserRequest.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.CreateUserRequest} returns this
+ */
+proto.service.CreateUserRequest.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
 };
 
 
@@ -1533,8 +3677,7 @@ proto.service.CreateUserResponse.prototype.toObject = function(opt_includeInstan
  */
 proto.service.CreateUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-apiKey: jspb.Message.getFieldWithDefault(msg, 2, "")
+userId: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -1575,10 +3718,6 @@ proto.service.CreateUserResponse.deserializeBinaryFromReader = function(msg, rea
       var value = /** @type {string} */ (reader.readString());
       msg.setUserId(value);
       break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setApiKey(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1615,13 +3754,6 @@ proto.service.CreateUserResponse.serializeBinaryToWriter = function(message, wri
       f
     );
   }
-  f = message.getApiKey();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
 };
 
 
@@ -1640,24 +3772,6 @@ proto.service.CreateUserResponse.prototype.getUserId = function() {
  */
 proto.service.CreateUserResponse.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string api_key = 2;
- * @return {string}
- */
-proto.service.CreateUserResponse.prototype.getApiKey = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.CreateUserResponse} returns this
- */
-proto.service.CreateUserResponse.prototype.setApiKey = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1824,9 +3938,11 @@ proto.service.GetUserResponse.prototype.toObject = function(opt_includeInstance)
 proto.service.GetUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
 userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-email: jspb.Message.getFieldWithDefault(msg, 2, ""),
-name: jspb.Message.getFieldWithDefault(msg, 3, ""),
-createdAt: jspb.Message.getFieldWithDefault(msg, 4, "")
+firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+email: jspb.Message.getFieldWithDefault(msg, 4, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -1869,14 +3985,23 @@ proto.service.GetUserResponse.deserializeBinaryFromReader = function(msg, reader
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setEmail(value);
+      msg.setFirstName(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setLastName(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAdmin(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedAt(value);
       break;
     default:
@@ -1915,25 +4040,40 @@ proto.service.GetUserResponse.serializeBinaryToWriter = function(message, writer
       f
     );
   }
-  f = message.getEmail();
+  f = message.getFirstName();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getName();
+  f = message.getLastName();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = message.getCreatedAt();
+  f = message.getEmail();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
+    );
+  }
+  f = message.getIsAdmin();
+  if (f) {
+    writer.writeBool(
+      5,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -1958,10 +4098,10 @@ proto.service.GetUserResponse.prototype.setUserId = function(value) {
 
 
 /**
- * optional string email = 2;
+ * optional string first_name = 2;
  * @return {string}
  */
-proto.service.GetUserResponse.prototype.getEmail = function() {
+proto.service.GetUserResponse.prototype.getFirstName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -1970,16 +4110,16 @@ proto.service.GetUserResponse.prototype.getEmail = function() {
  * @param {string} value
  * @return {!proto.service.GetUserResponse} returns this
  */
-proto.service.GetUserResponse.prototype.setEmail = function(value) {
+proto.service.GetUserResponse.prototype.setFirstName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
+ * optional string last_name = 3;
  * @return {string}
  */
-proto.service.GetUserResponse.prototype.getName = function() {
+proto.service.GetUserResponse.prototype.getLastName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -1988,16 +4128,16 @@ proto.service.GetUserResponse.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.service.GetUserResponse} returns this
  */
-proto.service.GetUserResponse.prototype.setName = function(value) {
+proto.service.GetUserResponse.prototype.setLastName = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string created_at = 4;
+ * optional string email = 4;
  * @return {string}
  */
-proto.service.GetUserResponse.prototype.getCreatedAt = function() {
+proto.service.GetUserResponse.prototype.getEmail = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -2006,8 +4146,63 @@ proto.service.GetUserResponse.prototype.getCreatedAt = function() {
  * @param {string} value
  * @return {!proto.service.GetUserResponse} returns this
  */
-proto.service.GetUserResponse.prototype.setCreatedAt = function(value) {
+proto.service.GetUserResponse.prototype.setEmail = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional bool is_admin = 5;
+ * @return {boolean}
+ */
+proto.service.GetUserResponse.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.GetUserResponse} returns this
+ */
+proto.service.GetUserResponse.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.GetUserResponse.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.GetUserResponse} returns this
+*/
+proto.service.GetUserResponse.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.GetUserResponse} returns this
+ */
+proto.service.GetUserResponse.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.GetUserResponse.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
@@ -2044,8 +4239,10 @@ proto.service.UpdateUserRequest.prototype.toObject = function(opt_includeInstanc
 proto.service.UpdateUserRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
 userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-email: jspb.Message.getFieldWithDefault(msg, 2, ""),
-name: jspb.Message.getFieldWithDefault(msg, 3, "")
+firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+email: jspb.Message.getFieldWithDefault(msg, 4, ""),
+password: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -2088,11 +4285,19 @@ proto.service.UpdateUserRequest.deserializeBinaryFromReader = function(msg, read
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setEmail(value);
+      msg.setFirstName(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setLastName(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
       break;
     default:
       reader.skipField();
@@ -2130,17 +4335,31 @@ proto.service.UpdateUserRequest.serializeBinaryToWriter = function(message, writ
       f
     );
   }
-  f = message.getEmail();
+  f = message.getFirstName();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getName();
+  f = message.getLastName();
   if (f.length > 0) {
     writer.writeString(
       3,
+      f
+    );
+  }
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -2166,10 +4385,10 @@ proto.service.UpdateUserRequest.prototype.setUserId = function(value) {
 
 
 /**
- * optional string email = 2;
+ * optional string first_name = 2;
  * @return {string}
  */
-proto.service.UpdateUserRequest.prototype.getEmail = function() {
+proto.service.UpdateUserRequest.prototype.getFirstName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -2178,16 +4397,16 @@ proto.service.UpdateUserRequest.prototype.getEmail = function() {
  * @param {string} value
  * @return {!proto.service.UpdateUserRequest} returns this
  */
-proto.service.UpdateUserRequest.prototype.setEmail = function(value) {
+proto.service.UpdateUserRequest.prototype.setFirstName = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
+ * optional string last_name = 3;
  * @return {string}
  */
-proto.service.UpdateUserRequest.prototype.getName = function() {
+proto.service.UpdateUserRequest.prototype.getLastName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -2196,8 +4415,44 @@ proto.service.UpdateUserRequest.prototype.getName = function() {
  * @param {string} value
  * @return {!proto.service.UpdateUserRequest} returns this
  */
-proto.service.UpdateUserRequest.prototype.setName = function(value) {
+proto.service.UpdateUserRequest.prototype.setLastName = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string email = 4;
+ * @return {string}
+ */
+proto.service.UpdateUserRequest.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.UpdateUserRequest} returns this
+ */
+proto.service.UpdateUserRequest.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string password = 5;
+ * @return {string}
+ */
+proto.service.UpdateUserRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.UpdateUserRequest} returns this
+ */
+proto.service.UpdateUserRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -2233,7 +4488,7 @@ proto.service.UpdateUserResponse.prototype.toObject = function(opt_includeInstan
  */
 proto.service.UpdateUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-userId: jspb.Message.getFieldWithDefault(msg, 1, "")
+
   };
 
   if (includeInstance) {
@@ -2270,10 +4525,6 @@ proto.service.UpdateUserResponse.deserializeBinaryFromReader = function(msg, rea
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setUserId(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -2303,31 +4554,6 @@ proto.service.UpdateUserResponse.prototype.serializeBinary = function() {
  */
 proto.service.UpdateUserResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getUserId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string user_id = 1;
- * @return {string}
- */
-proto.service.UpdateUserResponse.prototype.getUserId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.UpdateUserResponse} returns this
- */
-proto.service.UpdateUserResponse.prototype.setUserId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -2493,7 +4719,7 @@ proto.service.DeleteUserResponse.prototype.toObject = function(opt_includeInstan
  */
 proto.service.DeleteUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+
   };
 
   if (includeInstance) {
@@ -2530,10 +4756,6 @@ proto.service.DeleteUserResponse.deserializeBinaryFromReader = function(msg, rea
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {boolean} */ (reader.readBool());
-      msg.setSuccess(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -2563,31 +4785,6 @@ proto.service.DeleteUserResponse.prototype.serializeBinary = function() {
  */
 proto.service.DeleteUserResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getSuccess();
-  if (f) {
-    writer.writeBool(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional bool success = 1;
- * @return {boolean}
- */
-proto.service.DeleteUserResponse.prototype.getSuccess = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 1, false));
-};
-
-
-/**
- * @param {boolean} value
- * @return {!proto.service.DeleteUserResponse} returns this
- */
-proto.service.DeleteUserResponse.prototype.setSuccess = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 1, value);
 };
 
 
@@ -2884,10 +5081,12 @@ proto.service.User.prototype.toObject = function(opt_includeInstance) {
  */
 proto.service.User.toObject = function(includeInstance, msg) {
   var f, obj = {
-userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
-email: jspb.Message.getFieldWithDefault(msg, 2, ""),
-name: jspb.Message.getFieldWithDefault(msg, 3, ""),
-createdAt: jspb.Message.getFieldWithDefault(msg, 4, "")
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+email: jspb.Message.getFieldWithDefault(msg, 4, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -2926,18 +5125,27 @@ proto.service.User.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setUserId(value);
+      msg.setId(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setEmail(value);
+      msg.setFirstName(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
+      msg.setLastName(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAdmin(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCreatedAt(value);
       break;
     default:
@@ -2969,6 +5177,291 @@ proto.service.User.prototype.serializeBinary = function() {
  */
 proto.service.User.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getFirstName();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getLastName();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = message.getIsAdmin();
+  if (f) {
+    writer.writeBool(
+      5,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.User.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string first_name = 2;
+ * @return {string}
+ */
+proto.service.User.prototype.getFirstName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.setFirstName = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string last_name = 3;
+ * @return {string}
+ */
+proto.service.User.prototype.getLastName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.setLastName = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string email = 4;
+ * @return {string}
+ */
+proto.service.User.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional bool is_admin = 5;
+ * @return {boolean}
+ */
+proto.service.User.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.User.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.User} returns this
+*/
+proto.service.User.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.User} returns this
+ */
+proto.service.User.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.User.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.CreateAPIKeyRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.CreateAPIKeyRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.CreateAPIKeyRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CreateAPIKeyRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+role: jspb.Message.getFieldWithDefault(msg, 2, ""),
+isServiceKey: jspb.Message.getBooleanFieldWithDefault(msg, 3, false)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.CreateAPIKeyRequest}
+ */
+proto.service.CreateAPIKeyRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.CreateAPIKeyRequest;
+  return proto.service.CreateAPIKeyRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.CreateAPIKeyRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.CreateAPIKeyRequest}
+ */
+proto.service.CreateAPIKeyRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUserId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRole(value);
+      break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsServiceKey(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.CreateAPIKeyRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.CreateAPIKeyRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.CreateAPIKeyRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CreateAPIKeyRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
   f = message.getUserId();
   if (f.length > 0) {
     writer.writeString(
@@ -2976,24 +5469,17 @@ proto.service.User.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getEmail();
+  f = message.getRole();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getIsServiceKey();
+  if (f) {
+    writer.writeBool(
       3,
-      f
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
       f
     );
   }
@@ -3004,71 +5490,2179 @@ proto.service.User.serializeBinaryToWriter = function(message, writer) {
  * optional string user_id = 1;
  * @return {string}
  */
-proto.service.User.prototype.getUserId = function() {
+proto.service.CreateAPIKeyRequest.prototype.getUserId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.User} returns this
+ * @return {!proto.service.CreateAPIKeyRequest} returns this
  */
-proto.service.User.prototype.setUserId = function(value) {
+proto.service.CreateAPIKeyRequest.prototype.setUserId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string email = 2;
+ * optional string role = 2;
  * @return {string}
  */
-proto.service.User.prototype.getEmail = function() {
+proto.service.CreateAPIKeyRequest.prototype.getRole = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.User} returns this
+ * @return {!proto.service.CreateAPIKeyRequest} returns this
  */
-proto.service.User.prototype.setEmail = function(value) {
+proto.service.CreateAPIKeyRequest.prototype.setRole = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string name = 3;
+ * optional bool is_service_key = 3;
+ * @return {boolean}
+ */
+proto.service.CreateAPIKeyRequest.prototype.getIsServiceKey = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.CreateAPIKeyRequest} returns this
+ */
+proto.service.CreateAPIKeyRequest.prototype.setIsServiceKey = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.CreateAPIKeyResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.CreateAPIKeyResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.CreateAPIKeyResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CreateAPIKeyResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKey: jspb.Message.getFieldWithDefault(msg, 1, ""),
+role: jspb.Message.getFieldWithDefault(msg, 2, ""),
+isServiceKey: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
+expiresAt: (f = msg.getExpiresAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.CreateAPIKeyResponse}
+ */
+proto.service.CreateAPIKeyResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.CreateAPIKeyResponse;
+  return proto.service.CreateAPIKeyResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.CreateAPIKeyResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.CreateAPIKeyResponse}
+ */
+proto.service.CreateAPIKeyResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setApiKey(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRole(value);
+      break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsServiceKey(value);
+      break;
+    case 4:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpiresAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.CreateAPIKeyResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.CreateAPIKeyResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.CreateAPIKeyResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CreateAPIKeyResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getRole();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getIsServiceKey();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
+  f = message.getExpiresAt();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string api_key = 1;
  * @return {string}
  */
-proto.service.User.prototype.getName = function() {
+proto.service.CreateAPIKeyResponse.prototype.getApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CreateAPIKeyResponse} returns this
+ */
+proto.service.CreateAPIKeyResponse.prototype.setApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string role = 2;
+ * @return {string}
+ */
+proto.service.CreateAPIKeyResponse.prototype.getRole = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CreateAPIKeyResponse} returns this
+ */
+proto.service.CreateAPIKeyResponse.prototype.setRole = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bool is_service_key = 3;
+ * @return {boolean}
+ */
+proto.service.CreateAPIKeyResponse.prototype.getIsServiceKey = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.CreateAPIKeyResponse} returns this
+ */
+proto.service.CreateAPIKeyResponse.prototype.setIsServiceKey = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expires_at = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.CreateAPIKeyResponse.prototype.getExpiresAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.CreateAPIKeyResponse} returns this
+*/
+proto.service.CreateAPIKeyResponse.prototype.setExpiresAt = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.CreateAPIKeyResponse} returns this
+ */
+proto.service.CreateAPIKeyResponse.prototype.clearExpiresAt = function() {
+  return this.setExpiresAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.CreateAPIKeyResponse.prototype.hasExpiresAt = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.RotateAPIKeyRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.RotateAPIKeyRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.RotateAPIKeyRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.RotateAPIKeyRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKey: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.RotateAPIKeyRequest}
+ */
+proto.service.RotateAPIKeyRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.RotateAPIKeyRequest;
+  return proto.service.RotateAPIKeyRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.RotateAPIKeyRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.RotateAPIKeyRequest}
+ */
+proto.service.RotateAPIKeyRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setApiKey(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.RotateAPIKeyRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.RotateAPIKeyRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.RotateAPIKeyRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.RotateAPIKeyRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string api_key = 1;
+ * @return {string}
+ */
+proto.service.RotateAPIKeyRequest.prototype.getApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.RotateAPIKeyRequest} returns this
+ */
+proto.service.RotateAPIKeyRequest.prototype.setApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.RotateAPIKeyResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.RotateAPIKeyResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.RotateAPIKeyResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.RotateAPIKeyResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+newApiKey: jspb.Message.getFieldWithDefault(msg, 1, ""),
+expiresAt: (f = msg.getExpiresAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.RotateAPIKeyResponse}
+ */
+proto.service.RotateAPIKeyResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.RotateAPIKeyResponse;
+  return proto.service.RotateAPIKeyResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.RotateAPIKeyResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.RotateAPIKeyResponse}
+ */
+proto.service.RotateAPIKeyResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNewApiKey(value);
+      break;
+    case 2:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpiresAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.RotateAPIKeyResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.RotateAPIKeyResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.RotateAPIKeyResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.RotateAPIKeyResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getNewApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getExpiresAt();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string new_api_key = 1;
+ * @return {string}
+ */
+proto.service.RotateAPIKeyResponse.prototype.getNewApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.RotateAPIKeyResponse} returns this
+ */
+proto.service.RotateAPIKeyResponse.prototype.setNewApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expires_at = 2;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.RotateAPIKeyResponse.prototype.getExpiresAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.RotateAPIKeyResponse} returns this
+*/
+proto.service.RotateAPIKeyResponse.prototype.setExpiresAt = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.RotateAPIKeyResponse} returns this
+ */
+proto.service.RotateAPIKeyResponse.prototype.clearExpiresAt = function() {
+  return this.setExpiresAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.RotateAPIKeyResponse.prototype.hasExpiresAt = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ActivateAPIKeyRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ActivateAPIKeyRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ActivateAPIKeyRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ActivateAPIKeyRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKey: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ActivateAPIKeyRequest}
+ */
+proto.service.ActivateAPIKeyRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ActivateAPIKeyRequest;
+  return proto.service.ActivateAPIKeyRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ActivateAPIKeyRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ActivateAPIKeyRequest}
+ */
+proto.service.ActivateAPIKeyRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setApiKey(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ActivateAPIKeyRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ActivateAPIKeyRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ActivateAPIKeyRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ActivateAPIKeyRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string api_key = 1;
+ * @return {string}
+ */
+proto.service.ActivateAPIKeyRequest.prototype.getApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ActivateAPIKeyRequest} returns this
+ */
+proto.service.ActivateAPIKeyRequest.prototype.setApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ActivateAPIKeyResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ActivateAPIKeyResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ActivateAPIKeyResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ActivateAPIKeyResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ActivateAPIKeyResponse}
+ */
+proto.service.ActivateAPIKeyResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ActivateAPIKeyResponse;
+  return proto.service.ActivateAPIKeyResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ActivateAPIKeyResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ActivateAPIKeyResponse}
+ */
+proto.service.ActivateAPIKeyResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ActivateAPIKeyResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ActivateAPIKeyResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ActivateAPIKeyResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ActivateAPIKeyResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.DeactivateAPIKeyRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.DeactivateAPIKeyRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DeactivateAPIKeyRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKey: jspb.Message.getFieldWithDefault(msg, 1, ""),
+deactivationMessage: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.DeactivateAPIKeyRequest}
+ */
+proto.service.DeactivateAPIKeyRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.DeactivateAPIKeyRequest;
+  return proto.service.DeactivateAPIKeyRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.DeactivateAPIKeyRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.DeactivateAPIKeyRequest}
+ */
+proto.service.DeactivateAPIKeyRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setApiKey(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeactivationMessage(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.DeactivateAPIKeyRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.DeactivateAPIKeyRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DeactivateAPIKeyRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDeactivationMessage();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string api_key = 1;
+ * @return {string}
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.getApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.DeactivateAPIKeyRequest} returns this
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.setApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string deactivation_message = 2;
+ * @return {string}
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.getDeactivationMessage = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.DeactivateAPIKeyRequest} returns this
+ */
+proto.service.DeactivateAPIKeyRequest.prototype.setDeactivationMessage = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.DeactivateAPIKeyResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.DeactivateAPIKeyResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.DeactivateAPIKeyResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DeactivateAPIKeyResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.DeactivateAPIKeyResponse}
+ */
+proto.service.DeactivateAPIKeyResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.DeactivateAPIKeyResponse;
+  return proto.service.DeactivateAPIKeyResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.DeactivateAPIKeyResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.DeactivateAPIKeyResponse}
+ */
+proto.service.DeactivateAPIKeyResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.DeactivateAPIKeyResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.DeactivateAPIKeyResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.DeactivateAPIKeyResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DeactivateAPIKeyResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ListAPIKeysRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ListAPIKeysRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ListAPIKeysRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListAPIKeysRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+userId: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ListAPIKeysRequest}
+ */
+proto.service.ListAPIKeysRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ListAPIKeysRequest;
+  return proto.service.ListAPIKeysRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ListAPIKeysRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ListAPIKeysRequest}
+ */
+proto.service.ListAPIKeysRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUserId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ListAPIKeysRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ListAPIKeysRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ListAPIKeysRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListAPIKeysRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getUserId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string user_id = 1;
+ * @return {string}
+ */
+proto.service.ListAPIKeysRequest.prototype.getUserId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ListAPIKeysRequest} returns this
+ */
+proto.service.ListAPIKeysRequest.prototype.setUserId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.ListAPIKeysResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ListAPIKeysResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ListAPIKeysResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ListAPIKeysResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListAPIKeysResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKeysList: jspb.Message.toObjectList(msg.getApiKeysList(),
+    proto.service.APIKey.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ListAPIKeysResponse}
+ */
+proto.service.ListAPIKeysResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ListAPIKeysResponse;
+  return proto.service.ListAPIKeysResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ListAPIKeysResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ListAPIKeysResponse}
+ */
+proto.service.ListAPIKeysResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.APIKey;
+      reader.readMessage(value,proto.service.APIKey.deserializeBinaryFromReader);
+      msg.addApiKeys(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ListAPIKeysResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ListAPIKeysResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ListAPIKeysResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ListAPIKeysResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKeysList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.APIKey.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated APIKey api_keys = 1;
+ * @return {!Array<!proto.service.APIKey>}
+ */
+proto.service.ListAPIKeysResponse.prototype.getApiKeysList = function() {
+  return /** @type{!Array<!proto.service.APIKey>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.APIKey, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.APIKey>} value
+ * @return {!proto.service.ListAPIKeysResponse} returns this
+*/
+proto.service.ListAPIKeysResponse.prototype.setApiKeysList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.APIKey=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.APIKey}
+ */
+proto.service.ListAPIKeysResponse.prototype.addApiKeys = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.APIKey, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.ListAPIKeysResponse} returns this
+ */
+proto.service.ListAPIKeysResponse.prototype.clearApiKeysList = function() {
+  return this.setApiKeysList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.APIKey.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.APIKey.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.APIKey} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.APIKey.toObject = function(includeInstance, msg) {
+  var f, obj = {
+apiKey: jspb.Message.getFieldWithDefault(msg, 1, ""),
+userId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+role: jspb.Message.getFieldWithDefault(msg, 3, ""),
+isServiceKey: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+isActive: jspb.Message.getBooleanFieldWithDefault(msg, 5, false),
+deactivationMessage: jspb.Message.getFieldWithDefault(msg, 6, ""),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+expiresAt: (f = msg.getExpiresAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.APIKey}
+ */
+proto.service.APIKey.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.APIKey;
+  return proto.service.APIKey.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.APIKey} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.APIKey}
+ */
+proto.service.APIKey.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setApiKey(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUserId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRole(value);
+      break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsServiceKey(value);
+      break;
+    case 5:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsActive(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeactivationMessage(value);
+      break;
+    case 7:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    case 8:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpiresAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.APIKey.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.APIKey.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.APIKey} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.APIKey.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getApiKey();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getUserId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getRole();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getIsServiceKey();
+  if (f) {
+    writer.writeBool(
+      4,
+      f
+    );
+  }
+  f = message.getIsActive();
+  if (f) {
+    writer.writeBool(
+      5,
+      f
+    );
+  }
+  f = message.getDeactivationMessage();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      7,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getExpiresAt();
+  if (f != null) {
+    writer.writeMessage(
+      8,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string api_key = 1;
+ * @return {string}
+ */
+proto.service.APIKey.prototype.getApiKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.setApiKey = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string user_id = 2;
+ * @return {string}
+ */
+proto.service.APIKey.prototype.getUserId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.setUserId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string role = 3;
+ * @return {string}
+ */
+proto.service.APIKey.prototype.getRole = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.User} returns this
+ * @return {!proto.service.APIKey} returns this
  */
-proto.service.User.prototype.setName = function(value) {
+proto.service.APIKey.prototype.setRole = function(value) {
   return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 
 /**
- * optional string created_at = 4;
+ * optional bool is_service_key = 4;
+ * @return {boolean}
+ */
+proto.service.APIKey.prototype.getIsServiceKey = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.setIsServiceKey = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
+};
+
+
+/**
+ * optional bool is_active = 5;
+ * @return {boolean}
+ */
+proto.service.APIKey.prototype.getIsActive = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 5, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.setIsActive = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 5, value);
+};
+
+
+/**
+ * optional string deactivation_message = 6;
  * @return {string}
  */
-proto.service.User.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+proto.service.APIKey.prototype.getDeactivationMessage = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.User} returns this
+ * @return {!proto.service.APIKey} returns this
  */
-proto.service.User.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+proto.service.APIKey.prototype.setDeactivationMessage = function(value) {
+  return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 7;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.APIKey.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.APIKey} returns this
+*/
+proto.service.APIKey.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 7, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.APIKey.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expires_at = 8;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.APIKey.prototype.getExpiresAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.APIKey} returns this
+*/
+proto.service.APIKey.prototype.setExpiresAt = function(value) {
+  return jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.APIKey} returns this
+ */
+proto.service.APIKey.prototype.clearExpiresAt = function() {
+  return this.setExpiresAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.APIKey.prototype.hasExpiresAt = function() {
+  return jspb.Message.getField(this, 8) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.LoginRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.LoginRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.LoginRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.LoginRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+email: jspb.Message.getFieldWithDefault(msg, 1, ""),
+password: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.LoginRequest}
+ */
+proto.service.LoginRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.LoginRequest;
+  return proto.service.LoginRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.LoginRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.LoginRequest}
+ */
+proto.service.LoginRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPassword(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.LoginRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.LoginRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.LoginRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.LoginRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getPassword();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string email = 1;
+ * @return {string}
+ */
+proto.service.LoginRequest.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginRequest} returns this
+ */
+proto.service.LoginRequest.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string password = 2;
+ * @return {string}
+ */
+proto.service.LoginRequest.prototype.getPassword = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginRequest} returns this
+ */
+proto.service.LoginRequest.prototype.setPassword = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.LoginResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.LoginResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.LoginResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.LoginResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+userId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+firstName: jspb.Message.getFieldWithDefault(msg, 2, ""),
+lastName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
+token: jspb.Message.getFieldWithDefault(msg, 5, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.LoginResponse}
+ */
+proto.service.LoginResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.LoginResponse;
+  return proto.service.LoginResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.LoginResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.LoginResponse}
+ */
+proto.service.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUserId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFirstName(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setLastName(value);
+      break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAdmin(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setToken(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.LoginResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.LoginResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.LoginResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.LoginResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getUserId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getFirstName();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getLastName();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getIsAdmin();
+  if (f) {
+    writer.writeBool(
+      4,
+      f
+    );
+  }
+  f = message.getToken();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string user_id = 1;
+ * @return {string}
+ */
+proto.service.LoginResponse.prototype.getUserId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginResponse} returns this
+ */
+proto.service.LoginResponse.prototype.setUserId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string first_name = 2;
+ * @return {string}
+ */
+proto.service.LoginResponse.prototype.getFirstName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginResponse} returns this
+ */
+proto.service.LoginResponse.prototype.setFirstName = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string last_name = 3;
+ * @return {string}
+ */
+proto.service.LoginResponse.prototype.getLastName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginResponse} returns this
+ */
+proto.service.LoginResponse.prototype.setLastName = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional bool is_admin = 4;
+ * @return {boolean}
+ */
+proto.service.LoginResponse.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 4, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.LoginResponse} returns this
+ */
+proto.service.LoginResponse.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 4, value);
+};
+
+
+/**
+ * optional string token = 5;
+ * @return {string}
+ */
+proto.service.LoginResponse.prototype.getToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.LoginResponse} returns this
+ */
+proto.service.LoginResponse.prototype.setToken = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -3104,7 +7698,8 @@ proto.service.InviteUserRequest.prototype.toObject = function(opt_includeInstanc
  */
 proto.service.InviteUserRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-email: jspb.Message.getFieldWithDefault(msg, 1, "")
+email: jspb.Message.getFieldWithDefault(msg, 1, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -3145,6 +7740,10 @@ proto.service.InviteUserRequest.deserializeBinaryFromReader = function(msg, read
       var value = /** @type {string} */ (reader.readString());
       msg.setEmail(value);
       break;
+    case 2:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIsAdmin(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -3181,6 +7780,13 @@ proto.service.InviteUserRequest.serializeBinaryToWriter = function(message, writ
       f
     );
   }
+  f = message.getIsAdmin();
+  if (f) {
+    writer.writeBool(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -3199,6 +7805,24 @@ proto.service.InviteUserRequest.prototype.getEmail = function() {
  */
 proto.service.InviteUserRequest.prototype.setEmail = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional bool is_admin = 2;
+ * @return {boolean}
+ */
+proto.service.InviteUserRequest.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.service.InviteUserRequest} returns this
+ */
+proto.service.InviteUserRequest.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 
@@ -3234,7 +7858,9 @@ proto.service.InviteUserResponse.prototype.toObject = function(opt_includeInstan
  */
 proto.service.InviteUserResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-inviteToken: jspb.Message.getFieldWithDefault(msg, 1, "")
+invitationId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+token: jspb.Message.getFieldWithDefault(msg, 2, ""),
+expiresAt: (f = msg.getExpiresAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3273,7 +7899,16 @@ proto.service.InviteUserResponse.deserializeBinaryFromReader = function(msg, rea
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setInviteToken(value);
+      msg.setInvitationId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setToken(value);
+      break;
+    case 3:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpiresAt(value);
       break;
     default:
       reader.skipField();
@@ -3304,21 +7939,36 @@ proto.service.InviteUserResponse.prototype.serializeBinary = function() {
  */
 proto.service.InviteUserResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getInviteToken();
+  f = message.getInvitationId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
+  f = message.getToken();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getExpiresAt();
+  if (f != null) {
+    writer.writeMessage(
+      3,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
 };
 
 
 /**
- * optional string invite_token = 1;
+ * optional string invitation_id = 1;
  * @return {string}
  */
-proto.service.InviteUserResponse.prototype.getInviteToken = function() {
+proto.service.InviteUserResponse.prototype.getInvitationId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -3327,8 +7977,63 @@ proto.service.InviteUserResponse.prototype.getInviteToken = function() {
  * @param {string} value
  * @return {!proto.service.InviteUserResponse} returns this
  */
-proto.service.InviteUserResponse.prototype.setInviteToken = function(value) {
+proto.service.InviteUserResponse.prototype.setInvitationId = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string token = 2;
+ * @return {string}
+ */
+proto.service.InviteUserResponse.prototype.getToken = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.InviteUserResponse} returns this
+ */
+proto.service.InviteUserResponse.prototype.setToken = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expires_at = 3;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.InviteUserResponse.prototype.getExpiresAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.InviteUserResponse} returns this
+*/
+proto.service.InviteUserResponse.prototype.setExpiresAt = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.InviteUserResponse} returns this
+ */
+proto.service.InviteUserResponse.prototype.clearExpiresAt = function() {
+  return this.setExpiresAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.InviteUserResponse.prototype.hasExpiresAt = function() {
+  return jspb.Message.getField(this, 3) != null;
 };
 
 
@@ -3494,7 +8199,8 @@ proto.service.ValidateInviteResponse.prototype.toObject = function(opt_includeIn
  */
 proto.service.ValidateInviteResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-valid: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+email: jspb.Message.getFieldWithDefault(msg, 1, ""),
+isAdmin: jspb.Message.getBooleanFieldWithDefault(msg, 2, false)
   };
 
   if (includeInstance) {
@@ -3532,8 +8238,12 @@ proto.service.ValidateInviteResponse.deserializeBinaryFromReader = function(msg,
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
+    case 2:
       var value = /** @type {boolean} */ (reader.readBool());
-      msg.setValid(value);
+      msg.setIsAdmin(value);
       break;
     default:
       reader.skipField();
@@ -3564,10 +8274,17 @@ proto.service.ValidateInviteResponse.prototype.serializeBinary = function() {
  */
 proto.service.ValidateInviteResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getValid();
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getIsAdmin();
   if (f) {
     writer.writeBool(
-      1,
+      2,
       f
     );
   }
@@ -3575,11 +8292,29 @@ proto.service.ValidateInviteResponse.serializeBinaryToWriter = function(message,
 
 
 /**
- * optional bool valid = 1;
+ * optional string email = 1;
+ * @return {string}
+ */
+proto.service.ValidateInviteResponse.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ValidateInviteResponse} returns this
+ */
+proto.service.ValidateInviteResponse.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional bool is_admin = 2;
  * @return {boolean}
  */
-proto.service.ValidateInviteResponse.prototype.getValid = function() {
-  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 1, false));
+proto.service.ValidateInviteResponse.prototype.getIsAdmin = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 2, false));
 };
 
 
@@ -3587,8 +8322,8 @@ proto.service.ValidateInviteResponse.prototype.getValid = function() {
  * @param {boolean} value
  * @return {!proto.service.ValidateInviteResponse} returns this
  */
-proto.service.ValidateInviteResponse.prototype.setValid = function(value) {
-  return jspb.Message.setProto3BooleanField(this, 1, value);
+proto.service.ValidateInviteResponse.prototype.setIsAdmin = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 2, value);
 };
 
 
@@ -3754,8 +8489,8 @@ proto.service.ScanDomainResponse.prototype.toObject = function(opt_includeInstan
  */
 proto.service.ScanDomainResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-result: (f = msg.getResult()) && proto.service.DNSSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.DNSSecurityResult.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -3793,13 +8528,13 @@ proto.service.ScanDomainResponse.deserializeBinaryFromReader = function(msg, rea
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
       var value = new proto.service.DNSSecurityResult;
       reader.readMessage(value,proto.service.DNSSecurityResult.deserializeBinaryFromReader);
       msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
       break;
     default:
       reader.skipField();
@@ -3830,31 +8565,49 @@ proto.service.ScanDomainResponse.prototype.serializeBinary = function() {
  */
 proto.service.ScanDomainResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.DNSSecurityResult.serializeBinaryToWriter
-    );
-  }
   f = message.getScanId();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      1,
       f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.DNSSecurityResult.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional DNSSecurityResult result = 1;
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanDomainResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanDomainResponse} returns this
+ */
+proto.service.ScanDomainResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional DNSSecurityResult result = 2;
  * @return {?proto.service.DNSSecurityResult}
  */
 proto.service.ScanDomainResponse.prototype.getResult = function() {
   return /** @type{?proto.service.DNSSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.DNSSecurityResult, 1));
+    jspb.Message.getWrapperField(this, proto.service.DNSSecurityResult, 2));
 };
 
 
@@ -3863,7 +8616,7 @@ proto.service.ScanDomainResponse.prototype.getResult = function() {
  * @return {!proto.service.ScanDomainResponse} returns this
 */
 proto.service.ScanDomainResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
+  return jspb.Message.setWrapperField(this, 2, value);
 };
 
 
@@ -3881,25 +8634,6468 @@ proto.service.ScanDomainResponse.prototype.clearResult = function() {
  * @return {boolean}
  */
 proto.service.ScanDomainResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanTLSRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanTLSRequest.toObject(opt_includeInstance, this);
 };
 
 
 /**
- * optional string scan_id = 2;
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanTLSRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanTLSRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanTLSRequest}
+ */
+proto.service.ScanTLSRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanTLSRequest;
+  return proto.service.ScanTLSRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanTLSRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanTLSRequest}
+ */
+proto.service.ScanTLSRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanTLSRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanTLSRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanTLSRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanTLSRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
  * @return {string}
  */
-proto.service.ScanDomainResponse.prototype.getScanId = function() {
+proto.service.ScanTLSRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanTLSRequest} returns this
+ */
+proto.service.ScanTLSRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanTLSRequest.prototype.getDnsScanId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.ScanDomainResponse} returns this
+ * @return {!proto.service.ScanTLSRequest} returns this
  */
-proto.service.ScanDomainResponse.prototype.setScanId = function(value) {
+proto.service.ScanTLSRequest.prototype.setDnsScanId = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanTLSResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanTLSResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanTLSResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanTLSResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.TLSSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanTLSResponse}
+ */
+proto.service.ScanTLSResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanTLSResponse;
+  return proto.service.ScanTLSResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanTLSResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanTLSResponse}
+ */
+proto.service.ScanTLSResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.TLSSecurityResult;
+      reader.readMessage(value,proto.service.TLSSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanTLSResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanTLSResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanTLSResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanTLSResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.TLSSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanTLSResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanTLSResponse} returns this
+ */
+proto.service.ScanTLSResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional TLSSecurityResult result = 2;
+ * @return {?proto.service.TLSSecurityResult}
+ */
+proto.service.ScanTLSResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.TLSSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.TLSSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.TLSSecurityResult|undefined} value
+ * @return {!proto.service.ScanTLSResponse} returns this
+*/
+proto.service.ScanTLSResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanTLSResponse} returns this
+ */
+proto.service.ScanTLSResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanTLSResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetTLSScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetTLSScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetTLSScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetTLSScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetTLSScanResultsByDomainRequest}
+ */
+proto.service.GetTLSScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetTLSScanResultsByDomainRequest;
+  return proto.service.GetTLSScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetTLSScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetTLSScanResultsByDomainRequest}
+ */
+proto.service.GetTLSScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetTLSScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetTLSScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetTLSScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetTLSScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetTLSScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetTLSScanResultsByDomainRequest} returns this
+ */
+proto.service.GetTLSScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetTLSScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetTLSScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetTLSScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetTLSScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.TLSScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetTLSScanResultsByDomainResponse}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetTLSScanResultsByDomainResponse;
+  return proto.service.GetTLSScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetTLSScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetTLSScanResultsByDomainResponse}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.TLSScanResult;
+      reader.readMessage(value,proto.service.TLSScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetTLSScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetTLSScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetTLSScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.TLSScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated TLSScanResult results = 1;
+ * @return {!Array<!proto.service.TLSScanResult>}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.TLSScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.TLSScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.TLSScanResult>} value
+ * @return {!proto.service.GetTLSScanResultsByDomainResponse} returns this
+*/
+proto.service.GetTLSScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.TLSScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.TLSScanResult}
+ */
+proto.service.GetTLSScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.TLSScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetTLSScanResultsByDomainResponse} returns this
+ */
+proto.service.GetTLSScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.TLSScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.TLSScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.TLSScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.TLSScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.TLSSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.TLSScanResult}
+ */
+proto.service.TLSScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.TLSScanResult;
+  return proto.service.TLSScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.TLSScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.TLSScanResult}
+ */
+proto.service.TLSScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.TLSSecurityResult;
+      reader.readMessage(value,proto.service.TLSSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.TLSScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.TLSScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.TLSScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.TLSScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.TLSSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.TLSScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.TLSScanResult} returns this
+ */
+proto.service.TLSScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.TLSScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.TLSScanResult} returns this
+ */
+proto.service.TLSScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.TLSScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.TLSScanResult} returns this
+ */
+proto.service.TLSScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional TLSSecurityResult result = 4;
+ * @return {?proto.service.TLSSecurityResult}
+ */
+proto.service.TLSScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.TLSSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.TLSSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.TLSSecurityResult|undefined} value
+ * @return {!proto.service.TLSScanResult} returns this
+*/
+proto.service.TLSScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.TLSScanResult} returns this
+ */
+proto.service.TLSScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.TLSScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.TLSScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.TLSScanResult} returns this
+*/
+proto.service.TLSScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.TLSScanResult} returns this
+ */
+proto.service.TLSScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.TLSScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanCrtShRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanCrtShRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanCrtShRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanCrtShRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanCrtShRequest}
+ */
+proto.service.ScanCrtShRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanCrtShRequest;
+  return proto.service.ScanCrtShRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanCrtShRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanCrtShRequest}
+ */
+proto.service.ScanCrtShRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanCrtShRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanCrtShRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanCrtShRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanCrtShRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanCrtShRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanCrtShRequest} returns this
+ */
+proto.service.ScanCrtShRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanCrtShRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanCrtShRequest} returns this
+ */
+proto.service.ScanCrtShRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanCrtShResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanCrtShResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanCrtShResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanCrtShResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.CrtShSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanCrtShResponse}
+ */
+proto.service.ScanCrtShResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanCrtShResponse;
+  return proto.service.ScanCrtShResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanCrtShResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanCrtShResponse}
+ */
+proto.service.ScanCrtShResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.CrtShSecurityResult;
+      reader.readMessage(value,proto.service.CrtShSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanCrtShResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanCrtShResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanCrtShResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanCrtShResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.CrtShSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanCrtShResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanCrtShResponse} returns this
+ */
+proto.service.ScanCrtShResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional CrtShSecurityResult result = 2;
+ * @return {?proto.service.CrtShSecurityResult}
+ */
+proto.service.ScanCrtShResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.CrtShSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.CrtShSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.CrtShSecurityResult|undefined} value
+ * @return {!proto.service.ScanCrtShResponse} returns this
+*/
+proto.service.ScanCrtShResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanCrtShResponse} returns this
+ */
+proto.service.ScanCrtShResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanCrtShResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetCrtShScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetCrtShScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetCrtShScanResultsByDomainRequest}
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetCrtShScanResultsByDomainRequest;
+  return proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetCrtShScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetCrtShScanResultsByDomainRequest}
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetCrtShScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetCrtShScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetCrtShScanResultsByDomainRequest} returns this
+ */
+proto.service.GetCrtShScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetCrtShScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetCrtShScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.CrtShScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetCrtShScanResultsByDomainResponse}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetCrtShScanResultsByDomainResponse;
+  return proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetCrtShScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetCrtShScanResultsByDomainResponse}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.CrtShScanResult;
+      reader.readMessage(value,proto.service.CrtShScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetCrtShScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetCrtShScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.CrtShScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated CrtShScanResult results = 1;
+ * @return {!Array<!proto.service.CrtShScanResult>}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.CrtShScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.CrtShScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.CrtShScanResult>} value
+ * @return {!proto.service.GetCrtShScanResultsByDomainResponse} returns this
+*/
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.CrtShScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.CrtShScanResult}
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.CrtShScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetCrtShScanResultsByDomainResponse} returns this
+ */
+proto.service.GetCrtShScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.CrtShScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.CrtShScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.CrtShScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CrtShScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.CrtShSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.CrtShScanResult}
+ */
+proto.service.CrtShScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.CrtShScanResult;
+  return proto.service.CrtShScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.CrtShScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.CrtShScanResult}
+ */
+proto.service.CrtShScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.CrtShSecurityResult;
+      reader.readMessage(value,proto.service.CrtShSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.CrtShScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.CrtShScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.CrtShScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.CrtShScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.CrtShSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.CrtShScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CrtShScanResult} returns this
+ */
+proto.service.CrtShScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.CrtShScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CrtShScanResult} returns this
+ */
+proto.service.CrtShScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.CrtShScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.CrtShScanResult} returns this
+ */
+proto.service.CrtShScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional CrtShSecurityResult result = 4;
+ * @return {?proto.service.CrtShSecurityResult}
+ */
+proto.service.CrtShScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.CrtShSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.CrtShSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.CrtShSecurityResult|undefined} value
+ * @return {!proto.service.CrtShScanResult} returns this
+*/
+proto.service.CrtShScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.CrtShScanResult} returns this
+ */
+proto.service.CrtShScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.CrtShScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.CrtShScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.CrtShScanResult} returns this
+*/
+proto.service.CrtShScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.CrtShScanResult} returns this
+ */
+proto.service.CrtShScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.CrtShScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanChaosRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanChaosRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanChaosRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanChaosRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanChaosRequest}
+ */
+proto.service.ScanChaosRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanChaosRequest;
+  return proto.service.ScanChaosRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanChaosRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanChaosRequest}
+ */
+proto.service.ScanChaosRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanChaosRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanChaosRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanChaosRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanChaosRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanChaosRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanChaosRequest} returns this
+ */
+proto.service.ScanChaosRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanChaosRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanChaosRequest} returns this
+ */
+proto.service.ScanChaosRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanChaosResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanChaosResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanChaosResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanChaosResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.ChaosSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanChaosResponse}
+ */
+proto.service.ScanChaosResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanChaosResponse;
+  return proto.service.ScanChaosResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanChaosResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanChaosResponse}
+ */
+proto.service.ScanChaosResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.ChaosSecurityResult;
+      reader.readMessage(value,proto.service.ChaosSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanChaosResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanChaosResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanChaosResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanChaosResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.ChaosSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanChaosResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanChaosResponse} returns this
+ */
+proto.service.ScanChaosResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional ChaosSecurityResult result = 2;
+ * @return {?proto.service.ChaosSecurityResult}
+ */
+proto.service.ScanChaosResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.ChaosSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.ChaosSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.ChaosSecurityResult|undefined} value
+ * @return {!proto.service.ScanChaosResponse} returns this
+*/
+proto.service.ScanChaosResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanChaosResponse} returns this
+ */
+proto.service.ScanChaosResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanChaosResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetChaosScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetChaosScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetChaosScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetChaosScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetChaosScanResultsByDomainRequest}
+ */
+proto.service.GetChaosScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetChaosScanResultsByDomainRequest;
+  return proto.service.GetChaosScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetChaosScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetChaosScanResultsByDomainRequest}
+ */
+proto.service.GetChaosScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetChaosScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetChaosScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetChaosScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetChaosScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetChaosScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetChaosScanResultsByDomainRequest} returns this
+ */
+proto.service.GetChaosScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetChaosScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetChaosScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetChaosScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetChaosScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.ChaosScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetChaosScanResultsByDomainResponse}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetChaosScanResultsByDomainResponse;
+  return proto.service.GetChaosScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetChaosScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetChaosScanResultsByDomainResponse}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.ChaosScanResult;
+      reader.readMessage(value,proto.service.ChaosScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetChaosScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetChaosScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetChaosScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.ChaosScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated ChaosScanResult results = 1;
+ * @return {!Array<!proto.service.ChaosScanResult>}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.ChaosScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.ChaosScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.ChaosScanResult>} value
+ * @return {!proto.service.GetChaosScanResultsByDomainResponse} returns this
+*/
+proto.service.GetChaosScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.ChaosScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.ChaosScanResult}
+ */
+proto.service.GetChaosScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.ChaosScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetChaosScanResultsByDomainResponse} returns this
+ */
+proto.service.GetChaosScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ChaosScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ChaosScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ChaosScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ChaosScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.ChaosSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ChaosScanResult}
+ */
+proto.service.ChaosScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ChaosScanResult;
+  return proto.service.ChaosScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ChaosScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ChaosScanResult}
+ */
+proto.service.ChaosScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.ChaosSecurityResult;
+      reader.readMessage(value,proto.service.ChaosSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ChaosScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ChaosScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ChaosScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ChaosScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.ChaosSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.ChaosScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ChaosScanResult} returns this
+ */
+proto.service.ChaosScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.ChaosScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ChaosScanResult} returns this
+ */
+proto.service.ChaosScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.ChaosScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ChaosScanResult} returns this
+ */
+proto.service.ChaosScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional ChaosSecurityResult result = 4;
+ * @return {?proto.service.ChaosSecurityResult}
+ */
+proto.service.ChaosScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.ChaosSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.ChaosSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.ChaosSecurityResult|undefined} value
+ * @return {!proto.service.ChaosScanResult} returns this
+*/
+proto.service.ChaosScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ChaosScanResult} returns this
+ */
+proto.service.ChaosScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ChaosScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.ChaosScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.ChaosScanResult} returns this
+*/
+proto.service.ChaosScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ChaosScanResult} returns this
+ */
+proto.service.ChaosScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ChaosScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanShodanRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanShodanRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanShodanRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanShodanRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanShodanRequest}
+ */
+proto.service.ScanShodanRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanShodanRequest;
+  return proto.service.ScanShodanRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanShodanRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanShodanRequest}
+ */
+proto.service.ScanShodanRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanShodanRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanShodanRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanShodanRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanShodanRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanShodanRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanShodanRequest} returns this
+ */
+proto.service.ScanShodanRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanShodanRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanShodanRequest} returns this
+ */
+proto.service.ScanShodanRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanShodanResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanShodanResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanShodanResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanShodanResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.ShodanSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanShodanResponse}
+ */
+proto.service.ScanShodanResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanShodanResponse;
+  return proto.service.ScanShodanResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanShodanResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanShodanResponse}
+ */
+proto.service.ScanShodanResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.ShodanSecurityResult;
+      reader.readMessage(value,proto.service.ShodanSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanShodanResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanShodanResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanShodanResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanShodanResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.ShodanSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanShodanResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanShodanResponse} returns this
+ */
+proto.service.ScanShodanResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional ShodanSecurityResult result = 2;
+ * @return {?proto.service.ShodanSecurityResult}
+ */
+proto.service.ScanShodanResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.ShodanSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.ShodanSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.ShodanSecurityResult|undefined} value
+ * @return {!proto.service.ScanShodanResponse} returns this
+*/
+proto.service.ScanShodanResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanShodanResponse} returns this
+ */
+proto.service.ScanShodanResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanShodanResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetShodanScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetShodanScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetShodanScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetShodanScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetShodanScanResultsByDomainRequest}
+ */
+proto.service.GetShodanScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetShodanScanResultsByDomainRequest;
+  return proto.service.GetShodanScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetShodanScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetShodanScanResultsByDomainRequest}
+ */
+proto.service.GetShodanScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetShodanScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetShodanScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetShodanScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetShodanScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetShodanScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetShodanScanResultsByDomainRequest} returns this
+ */
+proto.service.GetShodanScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetShodanScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetShodanScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetShodanScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetShodanScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.ShodanScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetShodanScanResultsByDomainResponse}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetShodanScanResultsByDomainResponse;
+  return proto.service.GetShodanScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetShodanScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetShodanScanResultsByDomainResponse}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.ShodanScanResult;
+      reader.readMessage(value,proto.service.ShodanScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetShodanScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetShodanScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetShodanScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.ShodanScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated ShodanScanResult results = 1;
+ * @return {!Array<!proto.service.ShodanScanResult>}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.ShodanScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.ShodanScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.ShodanScanResult>} value
+ * @return {!proto.service.GetShodanScanResultsByDomainResponse} returns this
+*/
+proto.service.GetShodanScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.ShodanScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.ShodanScanResult}
+ */
+proto.service.GetShodanScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.ShodanScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetShodanScanResultsByDomainResponse} returns this
+ */
+proto.service.GetShodanScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ShodanScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ShodanScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ShodanScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ShodanScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.ShodanSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ShodanScanResult}
+ */
+proto.service.ShodanScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ShodanScanResult;
+  return proto.service.ShodanScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ShodanScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ShodanScanResult}
+ */
+proto.service.ShodanScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.ShodanSecurityResult;
+      reader.readMessage(value,proto.service.ShodanSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ShodanScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ShodanScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ShodanScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ShodanScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.ShodanSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.ShodanScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ShodanScanResult} returns this
+ */
+proto.service.ShodanScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.ShodanScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ShodanScanResult} returns this
+ */
+proto.service.ShodanScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.ShodanScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ShodanScanResult} returns this
+ */
+proto.service.ShodanScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional ShodanSecurityResult result = 4;
+ * @return {?proto.service.ShodanSecurityResult}
+ */
+proto.service.ShodanScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.ShodanSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.ShodanSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.ShodanSecurityResult|undefined} value
+ * @return {!proto.service.ShodanScanResult} returns this
+*/
+proto.service.ShodanScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ShodanScanResult} returns this
+ */
+proto.service.ShodanScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ShodanScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.ShodanScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.ShodanScanResult} returns this
+*/
+proto.service.ShodanScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ShodanScanResult} returns this
+ */
+proto.service.ShodanScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ShodanScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanOTXRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanOTXRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanOTXRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanOTXRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanOTXRequest}
+ */
+proto.service.ScanOTXRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanOTXRequest;
+  return proto.service.ScanOTXRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanOTXRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanOTXRequest}
+ */
+proto.service.ScanOTXRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanOTXRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanOTXRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanOTXRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanOTXRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanOTXRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanOTXRequest} returns this
+ */
+proto.service.ScanOTXRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanOTXRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanOTXRequest} returns this
+ */
+proto.service.ScanOTXRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanOTXResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanOTXResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanOTXResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanOTXResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.OTXSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanOTXResponse}
+ */
+proto.service.ScanOTXResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanOTXResponse;
+  return proto.service.ScanOTXResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanOTXResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanOTXResponse}
+ */
+proto.service.ScanOTXResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.OTXSecurityResult;
+      reader.readMessage(value,proto.service.OTXSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanOTXResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanOTXResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanOTXResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanOTXResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.OTXSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanOTXResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanOTXResponse} returns this
+ */
+proto.service.ScanOTXResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional OTXSecurityResult result = 2;
+ * @return {?proto.service.OTXSecurityResult}
+ */
+proto.service.ScanOTXResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.OTXSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.OTXSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.OTXSecurityResult|undefined} value
+ * @return {!proto.service.ScanOTXResponse} returns this
+*/
+proto.service.ScanOTXResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanOTXResponse} returns this
+ */
+proto.service.ScanOTXResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanOTXResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetOTXScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetOTXScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetOTXScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetOTXScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetOTXScanResultsByDomainRequest}
+ */
+proto.service.GetOTXScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetOTXScanResultsByDomainRequest;
+  return proto.service.GetOTXScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetOTXScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetOTXScanResultsByDomainRequest}
+ */
+proto.service.GetOTXScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetOTXScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetOTXScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetOTXScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetOTXScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetOTXScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetOTXScanResultsByDomainRequest} returns this
+ */
+proto.service.GetOTXScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetOTXScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetOTXScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetOTXScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetOTXScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.OTXScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetOTXScanResultsByDomainResponse}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetOTXScanResultsByDomainResponse;
+  return proto.service.GetOTXScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetOTXScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetOTXScanResultsByDomainResponse}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.OTXScanResult;
+      reader.readMessage(value,proto.service.OTXScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetOTXScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetOTXScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetOTXScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.OTXScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated OTXScanResult results = 1;
+ * @return {!Array<!proto.service.OTXScanResult>}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.OTXScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.OTXScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.OTXScanResult>} value
+ * @return {!proto.service.GetOTXScanResultsByDomainResponse} returns this
+*/
+proto.service.GetOTXScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.OTXScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.OTXScanResult}
+ */
+proto.service.GetOTXScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.OTXScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetOTXScanResultsByDomainResponse} returns this
+ */
+proto.service.GetOTXScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.OTXScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.OTXScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.OTXScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.OTXScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.OTXSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.OTXScanResult}
+ */
+proto.service.OTXScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.OTXScanResult;
+  return proto.service.OTXScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.OTXScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.OTXScanResult}
+ */
+proto.service.OTXScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.OTXSecurityResult;
+      reader.readMessage(value,proto.service.OTXSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.OTXScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.OTXScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.OTXScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.OTXScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.OTXSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.OTXScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.OTXScanResult} returns this
+ */
+proto.service.OTXScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.OTXScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.OTXScanResult} returns this
+ */
+proto.service.OTXScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.OTXScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.OTXScanResult} returns this
+ */
+proto.service.OTXScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional OTXSecurityResult result = 4;
+ * @return {?proto.service.OTXSecurityResult}
+ */
+proto.service.OTXScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.OTXSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.OTXSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.OTXSecurityResult|undefined} value
+ * @return {!proto.service.OTXScanResult} returns this
+*/
+proto.service.OTXScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.OTXScanResult} returns this
+ */
+proto.service.OTXScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.OTXScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.OTXScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.OTXScanResult} returns this
+*/
+proto.service.OTXScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.OTXScanResult} returns this
+ */
+proto.service.OTXScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.OTXScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanWhoisRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanWhoisRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanWhoisRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanWhoisRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanWhoisRequest}
+ */
+proto.service.ScanWhoisRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanWhoisRequest;
+  return proto.service.ScanWhoisRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanWhoisRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanWhoisRequest}
+ */
+proto.service.ScanWhoisRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanWhoisRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanWhoisRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanWhoisRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanWhoisRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanWhoisRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanWhoisRequest} returns this
+ */
+proto.service.ScanWhoisRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanWhoisRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanWhoisRequest} returns this
+ */
+proto.service.ScanWhoisRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanWhoisResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanWhoisResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanWhoisResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanWhoisResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.WhoisSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanWhoisResponse}
+ */
+proto.service.ScanWhoisResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanWhoisResponse;
+  return proto.service.ScanWhoisResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanWhoisResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanWhoisResponse}
+ */
+proto.service.ScanWhoisResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.WhoisSecurityResult;
+      reader.readMessage(value,proto.service.WhoisSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanWhoisResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanWhoisResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanWhoisResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanWhoisResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.WhoisSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanWhoisResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanWhoisResponse} returns this
+ */
+proto.service.ScanWhoisResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional WhoisSecurityResult result = 2;
+ * @return {?proto.service.WhoisSecurityResult}
+ */
+proto.service.ScanWhoisResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.WhoisSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.WhoisSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.WhoisSecurityResult|undefined} value
+ * @return {!proto.service.ScanWhoisResponse} returns this
+*/
+proto.service.ScanWhoisResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanWhoisResponse} returns this
+ */
+proto.service.ScanWhoisResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanWhoisResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetWhoisScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetWhoisScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetWhoisScanResultsByDomainRequest}
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetWhoisScanResultsByDomainRequest;
+  return proto.service.GetWhoisScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetWhoisScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetWhoisScanResultsByDomainRequest}
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetWhoisScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetWhoisScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetWhoisScanResultsByDomainRequest} returns this
+ */
+proto.service.GetWhoisScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetWhoisScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetWhoisScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.WhoisScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetWhoisScanResultsByDomainResponse}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetWhoisScanResultsByDomainResponse;
+  return proto.service.GetWhoisScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetWhoisScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetWhoisScanResultsByDomainResponse}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.WhoisScanResult;
+      reader.readMessage(value,proto.service.WhoisScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetWhoisScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetWhoisScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.WhoisScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated WhoisScanResult results = 1;
+ * @return {!Array<!proto.service.WhoisScanResult>}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.WhoisScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.WhoisScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.WhoisScanResult>} value
+ * @return {!proto.service.GetWhoisScanResultsByDomainResponse} returns this
+*/
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.WhoisScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.WhoisScanResult}
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.WhoisScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetWhoisScanResultsByDomainResponse} returns this
+ */
+proto.service.GetWhoisScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.WhoisScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.WhoisScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.WhoisScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.WhoisScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.WhoisSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.WhoisScanResult}
+ */
+proto.service.WhoisScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.WhoisScanResult;
+  return proto.service.WhoisScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.WhoisScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.WhoisScanResult}
+ */
+proto.service.WhoisScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.WhoisSecurityResult;
+      reader.readMessage(value,proto.service.WhoisSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.WhoisScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.WhoisScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.WhoisScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.WhoisScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.WhoisSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.WhoisScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.WhoisScanResult} returns this
+ */
+proto.service.WhoisScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.WhoisScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.WhoisScanResult} returns this
+ */
+proto.service.WhoisScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.WhoisScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.WhoisScanResult} returns this
+ */
+proto.service.WhoisScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional WhoisSecurityResult result = 4;
+ * @return {?proto.service.WhoisSecurityResult}
+ */
+proto.service.WhoisScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.WhoisSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.WhoisSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.WhoisSecurityResult|undefined} value
+ * @return {!proto.service.WhoisScanResult} returns this
+*/
+proto.service.WhoisScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.WhoisScanResult} returns this
+ */
+proto.service.WhoisScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.WhoisScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.WhoisScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.WhoisScanResult} returns this
+*/
+proto.service.WhoisScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.WhoisScanResult} returns this
+ */
+proto.service.WhoisScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.WhoisScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanAbuseChRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanAbuseChRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanAbuseChRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanAbuseChRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanAbuseChRequest}
+ */
+proto.service.ScanAbuseChRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanAbuseChRequest;
+  return proto.service.ScanAbuseChRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanAbuseChRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanAbuseChRequest}
+ */
+proto.service.ScanAbuseChRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanAbuseChRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanAbuseChRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanAbuseChRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanAbuseChRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.ScanAbuseChRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanAbuseChRequest} returns this
+ */
+proto.service.ScanAbuseChRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 2;
+ * @return {string}
+ */
+proto.service.ScanAbuseChRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanAbuseChRequest} returns this
+ */
+proto.service.ScanAbuseChRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.ScanAbuseChResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.ScanAbuseChResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.ScanAbuseChResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanAbuseChResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+scanId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+result: (f = msg.getResult()) && proto.service.AbuseChSecurityResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.ScanAbuseChResponse}
+ */
+proto.service.ScanAbuseChResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.ScanAbuseChResponse;
+  return proto.service.ScanAbuseChResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.ScanAbuseChResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.ScanAbuseChResponse}
+ */
+proto.service.ScanAbuseChResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScanId(value);
+      break;
+    case 2:
+      var value = new proto.service.AbuseChSecurityResult;
+      reader.readMessage(value,proto.service.AbuseChSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.ScanAbuseChResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.ScanAbuseChResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.ScanAbuseChResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.ScanAbuseChResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      2,
+      f,
+      proto.service.AbuseChSecurityResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string scan_id = 1;
+ * @return {string}
+ */
+proto.service.ScanAbuseChResponse.prototype.getScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.ScanAbuseChResponse} returns this
+ */
+proto.service.ScanAbuseChResponse.prototype.setScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional AbuseChSecurityResult result = 2;
+ * @return {?proto.service.AbuseChSecurityResult}
+ */
+proto.service.ScanAbuseChResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.AbuseChSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.AbuseChSecurityResult, 2));
+};
+
+
+/**
+ * @param {?proto.service.AbuseChSecurityResult|undefined} value
+ * @return {!proto.service.ScanAbuseChResponse} returns this
+*/
+proto.service.ScanAbuseChResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ScanAbuseChResponse} returns this
+ */
+proto.service.ScanAbuseChResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ScanAbuseChResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 2) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetAbuseChScanResultsByDomainRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetAbuseChScanResultsByDomainRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+domain: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetAbuseChScanResultsByDomainRequest}
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetAbuseChScanResultsByDomainRequest;
+  return proto.service.GetAbuseChScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetAbuseChScanResultsByDomainRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetAbuseChScanResultsByDomainRequest}
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetAbuseChScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetAbuseChScanResultsByDomainRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string domain = 1;
+ * @return {string}
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetAbuseChScanResultsByDomainRequest} returns this
+ */
+proto.service.GetAbuseChScanResultsByDomainRequest.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetAbuseChScanResultsByDomainResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetAbuseChScanResultsByDomainResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+resultsList: jspb.Message.toObjectList(msg.getResultsList(),
+    proto.service.AbuseChScanResult.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetAbuseChScanResultsByDomainResponse}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetAbuseChScanResultsByDomainResponse;
+  return proto.service.GetAbuseChScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetAbuseChScanResultsByDomainResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetAbuseChScanResultsByDomainResponse}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.AbuseChScanResult;
+      reader.readMessage(value,proto.service.AbuseChScanResult.deserializeBinaryFromReader);
+      msg.addResults(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetAbuseChScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetAbuseChScanResultsByDomainResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResultsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.AbuseChScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated AbuseChScanResult results = 1;
+ * @return {!Array<!proto.service.AbuseChScanResult>}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.getResultsList = function() {
+  return /** @type{!Array<!proto.service.AbuseChScanResult>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.AbuseChScanResult, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.AbuseChScanResult>} value
+ * @return {!proto.service.GetAbuseChScanResultsByDomainResponse} returns this
+*/
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.setResultsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.AbuseChScanResult=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.AbuseChScanResult}
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.AbuseChScanResult, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.GetAbuseChScanResultsByDomainResponse} returns this
+ */
+proto.service.GetAbuseChScanResultsByDomainResponse.prototype.clearResultsList = function() {
+  return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.AbuseChScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.AbuseChScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.AbuseChScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.AbuseChSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.AbuseChScanResult}
+ */
+proto.service.AbuseChScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.AbuseChScanResult;
+  return proto.service.AbuseChScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.AbuseChScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.AbuseChScanResult}
+ */
+proto.service.AbuseChScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.AbuseChSecurityResult;
+      reader.readMessage(value,proto.service.AbuseChSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.AbuseChScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.AbuseChScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.AbuseChScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.AbuseChSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.AbuseChScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChScanResult} returns this
+ */
+proto.service.AbuseChScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.AbuseChScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChScanResult} returns this
+ */
+proto.service.AbuseChScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.AbuseChScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChScanResult} returns this
+ */
+proto.service.AbuseChScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional AbuseChSecurityResult result = 4;
+ * @return {?proto.service.AbuseChSecurityResult}
+ */
+proto.service.AbuseChScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.AbuseChSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.AbuseChSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.AbuseChSecurityResult|undefined} value
+ * @return {!proto.service.AbuseChScanResult} returns this
+*/
+proto.service.AbuseChScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.AbuseChScanResult} returns this
+ */
+proto.service.AbuseChScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.AbuseChScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.AbuseChScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.AbuseChScanResult} returns this
+*/
+proto.service.AbuseChScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.AbuseChScanResult} returns this
+ */
+proto.service.AbuseChScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.AbuseChScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
@@ -4190,6 +15386,579 @@ proto.service.GetDNSScanResultsByDomainResponse.prototype.addResults = function(
  */
 proto.service.GetDNSScanResultsByDomainResponse.prototype.clearResultsList = function() {
   return this.setResultsList([]);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetDNSScanResultByIDRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetDNSScanResultByIDRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetDNSScanResultByIDRequest} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetDNSScanResultByIDRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetDNSScanResultByIDRequest}
+ */
+proto.service.GetDNSScanResultByIDRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetDNSScanResultByIDRequest;
+  return proto.service.GetDNSScanResultByIDRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetDNSScanResultByIDRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetDNSScanResultByIDRequest}
+ */
+proto.service.GetDNSScanResultByIDRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetDNSScanResultByIDRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetDNSScanResultByIDRequest.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetDNSScanResultByIDRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetDNSScanResultByIDRequest.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string dns_scan_id = 1;
+ * @return {string}
+ */
+proto.service.GetDNSScanResultByIDRequest.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.GetDNSScanResultByIDRequest} returns this
+ */
+proto.service.GetDNSScanResultByIDRequest.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.GetDNSScanResultByIDResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.GetDNSScanResultByIDResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.GetDNSScanResultByIDResponse} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetDNSScanResultByIDResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+result: (f = msg.getResult()) && proto.service.DNSScanResult.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.GetDNSScanResultByIDResponse}
+ */
+proto.service.GetDNSScanResultByIDResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.GetDNSScanResultByIDResponse;
+  return proto.service.GetDNSScanResultByIDResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.GetDNSScanResultByIDResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.GetDNSScanResultByIDResponse}
+ */
+proto.service.GetDNSScanResultByIDResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.DNSScanResult;
+      reader.readMessage(value,proto.service.DNSScanResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.GetDNSScanResultByIDResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.GetDNSScanResultByIDResponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.GetDNSScanResultByIDResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.GetDNSScanResultByIDResponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.service.DNSScanResult.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional DNSScanResult result = 1;
+ * @return {?proto.service.DNSScanResult}
+ */
+proto.service.GetDNSScanResultByIDResponse.prototype.getResult = function() {
+  return /** @type{?proto.service.DNSScanResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.DNSScanResult, 1));
+};
+
+
+/**
+ * @param {?proto.service.DNSScanResult|undefined} value
+ * @return {!proto.service.GetDNSScanResultByIDResponse} returns this
+*/
+proto.service.GetDNSScanResultByIDResponse.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.GetDNSScanResultByIDResponse} returns this
+ */
+proto.service.GetDNSScanResultByIDResponse.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.GetDNSScanResultByIDResponse.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.DNSScanResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.DNSScanResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.DNSScanResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DNSScanResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
+dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+result: (f = msg.getResult()) && proto.service.DNSSecurityResult.toObject(includeInstance, f),
+createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.DNSScanResult}
+ */
+proto.service.DNSScanResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.DNSScanResult;
+  return proto.service.DNSScanResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.DNSScanResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.DNSScanResult}
+ */
+proto.service.DNSScanResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDomain(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDnsScanId(value);
+      break;
+    case 4:
+      var value = new proto.service.DNSSecurityResult;
+      reader.readMessage(value,proto.service.DNSSecurityResult.deserializeBinaryFromReader);
+      msg.setResult(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreatedAt(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.DNSScanResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.DNSScanResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.DNSScanResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.DNSScanResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getDomain();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getDnsScanId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getResult();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.service.DNSSecurityResult.serializeBinaryToWriter
+    );
+  }
+  f = message.getCreatedAt();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.service.DNSScanResult.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.DNSScanResult} returns this
+ */
+proto.service.DNSScanResult.prototype.setId = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string domain = 2;
+ * @return {string}
+ */
+proto.service.DNSScanResult.prototype.getDomain = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.DNSScanResult} returns this
+ */
+proto.service.DNSScanResult.prototype.setDomain = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string dns_scan_id = 3;
+ * @return {string}
+ */
+proto.service.DNSScanResult.prototype.getDnsScanId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.DNSScanResult} returns this
+ */
+proto.service.DNSScanResult.prototype.setDnsScanId = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional DNSSecurityResult result = 4;
+ * @return {?proto.service.DNSSecurityResult}
+ */
+proto.service.DNSScanResult.prototype.getResult = function() {
+  return /** @type{?proto.service.DNSSecurityResult} */ (
+    jspb.Message.getWrapperField(this, proto.service.DNSSecurityResult, 4));
+};
+
+
+/**
+ * @param {?proto.service.DNSSecurityResult|undefined} value
+ * @return {!proto.service.DNSScanResult} returns this
+*/
+proto.service.DNSScanResult.prototype.setResult = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.DNSScanResult} returns this
+ */
+proto.service.DNSScanResult.prototype.clearResult = function() {
+  return this.setResult(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.DNSScanResult.prototype.hasResult = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp created_at = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.DNSScanResult.prototype.getCreatedAt = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.DNSScanResult} returns this
+*/
+proto.service.DNSScanResult.prototype.setCreatedAt = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.DNSScanResult} returns this
+ */
+proto.service.DNSScanResult.prototype.clearCreatedAt = function() {
+  return this.setCreatedAt(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.DNSScanResult.prototype.hasCreatedAt = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
@@ -4887,878 +16656,6 @@ proto.service.DNSSecurityResult.prototype.clearErrorsList = function() {
 
 
 
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.DNSScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.DNSScanResult.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.DNSScanResult} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.DNSScanResult.toObject = function(includeInstance, msg) {
-  var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-result: (f = msg.getResult()) && proto.service.DNSSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 4, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.DNSScanResult}
- */
-proto.service.DNSScanResult.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.DNSScanResult;
-  return proto.service.DNSScanResult.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.DNSScanResult} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.DNSScanResult}
- */
-proto.service.DNSScanResult.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 3:
-      var value = new proto.service.DNSSecurityResult;
-      reader.readMessage(value,proto.service.DNSSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.DNSScanResult.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.DNSScanResult.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.DNSScanResult} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.DNSScanResult.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      3,
-      f,
-      proto.service.DNSSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.service.DNSScanResult.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.DNSScanResult} returns this
- */
-proto.service.DNSScanResult.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string domain = 2;
- * @return {string}
- */
-proto.service.DNSScanResult.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.DNSScanResult} returns this
- */
-proto.service.DNSScanResult.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional DNSSecurityResult result = 3;
- * @return {?proto.service.DNSSecurityResult}
- */
-proto.service.DNSScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.DNSSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.DNSSecurityResult, 3));
-};
-
-
-/**
- * @param {?proto.service.DNSSecurityResult|undefined} value
- * @return {!proto.service.DNSScanResult} returns this
-*/
-proto.service.DNSScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 3, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.DNSScanResult} returns this
- */
-proto.service.DNSScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.DNSScanResult.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 3) != null;
-};
-
-
-/**
- * optional string created_at = 4;
- * @return {string}
- */
-proto.service.DNSScanResult.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.DNSScanResult} returns this
- */
-proto.service.DNSScanResult.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanTLSRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanTLSRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanTLSRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanTLSRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanTLSRequest}
- */
-proto.service.ScanTLSRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanTLSRequest;
-  return proto.service.ScanTLSRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanTLSRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanTLSRequest}
- */
-proto.service.ScanTLSRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanTLSRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanTLSRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanTLSRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanTLSRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.ScanTLSRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanTLSRequest} returns this
- */
-proto.service.ScanTLSRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string dns_scan_id = 2;
- * @return {string}
- */
-proto.service.ScanTLSRequest.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanTLSRequest} returns this
- */
-proto.service.ScanTLSRequest.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanTLSResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanTLSResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanTLSResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanTLSResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-result: (f = msg.getResult()) && proto.service.TLSSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanTLSResponse}
- */
-proto.service.ScanTLSResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanTLSResponse;
-  return proto.service.ScanTLSResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanTLSResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanTLSResponse}
- */
-proto.service.ScanTLSResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.TLSSecurityResult;
-      reader.readMessage(value,proto.service.TLSSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanTLSResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanTLSResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanTLSResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanTLSResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.TLSSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional TLSSecurityResult result = 1;
- * @return {?proto.service.TLSSecurityResult}
- */
-proto.service.ScanTLSResponse.prototype.getResult = function() {
-  return /** @type{?proto.service.TLSSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.TLSSecurityResult, 1));
-};
-
-
-/**
- * @param {?proto.service.TLSSecurityResult|undefined} value
- * @return {!proto.service.ScanTLSResponse} returns this
-*/
-proto.service.ScanTLSResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ScanTLSResponse} returns this
- */
-proto.service.ScanTLSResponse.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ScanTLSResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string scan_id = 2;
- * @return {string}
- */
-proto.service.ScanTLSResponse.prototype.getScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanTLSResponse} returns this
- */
-proto.service.ScanTLSResponse.prototype.setScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetTLSScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetTLSScanResultsByDomainRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetTLSScanResultsByDomainRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetTLSScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetTLSScanResultsByDomainRequest}
- */
-proto.service.GetTLSScanResultsByDomainRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetTLSScanResultsByDomainRequest;
-  return proto.service.GetTLSScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetTLSScanResultsByDomainRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetTLSScanResultsByDomainRequest}
- */
-proto.service.GetTLSScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetTLSScanResultsByDomainRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetTLSScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetTLSScanResultsByDomainRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetTLSScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.GetTLSScanResultsByDomainRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.GetTLSScanResultsByDomainRequest} returns this
- */
-proto.service.GetTLSScanResultsByDomainRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.service.GetTLSScanResultsByDomainResponse.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetTLSScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetTLSScanResultsByDomainResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetTLSScanResultsByDomainResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetTLSScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-resultsList: jspb.Message.toObjectList(msg.getResultsList(),
-    proto.service.TLSScanResult.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetTLSScanResultsByDomainResponse}
- */
-proto.service.GetTLSScanResultsByDomainResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetTLSScanResultsByDomainResponse;
-  return proto.service.GetTLSScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetTLSScanResultsByDomainResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetTLSScanResultsByDomainResponse}
- */
-proto.service.GetTLSScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.TLSScanResult;
-      reader.readMessage(value,proto.service.TLSScanResult.deserializeBinaryFromReader);
-      msg.addResults(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetTLSScanResultsByDomainResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetTLSScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetTLSScanResultsByDomainResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetTLSScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResultsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.service.TLSScanResult.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated TLSScanResult results = 1;
- * @return {!Array<!proto.service.TLSScanResult>}
- */
-proto.service.GetTLSScanResultsByDomainResponse.prototype.getResultsList = function() {
-  return /** @type{!Array<!proto.service.TLSScanResult>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.service.TLSScanResult, 1));
-};
-
-
-/**
- * @param {!Array<!proto.service.TLSScanResult>} value
- * @return {!proto.service.GetTLSScanResultsByDomainResponse} returns this
-*/
-proto.service.GetTLSScanResultsByDomainResponse.prototype.setResultsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.service.TLSScanResult=} opt_value
- * @param {number=} opt_index
- * @return {!proto.service.TLSScanResult}
- */
-proto.service.GetTLSScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.TLSScanResult, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.service.GetTLSScanResultsByDomainResponse} returns this
- */
-proto.service.GetTLSScanResultsByDomainResponse.prototype.clearResultsList = function() {
-  return this.setResultsList([]);
-};
-
-
-
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -5803,8 +16700,8 @@ hstsHeader: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
 certificateValid: jspb.Message.getBooleanFieldWithDefault(msg, 4, false),
 certIssuer: jspb.Message.getFieldWithDefault(msg, 5, ""),
 certSubject: jspb.Message.getFieldWithDefault(msg, 6, ""),
-certNotBefore: jspb.Message.getFieldWithDefault(msg, 7, ""),
-certNotAfter: jspb.Message.getFieldWithDefault(msg, 8, ""),
+certNotBefore: (f = msg.getCertNotBefore()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+certNotAfter: (f = msg.getCertNotAfter()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
 certDnsNamesList: (f = jspb.Message.getRepeatedField(msg, 9)) == null ? undefined : f,
 certKeyStrength: jspb.Message.getFieldWithDefault(msg, 10, 0),
 certSignatureAlgorithm: jspb.Message.getFieldWithDefault(msg, 11, ""),
@@ -5870,11 +16767,13 @@ proto.service.TLSSecurityResult.deserializeBinaryFromReader = function(msg, read
       msg.setCertSubject(value);
       break;
     case 7:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCertNotBefore(value);
       break;
     case 8:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setCertNotAfter(value);
       break;
     case 9:
@@ -5965,17 +16864,19 @@ proto.service.TLSSecurityResult.serializeBinaryToWriter = function(message, writ
     );
   }
   f = message.getCertNotBefore();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       7,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
   f = message.getCertNotAfter();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       8,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
   f = message.getCertDnsNamesList();
@@ -6118,38 +17019,76 @@ proto.service.TLSSecurityResult.prototype.setCertSubject = function(value) {
 
 
 /**
- * optional string cert_not_before = 7;
- * @return {string}
+ * optional google.protobuf.Timestamp cert_not_before = 7;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.TLSSecurityResult.prototype.getCertNotBefore = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 7));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.TLSSecurityResult} returns this
+*/
+proto.service.TLSSecurityResult.prototype.setCertNotBefore = function(value) {
+  return jspb.Message.setWrapperField(this, 7, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.TLSSecurityResult} returns this
  */
-proto.service.TLSSecurityResult.prototype.setCertNotBefore = function(value) {
-  return jspb.Message.setProto3StringField(this, 7, value);
+proto.service.TLSSecurityResult.prototype.clearCertNotBefore = function() {
+  return this.setCertNotBefore(undefined);
 };
 
 
 /**
- * optional string cert_not_after = 8;
- * @return {string}
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.TLSSecurityResult.prototype.hasCertNotBefore = function() {
+  return jspb.Message.getField(this, 7) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp cert_not_after = 8;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.TLSSecurityResult.prototype.getCertNotAfter = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 8));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.TLSSecurityResult} returns this
+*/
+proto.service.TLSSecurityResult.prototype.setCertNotAfter = function(value) {
+  return jspb.Message.setWrapperField(this, 8, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.TLSSecurityResult} returns this
  */
-proto.service.TLSSecurityResult.prototype.setCertNotAfter = function(value) {
-  return jspb.Message.setProto3StringField(this, 8, value);
+proto.service.TLSSecurityResult.prototype.clearCertNotAfter = function() {
+  return this.setCertNotAfter(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.TLSSecurityResult.prototype.hasCertNotAfter = function() {
+  return jspb.Message.getField(this, 8) != null;
 };
 
 
@@ -6264,908 +17203,6 @@ proto.service.TLSSecurityResult.prototype.clearErrorsList = function() {
 
 
 
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.TLSScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.TLSScanResult.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.TLSScanResult} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.TLSScanResult.toObject = function(includeInstance, msg) {
-  var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: (f = msg.getResult()) && proto.service.TLSSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.TLSScanResult}
- */
-proto.service.TLSScanResult.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.TLSScanResult;
-  return proto.service.TLSScanResult.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.TLSScanResult} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.TLSScanResult}
- */
-proto.service.TLSScanResult.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    case 4:
-      var value = new proto.service.TLSSecurityResult;
-      reader.readMessage(value,proto.service.TLSSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.TLSScanResult.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.TLSScanResult.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.TLSScanResult} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.TLSScanResult.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      proto.service.TLSSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.service.TLSScanResult.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.TLSScanResult} returns this
- */
-proto.service.TLSScanResult.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string domain = 2;
- * @return {string}
- */
-proto.service.TLSScanResult.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.TLSScanResult} returns this
- */
-proto.service.TLSScanResult.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string dns_scan_id = 3;
- * @return {string}
- */
-proto.service.TLSScanResult.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.TLSScanResult} returns this
- */
-proto.service.TLSScanResult.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional TLSSecurityResult result = 4;
- * @return {?proto.service.TLSSecurityResult}
- */
-proto.service.TLSScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.TLSSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.TLSSecurityResult, 4));
-};
-
-
-/**
- * @param {?proto.service.TLSSecurityResult|undefined} value
- * @return {!proto.service.TLSScanResult} returns this
-*/
-proto.service.TLSScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.TLSScanResult} returns this
- */
-proto.service.TLSScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.TLSScanResult.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional string created_at = 5;
- * @return {string}
- */
-proto.service.TLSScanResult.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.TLSScanResult} returns this
- */
-proto.service.TLSScanResult.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanCrtShRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanCrtShRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanCrtShRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanCrtShRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanCrtShRequest}
- */
-proto.service.ScanCrtShRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanCrtShRequest;
-  return proto.service.ScanCrtShRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanCrtShRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanCrtShRequest}
- */
-proto.service.ScanCrtShRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanCrtShRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanCrtShRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanCrtShRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanCrtShRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.ScanCrtShRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanCrtShRequest} returns this
- */
-proto.service.ScanCrtShRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string dns_scan_id = 2;
- * @return {string}
- */
-proto.service.ScanCrtShRequest.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanCrtShRequest} returns this
- */
-proto.service.ScanCrtShRequest.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanCrtShResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanCrtShResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanCrtShResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanCrtShResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-result: (f = msg.getResult()) && proto.service.CrtShSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanCrtShResponse}
- */
-proto.service.ScanCrtShResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanCrtShResponse;
-  return proto.service.ScanCrtShResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanCrtShResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanCrtShResponse}
- */
-proto.service.ScanCrtShResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.CrtShSecurityResult;
-      reader.readMessage(value,proto.service.CrtShSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanCrtShResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanCrtShResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanCrtShResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanCrtShResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.CrtShSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional CrtShSecurityResult result = 1;
- * @return {?proto.service.CrtShSecurityResult}
- */
-proto.service.ScanCrtShResponse.prototype.getResult = function() {
-  return /** @type{?proto.service.CrtShSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.CrtShSecurityResult, 1));
-};
-
-
-/**
- * @param {?proto.service.CrtShSecurityResult|undefined} value
- * @return {!proto.service.ScanCrtShResponse} returns this
-*/
-proto.service.ScanCrtShResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ScanCrtShResponse} returns this
- */
-proto.service.ScanCrtShResponse.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ScanCrtShResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string scan_id = 2;
- * @return {string}
- */
-proto.service.ScanCrtShResponse.prototype.getScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanCrtShResponse} returns this
- */
-proto.service.ScanCrtShResponse.prototype.setScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetCrtShScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetCrtShScanResultsByDomainRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetCrtShScanResultsByDomainRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetCrtShScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetCrtShScanResultsByDomainRequest}
- */
-proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetCrtShScanResultsByDomainRequest;
-  return proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetCrtShScanResultsByDomainRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetCrtShScanResultsByDomainRequest}
- */
-proto.service.GetCrtShScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetCrtShScanResultsByDomainRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetCrtShScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetCrtShScanResultsByDomainRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetCrtShScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.GetCrtShScanResultsByDomainRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.GetCrtShScanResultsByDomainRequest} returns this
- */
-proto.service.GetCrtShScanResultsByDomainRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.service.GetCrtShScanResultsByDomainResponse.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetCrtShScanResultsByDomainResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetCrtShScanResultsByDomainResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetCrtShScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-resultsList: jspb.Message.toObjectList(msg.getResultsList(),
-    proto.service.CrtShScanResult.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetCrtShScanResultsByDomainResponse}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetCrtShScanResultsByDomainResponse;
-  return proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetCrtShScanResultsByDomainResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetCrtShScanResultsByDomainResponse}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.CrtShScanResult;
-      reader.readMessage(value,proto.service.CrtShScanResult.deserializeBinaryFromReader);
-      msg.addResults(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetCrtShScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetCrtShScanResultsByDomainResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetCrtShScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResultsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.service.CrtShScanResult.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated CrtShScanResult results = 1;
- * @return {!Array<!proto.service.CrtShScanResult>}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.getResultsList = function() {
-  return /** @type{!Array<!proto.service.CrtShScanResult>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.service.CrtShScanResult, 1));
-};
-
-
-/**
- * @param {!Array<!proto.service.CrtShScanResult>} value
- * @return {!proto.service.GetCrtShScanResultsByDomainResponse} returns this
-*/
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.setResultsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.service.CrtShScanResult=} opt_value
- * @param {number=} opt_index
- * @return {!proto.service.CrtShScanResult}
- */
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.CrtShScanResult, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.service.GetCrtShScanResultsByDomainResponse} returns this
- */
-proto.service.GetCrtShScanResultsByDomainResponse.prototype.clearResultsList = function() {
-  return this.setResultsList([]);
-};
-
-
-
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -7207,8 +17244,8 @@ proto.service.CrtShCertificate.toObject = function(includeInstance, msg) {
 id: jspb.Message.getFieldWithDefault(msg, 1, 0),
 commonName: jspb.Message.getFieldWithDefault(msg, 2, ""),
 issuer: jspb.Message.getFieldWithDefault(msg, 3, ""),
-notBefore: jspb.Message.getFieldWithDefault(msg, 4, ""),
-notAfter: jspb.Message.getFieldWithDefault(msg, 5, ""),
+notBefore: (f = msg.getNotBefore()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+notAfter: (f = msg.getNotAfter()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
 serialNumber: jspb.Message.getFieldWithDefault(msg, 6, ""),
 dnsNamesList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
 signatureAlgorithm: jspb.Message.getFieldWithDefault(msg, 8, "")
@@ -7261,11 +17298,13 @@ proto.service.CrtShCertificate.deserializeBinaryFromReader = function(msg, reade
       msg.setIssuer(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setNotBefore(value);
       break;
     case 5:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setNotAfter(value);
       break;
     case 6:
@@ -7331,17 +17370,19 @@ proto.service.CrtShCertificate.serializeBinaryToWriter = function(message, write
     );
   }
   f = message.getNotBefore();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       4,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
   f = message.getNotAfter();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       5,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
   f = message.getSerialNumber();
@@ -7423,38 +17464,76 @@ proto.service.CrtShCertificate.prototype.setIssuer = function(value) {
 
 
 /**
- * optional string not_before = 4;
- * @return {string}
+ * optional google.protobuf.Timestamp not_before = 4;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.CrtShCertificate.prototype.getNotBefore = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.CrtShCertificate} returns this
+*/
+proto.service.CrtShCertificate.prototype.setNotBefore = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.CrtShCertificate} returns this
  */
-proto.service.CrtShCertificate.prototype.setNotBefore = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+proto.service.CrtShCertificate.prototype.clearNotBefore = function() {
+  return this.setNotBefore(undefined);
 };
 
 
 /**
- * optional string not_after = 5;
- * @return {string}
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.CrtShCertificate.prototype.hasNotBefore = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp not_after = 5;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.CrtShCertificate.prototype.getNotAfter = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.CrtShCertificate} returns this
+*/
+proto.service.CrtShCertificate.prototype.setNotAfter = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.CrtShCertificate} returns this
  */
-proto.service.CrtShCertificate.prototype.setNotAfter = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
+proto.service.CrtShCertificate.prototype.clearNotAfter = function() {
+  return this.setNotAfter(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.CrtShCertificate.prototype.hasNotAfter = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 
@@ -7790,908 +17869,6 @@ proto.service.CrtShSecurityResult.prototype.clearErrorsList = function() {
 
 
 
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.CrtShScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.CrtShScanResult.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.CrtShScanResult} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.CrtShScanResult.toObject = function(includeInstance, msg) {
-  var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: (f = msg.getResult()) && proto.service.CrtShSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.CrtShScanResult}
- */
-proto.service.CrtShScanResult.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.CrtShScanResult;
-  return proto.service.CrtShScanResult.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.CrtShScanResult} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.CrtShScanResult}
- */
-proto.service.CrtShScanResult.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    case 4:
-      var value = new proto.service.CrtShSecurityResult;
-      reader.readMessage(value,proto.service.CrtShSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.CrtShScanResult.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.CrtShScanResult.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.CrtShScanResult} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.CrtShScanResult.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      proto.service.CrtShSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.service.CrtShScanResult.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.CrtShScanResult} returns this
- */
-proto.service.CrtShScanResult.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string domain = 2;
- * @return {string}
- */
-proto.service.CrtShScanResult.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.CrtShScanResult} returns this
- */
-proto.service.CrtShScanResult.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string dns_scan_id = 3;
- * @return {string}
- */
-proto.service.CrtShScanResult.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.CrtShScanResult} returns this
- */
-proto.service.CrtShScanResult.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional CrtShSecurityResult result = 4;
- * @return {?proto.service.CrtShSecurityResult}
- */
-proto.service.CrtShScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.CrtShSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.CrtShSecurityResult, 4));
-};
-
-
-/**
- * @param {?proto.service.CrtShSecurityResult|undefined} value
- * @return {!proto.service.CrtShScanResult} returns this
-*/
-proto.service.CrtShScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.CrtShScanResult} returns this
- */
-proto.service.CrtShScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.CrtShScanResult.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional string created_at = 5;
- * @return {string}
- */
-proto.service.CrtShScanResult.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.CrtShScanResult} returns this
- */
-proto.service.CrtShScanResult.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanChaosRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanChaosRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanChaosRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanChaosRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanChaosRequest}
- */
-proto.service.ScanChaosRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanChaosRequest;
-  return proto.service.ScanChaosRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanChaosRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanChaosRequest}
- */
-proto.service.ScanChaosRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanChaosRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanChaosRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanChaosRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanChaosRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.ScanChaosRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanChaosRequest} returns this
- */
-proto.service.ScanChaosRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string dns_scan_id = 2;
- * @return {string}
- */
-proto.service.ScanChaosRequest.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanChaosRequest} returns this
- */
-proto.service.ScanChaosRequest.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanChaosResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanChaosResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanChaosResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanChaosResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-result: (f = msg.getResult()) && proto.service.ChaosSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanChaosResponse}
- */
-proto.service.ScanChaosResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanChaosResponse;
-  return proto.service.ScanChaosResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanChaosResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanChaosResponse}
- */
-proto.service.ScanChaosResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.ChaosSecurityResult;
-      reader.readMessage(value,proto.service.ChaosSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanChaosResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanChaosResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanChaosResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanChaosResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.ChaosSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional ChaosSecurityResult result = 1;
- * @return {?proto.service.ChaosSecurityResult}
- */
-proto.service.ScanChaosResponse.prototype.getResult = function() {
-  return /** @type{?proto.service.ChaosSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.ChaosSecurityResult, 1));
-};
-
-
-/**
- * @param {?proto.service.ChaosSecurityResult|undefined} value
- * @return {!proto.service.ScanChaosResponse} returns this
-*/
-proto.service.ScanChaosResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ScanChaosResponse} returns this
- */
-proto.service.ScanChaosResponse.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ScanChaosResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string scan_id = 2;
- * @return {string}
- */
-proto.service.ScanChaosResponse.prototype.getScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanChaosResponse} returns this
- */
-proto.service.ScanChaosResponse.prototype.setScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetChaosScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetChaosScanResultsByDomainRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetChaosScanResultsByDomainRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetChaosScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetChaosScanResultsByDomainRequest}
- */
-proto.service.GetChaosScanResultsByDomainRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetChaosScanResultsByDomainRequest;
-  return proto.service.GetChaosScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetChaosScanResultsByDomainRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetChaosScanResultsByDomainRequest}
- */
-proto.service.GetChaosScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetChaosScanResultsByDomainRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetChaosScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetChaosScanResultsByDomainRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetChaosScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.GetChaosScanResultsByDomainRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.GetChaosScanResultsByDomainRequest} returns this
- */
-proto.service.GetChaosScanResultsByDomainRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.service.GetChaosScanResultsByDomainResponse.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetChaosScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetChaosScanResultsByDomainResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetChaosScanResultsByDomainResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetChaosScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-resultsList: jspb.Message.toObjectList(msg.getResultsList(),
-    proto.service.ChaosScanResult.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetChaosScanResultsByDomainResponse}
- */
-proto.service.GetChaosScanResultsByDomainResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetChaosScanResultsByDomainResponse;
-  return proto.service.GetChaosScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetChaosScanResultsByDomainResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetChaosScanResultsByDomainResponse}
- */
-proto.service.GetChaosScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.ChaosScanResult;
-      reader.readMessage(value,proto.service.ChaosScanResult.deserializeBinaryFromReader);
-      msg.addResults(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetChaosScanResultsByDomainResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetChaosScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetChaosScanResultsByDomainResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetChaosScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResultsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.service.ChaosScanResult.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated ChaosScanResult results = 1;
- * @return {!Array<!proto.service.ChaosScanResult>}
- */
-proto.service.GetChaosScanResultsByDomainResponse.prototype.getResultsList = function() {
-  return /** @type{!Array<!proto.service.ChaosScanResult>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.service.ChaosScanResult, 1));
-};
-
-
-/**
- * @param {!Array<!proto.service.ChaosScanResult>} value
- * @return {!proto.service.GetChaosScanResultsByDomainResponse} returns this
-*/
-proto.service.GetChaosScanResultsByDomainResponse.prototype.setResultsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.service.ChaosScanResult=} opt_value
- * @param {number=} opt_index
- * @return {!proto.service.ChaosScanResult}
- */
-proto.service.GetChaosScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.ChaosScanResult, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.service.GetChaosScanResultsByDomainResponse} returns this
- */
-proto.service.GetChaosScanResultsByDomainResponse.prototype.clearResultsList = function() {
-  return this.setResultsList([]);
-};
-
-
-
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -8912,908 +18089,6 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.service.ChaosScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ChaosScanResult.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ChaosScanResult} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ChaosScanResult.toObject = function(includeInstance, msg) {
-  var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: (f = msg.getResult()) && proto.service.ChaosSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ChaosScanResult}
- */
-proto.service.ChaosScanResult.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ChaosScanResult;
-  return proto.service.ChaosScanResult.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ChaosScanResult} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ChaosScanResult}
- */
-proto.service.ChaosScanResult.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    case 4:
-      var value = new proto.service.ChaosSecurityResult;
-      reader.readMessage(value,proto.service.ChaosSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ChaosScanResult.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ChaosScanResult.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ChaosScanResult} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ChaosScanResult.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      proto.service.ChaosSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.service.ChaosScanResult.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ChaosScanResult} returns this
- */
-proto.service.ChaosScanResult.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string domain = 2;
- * @return {string}
- */
-proto.service.ChaosScanResult.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ChaosScanResult} returns this
- */
-proto.service.ChaosScanResult.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string dns_scan_id = 3;
- * @return {string}
- */
-proto.service.ChaosScanResult.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ChaosScanResult} returns this
- */
-proto.service.ChaosScanResult.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional ChaosSecurityResult result = 4;
- * @return {?proto.service.ChaosSecurityResult}
- */
-proto.service.ChaosScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.ChaosSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.ChaosSecurityResult, 4));
-};
-
-
-/**
- * @param {?proto.service.ChaosSecurityResult|undefined} value
- * @return {!proto.service.ChaosScanResult} returns this
-*/
-proto.service.ChaosScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ChaosScanResult} returns this
- */
-proto.service.ChaosScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ChaosScanResult.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional string created_at = 5;
- * @return {string}
- */
-proto.service.ChaosScanResult.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ChaosScanResult} returns this
- */
-proto.service.ChaosScanResult.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanShodanRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanShodanRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanShodanRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanShodanRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanShodanRequest}
- */
-proto.service.ScanShodanRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanShodanRequest;
-  return proto.service.ScanShodanRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanShodanRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanShodanRequest}
- */
-proto.service.ScanShodanRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanShodanRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanShodanRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanShodanRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanShodanRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.ScanShodanRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanShodanRequest} returns this
- */
-proto.service.ScanShodanRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string dns_scan_id = 2;
- * @return {string}
- */
-proto.service.ScanShodanRequest.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanShodanRequest} returns this
- */
-proto.service.ScanShodanRequest.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanShodanResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanShodanResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanShodanResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanShodanResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-result: (f = msg.getResult()) && proto.service.ShodanSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanShodanResponse}
- */
-proto.service.ScanShodanResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanShodanResponse;
-  return proto.service.ScanShodanResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanShodanResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanShodanResponse}
- */
-proto.service.ScanShodanResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.ShodanSecurityResult;
-      reader.readMessage(value,proto.service.ShodanSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanShodanResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanShodanResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanShodanResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanShodanResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.ShodanSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional ShodanSecurityResult result = 1;
- * @return {?proto.service.ShodanSecurityResult}
- */
-proto.service.ScanShodanResponse.prototype.getResult = function() {
-  return /** @type{?proto.service.ShodanSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.ShodanSecurityResult, 1));
-};
-
-
-/**
- * @param {?proto.service.ShodanSecurityResult|undefined} value
- * @return {!proto.service.ScanShodanResponse} returns this
-*/
-proto.service.ScanShodanResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ScanShodanResponse} returns this
- */
-proto.service.ScanShodanResponse.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ScanShodanResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string scan_id = 2;
- * @return {string}
- */
-proto.service.ScanShodanResponse.prototype.getScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanShodanResponse} returns this
- */
-proto.service.ScanShodanResponse.prototype.setScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetShodanScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetShodanScanResultsByDomainRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetShodanScanResultsByDomainRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetShodanScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetShodanScanResultsByDomainRequest}
- */
-proto.service.GetShodanScanResultsByDomainRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetShodanScanResultsByDomainRequest;
-  return proto.service.GetShodanScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetShodanScanResultsByDomainRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetShodanScanResultsByDomainRequest}
- */
-proto.service.GetShodanScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetShodanScanResultsByDomainRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetShodanScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetShodanScanResultsByDomainRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetShodanScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.GetShodanScanResultsByDomainRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.GetShodanScanResultsByDomainRequest} returns this
- */
-proto.service.GetShodanScanResultsByDomainRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.service.GetShodanScanResultsByDomainResponse.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetShodanScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetShodanScanResultsByDomainResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetShodanScanResultsByDomainResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetShodanScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-resultsList: jspb.Message.toObjectList(msg.getResultsList(),
-    proto.service.ShodanScanResult.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetShodanScanResultsByDomainResponse}
- */
-proto.service.GetShodanScanResultsByDomainResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetShodanScanResultsByDomainResponse;
-  return proto.service.GetShodanScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetShodanScanResultsByDomainResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetShodanScanResultsByDomainResponse}
- */
-proto.service.GetShodanScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.ShodanScanResult;
-      reader.readMessage(value,proto.service.ShodanScanResult.deserializeBinaryFromReader);
-      msg.addResults(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetShodanScanResultsByDomainResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetShodanScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetShodanScanResultsByDomainResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetShodanScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResultsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.service.ShodanScanResult.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated ShodanScanResult results = 1;
- * @return {!Array<!proto.service.ShodanScanResult>}
- */
-proto.service.GetShodanScanResultsByDomainResponse.prototype.getResultsList = function() {
-  return /** @type{!Array<!proto.service.ShodanScanResult>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.service.ShodanScanResult, 1));
-};
-
-
-/**
- * @param {!Array<!proto.service.ShodanScanResult>} value
- * @return {!proto.service.GetShodanScanResultsByDomainResponse} returns this
-*/
-proto.service.GetShodanScanResultsByDomainResponse.prototype.setResultsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.service.ShodanScanResult=} opt_value
- * @param {number=} opt_index
- * @return {!proto.service.ShodanScanResult}
- */
-proto.service.GetShodanScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.ShodanScanResult, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.service.GetShodanScanResultsByDomainResponse} returns this
- */
-proto.service.GetShodanScanResultsByDomainResponse.prototype.clearResultsList = function() {
-  return this.setResultsList([]);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
 proto.service.ShodanLocation.prototype.toObject = function(opt_includeInstance) {
   return proto.service.ShodanLocation.toObject(opt_includeInstance, this);
 };
@@ -9879,11 +18154,11 @@ proto.service.ShodanLocation.deserializeBinaryFromReader = function(msg, reader)
       msg.setCountryName(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readDouble());
+      var value = /** @type {number} */ (reader.readFloat());
       msg.setLatitude(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readDouble());
+      var value = /** @type {number} */ (reader.readFloat());
       msg.setLongitude(value);
       break;
     default:
@@ -9931,14 +18206,14 @@ proto.service.ShodanLocation.serializeBinaryToWriter = function(message, writer)
   }
   f = message.getLatitude();
   if (f !== 0.0) {
-    writer.writeDouble(
+    writer.writeFloat(
       3,
       f
     );
   }
   f = message.getLongitude();
   if (f !== 0.0) {
-    writer.writeDouble(
+    writer.writeFloat(
       4,
       f
     );
@@ -9983,7 +18258,7 @@ proto.service.ShodanLocation.prototype.setCountryName = function(value) {
 
 
 /**
- * optional double latitude = 3;
+ * optional float latitude = 3;
  * @return {number}
  */
 proto.service.ShodanLocation.prototype.getLatitude = function() {
@@ -10001,7 +18276,7 @@ proto.service.ShodanLocation.prototype.setLatitude = function(value) {
 
 
 /**
- * optional double longitude = 4;
+ * optional float longitude = 4;
  * @return {number}
  */
 proto.service.ShodanLocation.prototype.getLongitude = function() {
@@ -10052,7 +18327,8 @@ proto.service.ShodanSSL.toObject = function(includeInstance, msg) {
   var f, obj = {
 issuer: jspb.Message.getFieldWithDefault(msg, 1, ""),
 subject: jspb.Message.getFieldWithDefault(msg, 2, ""),
-expires: jspb.Message.getFieldWithDefault(msg, 3, "")
+expires: (f = msg.getExpires()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+notAfter: (f = msg.getNotAfter()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -10098,8 +18374,14 @@ proto.service.ShodanSSL.deserializeBinaryFromReader = function(msg, reader) {
       msg.setSubject(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpires(value);
+      break;
+    case 4:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setNotAfter(value);
       break;
     default:
       reader.skipField();
@@ -10145,10 +18427,19 @@ proto.service.ShodanSSL.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getExpires();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       3,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getNotAfter();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -10191,20 +18482,76 @@ proto.service.ShodanSSL.prototype.setSubject = function(value) {
 
 
 /**
- * optional string expires = 3;
- * @return {string}
+ * optional google.protobuf.Timestamp expires = 3;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.ShodanSSL.prototype.getExpires = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.ShodanSSL} returns this
+*/
+proto.service.ShodanSSL.prototype.setExpires = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.ShodanSSL} returns this
  */
-proto.service.ShodanSSL.prototype.setExpires = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
+proto.service.ShodanSSL.prototype.clearExpires = function() {
+  return this.setExpires(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ShodanSSL.prototype.hasExpires = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp not_after = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.ShodanSSL.prototype.getNotAfter = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.ShodanSSL} returns this
+*/
+proto.service.ShodanSSL.prototype.setNotAfter = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.ShodanSSL} returns this
+ */
+proto.service.ShodanSSL.prototype.clearNotAfter = function() {
+  return this.setNotAfter(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ShodanSSL.prototype.hasNotAfter = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -10389,7 +18736,7 @@ domainsList: (f = jspb.Message.getRepeatedField(msg, 9)) == null ? undefined : f
 asn: jspb.Message.getFieldWithDefault(msg, 10, ""),
 org: jspb.Message.getFieldWithDefault(msg, 11, ""),
 isp: jspb.Message.getFieldWithDefault(msg, 12, ""),
-timestamp: jspb.Message.getFieldWithDefault(msg, 13, ""),
+timestamp: (f = msg.getTimestamp()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
 shodanMeta: (f = msg.getShodanMeta()) && proto.service.ShodanMetadata.toObject(includeInstance, f)
   };
 
@@ -10478,7 +18825,8 @@ proto.service.ShodanHost.deserializeBinaryFromReader = function(msg, reader) {
       msg.setIsp(value);
       break;
     case 13:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setTimestamp(value);
       break;
     case 14:
@@ -10602,10 +18950,11 @@ proto.service.ShodanHost.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getTimestamp();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       13,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
   f = message.getShodanMeta();
@@ -10931,20 +19280,39 @@ proto.service.ShodanHost.prototype.setIsp = function(value) {
 
 
 /**
- * optional string timestamp = 13;
- * @return {string}
+ * optional google.protobuf.Timestamp timestamp = 13;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.ShodanHost.prototype.getTimestamp = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.ShodanHost} returns this
+*/
+proto.service.ShodanHost.prototype.setTimestamp = function(value) {
+  return jspb.Message.setWrapperField(this, 13, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.ShodanHost} returns this
  */
-proto.service.ShodanHost.prototype.setTimestamp = function(value) {
-  return jspb.Message.setProto3StringField(this, 13, value);
+proto.service.ShodanHost.prototype.clearTimestamp = function() {
+  return this.setTimestamp(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.ShodanHost.prototype.hasTimestamp = function() {
+  return jspb.Message.getField(this, 13) != null;
 };
 
 
@@ -11195,908 +19563,6 @@ proto.service.ShodanSecurityResult.prototype.clearErrorsList = function() {
 
 
 
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ShodanScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ShodanScanResult.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ShodanScanResult} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ShodanScanResult.toObject = function(includeInstance, msg) {
-  var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: (f = msg.getResult()) && proto.service.ShodanSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ShodanScanResult}
- */
-proto.service.ShodanScanResult.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ShodanScanResult;
-  return proto.service.ShodanScanResult.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ShodanScanResult} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ShodanScanResult}
- */
-proto.service.ShodanScanResult.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    case 4:
-      var value = new proto.service.ShodanSecurityResult;
-      reader.readMessage(value,proto.service.ShodanSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 5:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ShodanScanResult.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ShodanScanResult.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ShodanScanResult} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ShodanScanResult.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getId();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      proto.service.ShodanSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getCreatedAt();
-  if (f.length > 0) {
-    writer.writeString(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string id = 1;
- * @return {string}
- */
-proto.service.ShodanScanResult.prototype.getId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ShodanScanResult} returns this
- */
-proto.service.ShodanScanResult.prototype.setId = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string domain = 2;
- * @return {string}
- */
-proto.service.ShodanScanResult.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ShodanScanResult} returns this
- */
-proto.service.ShodanScanResult.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string dns_scan_id = 3;
- * @return {string}
- */
-proto.service.ShodanScanResult.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ShodanScanResult} returns this
- */
-proto.service.ShodanScanResult.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional ShodanSecurityResult result = 4;
- * @return {?proto.service.ShodanSecurityResult}
- */
-proto.service.ShodanScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.ShodanSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.ShodanSecurityResult, 4));
-};
-
-
-/**
- * @param {?proto.service.ShodanSecurityResult|undefined} value
- * @return {!proto.service.ShodanScanResult} returns this
-*/
-proto.service.ShodanScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ShodanScanResult} returns this
- */
-proto.service.ShodanScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ShodanScanResult.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 4) != null;
-};
-
-
-/**
- * optional string created_at = 5;
- * @return {string}
- */
-proto.service.ShodanScanResult.prototype.getCreatedAt = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ShodanScanResult} returns this
- */
-proto.service.ShodanScanResult.prototype.setCreatedAt = function(value) {
-  return jspb.Message.setProto3StringField(this, 5, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanOTXRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanOTXRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanOTXRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanOTXRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanOTXRequest}
- */
-proto.service.ScanOTXRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanOTXRequest;
-  return proto.service.ScanOTXRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanOTXRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanOTXRequest}
- */
-proto.service.ScanOTXRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanOTXRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanOTXRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanOTXRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanOTXRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.ScanOTXRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanOTXRequest} returns this
- */
-proto.service.ScanOTXRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-/**
- * optional string dns_scan_id = 2;
- * @return {string}
- */
-proto.service.ScanOTXRequest.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanOTXRequest} returns this
- */
-proto.service.ScanOTXRequest.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.ScanOTXResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.ScanOTXResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.ScanOTXResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanOTXResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-result: (f = msg.getResult()) && proto.service.OTXSecurityResult.toObject(includeInstance, f),
-scanId: jspb.Message.getFieldWithDefault(msg, 2, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.ScanOTXResponse}
- */
-proto.service.ScanOTXResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.ScanOTXResponse;
-  return proto.service.ScanOTXResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.ScanOTXResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.ScanOTXResponse}
- */
-proto.service.ScanOTXResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.OTXSecurityResult;
-      reader.readMessage(value,proto.service.OTXSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setScanId(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.ScanOTXResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.ScanOTXResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.ScanOTXResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.ScanOTXResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResult();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.service.OTXSecurityResult.serializeBinaryToWriter
-    );
-  }
-  f = message.getScanId();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-};
-
-
-/**
- * optional OTXSecurityResult result = 1;
- * @return {?proto.service.OTXSecurityResult}
- */
-proto.service.ScanOTXResponse.prototype.getResult = function() {
-  return /** @type{?proto.service.OTXSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.OTXSecurityResult, 1));
-};
-
-
-/**
- * @param {?proto.service.OTXSecurityResult|undefined} value
- * @return {!proto.service.ScanOTXResponse} returns this
-*/
-proto.service.ScanOTXResponse.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-/**
- * Clears the message field making it undefined.
- * @return {!proto.service.ScanOTXResponse} returns this
- */
-proto.service.ScanOTXResponse.prototype.clearResult = function() {
-  return this.setResult(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {boolean}
- */
-proto.service.ScanOTXResponse.prototype.hasResult = function() {
-  return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string scan_id = 2;
- * @return {string}
- */
-proto.service.ScanOTXResponse.prototype.getScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.ScanOTXResponse} returns this
- */
-proto.service.ScanOTXResponse.prototype.setScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetOTXScanResultsByDomainRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetOTXScanResultsByDomainRequest.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetOTXScanResultsByDomainRequest} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetOTXScanResultsByDomainRequest.toObject = function(includeInstance, msg) {
-  var f, obj = {
-domain: jspb.Message.getFieldWithDefault(msg, 1, "")
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetOTXScanResultsByDomainRequest}
- */
-proto.service.GetOTXScanResultsByDomainRequest.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetOTXScanResultsByDomainRequest;
-  return proto.service.GetOTXScanResultsByDomainRequest.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetOTXScanResultsByDomainRequest} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetOTXScanResultsByDomainRequest}
- */
-proto.service.GetOTXScanResultsByDomainRequest.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetOTXScanResultsByDomainRequest.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetOTXScanResultsByDomainRequest.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetOTXScanResultsByDomainRequest} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetOTXScanResultsByDomainRequest.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getDomain();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string domain = 1;
- * @return {string}
- */
-proto.service.GetOTXScanResultsByDomainRequest.prototype.getDomain = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.service.GetOTXScanResultsByDomainRequest} returns this
- */
-proto.service.GetOTXScanResultsByDomainRequest.prototype.setDomain = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
-};
-
-
-
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.service.GetOTXScanResultsByDomainResponse.repeatedFields_ = [1];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * Optional fields that are not set will be set to undefined.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
- * @param {boolean=} opt_includeInstance Deprecated. whether to include the
- *     JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.service.GetOTXScanResultsByDomainResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.GetOTXScanResultsByDomainResponse.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Deprecated. Whether to include
- *     the JSPB instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.service.GetOTXScanResultsByDomainResponse} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetOTXScanResultsByDomainResponse.toObject = function(includeInstance, msg) {
-  var f, obj = {
-resultsList: jspb.Message.toObjectList(msg.getResultsList(),
-    proto.service.OTXScanResult.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.GetOTXScanResultsByDomainResponse}
- */
-proto.service.GetOTXScanResultsByDomainResponse.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.GetOTXScanResultsByDomainResponse;
-  return proto.service.GetOTXScanResultsByDomainResponse.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.service.GetOTXScanResultsByDomainResponse} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.GetOTXScanResultsByDomainResponse}
- */
-proto.service.GetOTXScanResultsByDomainResponse.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.service.OTXScanResult;
-      reader.readMessage(value,proto.service.OTXScanResult.deserializeBinaryFromReader);
-      msg.addResults(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.service.GetOTXScanResultsByDomainResponse.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.service.GetOTXScanResultsByDomainResponse.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.service.GetOTXScanResultsByDomainResponse} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.service.GetOTXScanResultsByDomainResponse.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getResultsList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.service.OTXScanResult.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * repeated OTXScanResult results = 1;
- * @return {!Array<!proto.service.OTXScanResult>}
- */
-proto.service.GetOTXScanResultsByDomainResponse.prototype.getResultsList = function() {
-  return /** @type{!Array<!proto.service.OTXScanResult>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.service.OTXScanResult, 1));
-};
-
-
-/**
- * @param {!Array<!proto.service.OTXScanResult>} value
- * @return {!proto.service.GetOTXScanResultsByDomainResponse} returns this
-*/
-proto.service.GetOTXScanResultsByDomainResponse.prototype.setResultsList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.service.OTXScanResult=} opt_value
- * @param {number=} opt_index
- * @return {!proto.service.OTXScanResult}
- */
-proto.service.GetOTXScanResultsByDomainResponse.prototype.addResults = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.OTXScanResult, opt_index);
-};
-
-
-/**
- * Clears the list making it empty but non-null.
- * @return {!proto.service.GetOTXScanResultsByDomainResponse} returns this
- */
-proto.service.GetOTXScanResultsByDomainResponse.prototype.clearResultsList = function() {
-  return this.setResultsList([]);
-};
-
-
-
 /**
  * List of repeated fields within this message type.
  * @private {!Array<number>}
@@ -12315,7 +19781,7 @@ proto.service.OTXMalware.prototype.toObject = function(opt_includeInstance) {
 proto.service.OTXMalware.toObject = function(includeInstance, msg) {
   var f, obj = {
 hash: jspb.Message.getFieldWithDefault(msg, 1, ""),
-datetime: jspb.Message.getFieldWithDefault(msg, 2, "")
+datetime: (f = msg.getDatetime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12357,7 +19823,8 @@ proto.service.OTXMalware.deserializeBinaryFromReader = function(msg, reader) {
       msg.setHash(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setDatetime(value);
       break;
     default:
@@ -12397,10 +19864,11 @@ proto.service.OTXMalware.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getDatetime();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -12425,20 +19893,39 @@ proto.service.OTXMalware.prototype.setHash = function(value) {
 
 
 /**
- * optional string datetime = 2;
- * @return {string}
+ * optional google.protobuf.Timestamp datetime = 2;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.OTXMalware.prototype.getDatetime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.OTXMalware} returns this
+*/
+proto.service.OTXMalware.prototype.setDatetime = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.OTXMalware} returns this
  */
-proto.service.OTXMalware.prototype.setDatetime = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+proto.service.OTXMalware.prototype.clearDatetime = function() {
+  return this.setDatetime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.OTXMalware.prototype.hasDatetime = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
@@ -12475,7 +19962,7 @@ proto.service.OTXURL.prototype.toObject = function(opt_includeInstance) {
 proto.service.OTXURL.toObject = function(includeInstance, msg) {
   var f, obj = {
 url: jspb.Message.getFieldWithDefault(msg, 1, ""),
-datetime: jspb.Message.getFieldWithDefault(msg, 2, "")
+datetime: (f = msg.getDatetime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12517,7 +20004,8 @@ proto.service.OTXURL.deserializeBinaryFromReader = function(msg, reader) {
       msg.setUrl(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setDatetime(value);
       break;
     default:
@@ -12557,10 +20045,11 @@ proto.service.OTXURL.serializeBinaryToWriter = function(message, writer) {
     );
   }
   f = message.getDatetime();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       2,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -12585,20 +20074,39 @@ proto.service.OTXURL.prototype.setUrl = function(value) {
 
 
 /**
- * optional string datetime = 2;
- * @return {string}
+ * optional google.protobuf.Timestamp datetime = 2;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.OTXURL.prototype.getDatetime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.OTXURL} returns this
+*/
+proto.service.OTXURL.prototype.setDatetime = function(value) {
+  return jspb.Message.setWrapperField(this, 2, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.OTXURL} returns this
  */
-proto.service.OTXURL.prototype.setDatetime = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+proto.service.OTXURL.prototype.clearDatetime = function() {
+  return this.setDatetime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.OTXURL.prototype.hasDatetime = function() {
+  return jspb.Message.getField(this, 2) != null;
 };
 
 
@@ -12637,7 +20145,7 @@ proto.service.OTXPassiveDNS.toObject = function(includeInstance, msg) {
 address: jspb.Message.getFieldWithDefault(msg, 1, ""),
 hostname: jspb.Message.getFieldWithDefault(msg, 2, ""),
 record: jspb.Message.getFieldWithDefault(msg, 3, ""),
-datetime: jspb.Message.getFieldWithDefault(msg, 4, "")
+datetime: (f = msg.getDatetime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -12687,7 +20195,8 @@ proto.service.OTXPassiveDNS.deserializeBinaryFromReader = function(msg, reader) 
       msg.setRecord(value);
       break;
     case 4:
-      var value = /** @type {string} */ (reader.readString());
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setDatetime(value);
       break;
     default:
@@ -12741,10 +20250,11 @@ proto.service.OTXPassiveDNS.serializeBinaryToWriter = function(message, writer) 
     );
   }
   f = message.getDatetime();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f != null) {
+    writer.writeMessage(
       4,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
 };
@@ -12805,20 +20315,39 @@ proto.service.OTXPassiveDNS.prototype.setRecord = function(value) {
 
 
 /**
- * optional string datetime = 4;
- * @return {string}
+ * optional google.protobuf.Timestamp datetime = 4;
+ * @return {?proto.google.protobuf.Timestamp}
  */
 proto.service.OTXPassiveDNS.prototype.getDatetime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
 };
 
 
 /**
- * @param {string} value
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.OTXPassiveDNS} returns this
+*/
+proto.service.OTXPassiveDNS.prototype.setDatetime = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
  * @return {!proto.service.OTXPassiveDNS} returns this
  */
-proto.service.OTXPassiveDNS.prototype.setDatetime = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
+proto.service.OTXPassiveDNS.prototype.clearDatetime = function() {
+  return this.setDatetime(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.OTXPassiveDNS.prototype.hasDatetime = function() {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -13189,6 +20718,13 @@ proto.service.OTXSecurityResult.prototype.clearErrorsList = function() {
 
 
 
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.WhoisSecurityResult.repeatedFields_ = [6];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -13204,8 +20740,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.service.OTXScanResult.prototype.toObject = function(opt_includeInstance) {
-  return proto.service.OTXScanResult.toObject(opt_includeInstance, this);
+proto.service.WhoisSecurityResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.WhoisSecurityResult.toObject(opt_includeInstance, this);
 };
 
 
@@ -13214,17 +20750,18 @@ proto.service.OTXScanResult.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Deprecated. Whether to include
  *     the JSPB instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.service.OTXScanResult} msg The msg instance to transform.
+ * @param {!proto.service.WhoisSecurityResult} msg The msg instance to transform.
  * @return {!Object}
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.service.OTXScanResult.toObject = function(includeInstance, msg) {
+proto.service.WhoisSecurityResult.toObject = function(includeInstance, msg) {
   var f, obj = {
-id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-domain: jspb.Message.getFieldWithDefault(msg, 2, ""),
-dnsScanId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-result: (f = msg.getResult()) && proto.service.OTXSecurityResult.toObject(includeInstance, f),
-createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
+domain: jspb.Message.getFieldWithDefault(msg, 1, ""),
+registrar: jspb.Message.getFieldWithDefault(msg, 2, ""),
+creationDate: (f = msg.getCreationDate()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+expiryDate: (f = msg.getExpiryDate()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+registrantName: jspb.Message.getFieldWithDefault(msg, 5, ""),
+errorsList: (f = jspb.Message.getRepeatedField(msg, 6)) == null ? undefined : f
   };
 
   if (includeInstance) {
@@ -13238,23 +20775,23 @@ createdAt: jspb.Message.getFieldWithDefault(msg, 5, "")
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.service.OTXScanResult}
+ * @return {!proto.service.WhoisSecurityResult}
  */
-proto.service.OTXScanResult.deserializeBinary = function(bytes) {
+proto.service.WhoisSecurityResult.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.service.OTXScanResult;
-  return proto.service.OTXScanResult.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.service.WhoisSecurityResult;
+  return proto.service.WhoisSecurityResult.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.service.OTXScanResult} msg The message object to deserialize into.
+ * @param {!proto.service.WhoisSecurityResult} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.service.OTXScanResult}
+ * @return {!proto.service.WhoisSecurityResult}
  */
-proto.service.OTXScanResult.deserializeBinaryFromReader = function(msg, reader) {
+proto.service.WhoisSecurityResult.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -13263,24 +20800,29 @@ proto.service.OTXScanResult.deserializeBinaryFromReader = function(msg, reader) 
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setId(value);
+      msg.setDomain(value);
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDomain(value);
+      msg.setRegistrar(value);
       break;
     case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setDnsScanId(value);
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setCreationDate(value);
       break;
     case 4:
-      var value = new proto.service.OTXSecurityResult;
-      reader.readMessage(value,proto.service.OTXSecurityResult.deserializeBinaryFromReader);
-      msg.setResult(value);
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setExpiryDate(value);
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setCreatedAt(value);
+      msg.setRegistrantName(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addErrors(value);
       break;
     default:
       reader.skipField();
@@ -13295,9 +20837,9 @@ proto.service.OTXScanResult.deserializeBinaryFromReader = function(msg, reader) 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.service.OTXScanResult.prototype.serializeBinary = function() {
+proto.service.WhoisSecurityResult.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  proto.service.OTXScanResult.serializeBinaryToWriter(this, writer);
+  proto.service.WhoisSecurityResult.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
@@ -13305,130 +20847,120 @@ proto.service.OTXScanResult.prototype.serializeBinary = function() {
 /**
  * Serializes the given message to binary data (in protobuf wire
  * format), writing to the given BinaryWriter.
- * @param {!proto.service.OTXScanResult} message
+ * @param {!proto.service.WhoisSecurityResult} message
  * @param {!jspb.BinaryWriter} writer
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
-proto.service.OTXScanResult.serializeBinaryToWriter = function(message, writer) {
+proto.service.WhoisSecurityResult.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getId();
+  f = message.getDomain();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = message.getDomain();
+  f = message.getRegistrar();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getDnsScanId();
-  if (f.length > 0) {
-    writer.writeString(
+  f = message.getCreationDate();
+  if (f != null) {
+    writer.writeMessage(
       3,
-      f
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = message.getResult();
+  f = message.getExpiryDate();
   if (f != null) {
     writer.writeMessage(
       4,
       f,
-      proto.service.OTXSecurityResult.serializeBinaryToWriter
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
-  f = message.getCreatedAt();
+  f = message.getRegistrantName();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
+  f = message.getErrorsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      6,
+      f
+    );
+  }
 };
 
 
 /**
- * optional string id = 1;
+ * optional string domain = 1;
  * @return {string}
  */
-proto.service.OTXScanResult.prototype.getId = function() {
+proto.service.WhoisSecurityResult.prototype.getDomain = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.OTXScanResult} returns this
+ * @return {!proto.service.WhoisSecurityResult} returns this
  */
-proto.service.OTXScanResult.prototype.setId = function(value) {
+proto.service.WhoisSecurityResult.prototype.setDomain = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
 /**
- * optional string domain = 2;
+ * optional string registrar = 2;
  * @return {string}
  */
-proto.service.OTXScanResult.prototype.getDomain = function() {
+proto.service.WhoisSecurityResult.prototype.getRegistrar = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.OTXScanResult} returns this
+ * @return {!proto.service.WhoisSecurityResult} returns this
  */
-proto.service.OTXScanResult.prototype.setDomain = function(value) {
+proto.service.WhoisSecurityResult.prototype.setRegistrar = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string dns_scan_id = 3;
- * @return {string}
+ * optional google.protobuf.Timestamp creation_date = 3;
+ * @return {?proto.google.protobuf.Timestamp}
  */
-proto.service.OTXScanResult.prototype.getDnsScanId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.service.WhoisSecurityResult.prototype.getCreationDate = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
 };
 
 
 /**
- * @param {string} value
- * @return {!proto.service.OTXScanResult} returns this
- */
-proto.service.OTXScanResult.prototype.setDnsScanId = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional OTXSecurityResult result = 4;
- * @return {?proto.service.OTXSecurityResult}
- */
-proto.service.OTXScanResult.prototype.getResult = function() {
-  return /** @type{?proto.service.OTXSecurityResult} */ (
-    jspb.Message.getWrapperField(this, proto.service.OTXSecurityResult, 4));
-};
-
-
-/**
- * @param {?proto.service.OTXSecurityResult|undefined} value
- * @return {!proto.service.OTXScanResult} returns this
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.WhoisSecurityResult} returns this
 */
-proto.service.OTXScanResult.prototype.setResult = function(value) {
-  return jspb.Message.setWrapperField(this, 4, value);
+proto.service.WhoisSecurityResult.prototype.setCreationDate = function(value) {
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
 /**
  * Clears the message field making it undefined.
- * @return {!proto.service.OTXScanResult} returns this
+ * @return {!proto.service.WhoisSecurityResult} returns this
  */
-proto.service.OTXScanResult.prototype.clearResult = function() {
-  return this.setResult(undefined);
+proto.service.WhoisSecurityResult.prototype.clearCreationDate = function() {
+  return this.setCreationDate(undefined);
 };
 
 
@@ -13436,26 +20968,736 @@ proto.service.OTXScanResult.prototype.clearResult = function() {
  * Returns whether this field is set.
  * @return {boolean}
  */
-proto.service.OTXScanResult.prototype.hasResult = function() {
+proto.service.WhoisSecurityResult.prototype.hasCreationDate = function() {
+  return jspb.Message.getField(this, 3) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp expiry_date = 4;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.WhoisSecurityResult.prototype.getExpiryDate = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.WhoisSecurityResult} returns this
+*/
+proto.service.WhoisSecurityResult.prototype.setExpiryDate = function(value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.WhoisSecurityResult} returns this
+ */
+proto.service.WhoisSecurityResult.prototype.clearExpiryDate = function() {
+  return this.setExpiryDate(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.WhoisSecurityResult.prototype.hasExpiryDate = function() {
   return jspb.Message.getField(this, 4) != null;
 };
 
 
 /**
- * optional string created_at = 5;
+ * optional string registrant_name = 5;
  * @return {string}
  */
-proto.service.OTXScanResult.prototype.getCreatedAt = function() {
+proto.service.WhoisSecurityResult.prototype.getRegistrantName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /**
  * @param {string} value
- * @return {!proto.service.OTXScanResult} returns this
+ * @return {!proto.service.WhoisSecurityResult} returns this
  */
-proto.service.OTXScanResult.prototype.setCreatedAt = function(value) {
+proto.service.WhoisSecurityResult.prototype.setRegistrantName = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
+};
+
+
+/**
+ * repeated string errors = 6;
+ * @return {!Array<string>}
+ */
+proto.service.WhoisSecurityResult.prototype.getErrorsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 6));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.service.WhoisSecurityResult} returns this
+ */
+proto.service.WhoisSecurityResult.prototype.setErrorsList = function(value) {
+  return jspb.Message.setField(this, 6, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.service.WhoisSecurityResult} returns this
+ */
+proto.service.WhoisSecurityResult.prototype.addErrors = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 6, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.WhoisSecurityResult} returns this
+ */
+proto.service.WhoisSecurityResult.prototype.clearErrorsList = function() {
+  return this.setErrorsList([]);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.AbuseChIOC.repeatedFields_ = [7,8];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.AbuseChIOC.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.AbuseChIOC.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.AbuseChIOC} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChIOC.toObject = function(includeInstance, msg) {
+  var f, obj = {
+iocType: jspb.Message.getFieldWithDefault(msg, 1, ""),
+iocValue: jspb.Message.getFieldWithDefault(msg, 2, ""),
+threatType: jspb.Message.getFieldWithDefault(msg, 3, ""),
+confidence: jspb.Message.getFloatingPointFieldWithDefault(msg, 4, 0.0),
+firstSeen: (f = msg.getFirstSeen()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+lastSeen: (f = msg.getLastSeen()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+malwareAliasList: (f = jspb.Message.getRepeatedField(msg, 7)) == null ? undefined : f,
+tagsList: (f = jspb.Message.getRepeatedField(msg, 8)) == null ? undefined : f
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.AbuseChIOC}
+ */
+proto.service.AbuseChIOC.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.AbuseChIOC;
+  return proto.service.AbuseChIOC.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.AbuseChIOC} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.AbuseChIOC}
+ */
+proto.service.AbuseChIOC.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setIocType(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setIocValue(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setThreatType(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setConfidence(value);
+      break;
+    case 5:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setFirstSeen(value);
+      break;
+    case 6:
+      var value = new google_protobuf_timestamp_pb.Timestamp;
+      reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
+      msg.setLastSeen(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addMalwareAlias(value);
+      break;
+    case 8:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addTags(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.AbuseChIOC.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.AbuseChIOC.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.AbuseChIOC} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChIOC.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIocType();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getIocValue();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getThreatType();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getConfidence();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      4,
+      f
+    );
+  }
+  f = message.getFirstSeen();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getLastSeen();
+  if (f != null) {
+    writer.writeMessage(
+      6,
+      f,
+      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getMalwareAliasList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      7,
+      f
+    );
+  }
+  f = message.getTagsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      8,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string ioc_type = 1;
+ * @return {string}
+ */
+proto.service.AbuseChIOC.prototype.getIocType = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setIocType = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string ioc_value = 2;
+ * @return {string}
+ */
+proto.service.AbuseChIOC.prototype.getIocValue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setIocValue = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string threat_type = 3;
+ * @return {string}
+ */
+proto.service.AbuseChIOC.prototype.getThreatType = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setThreatType = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional float confidence = 4;
+ * @return {number}
+ */
+proto.service.AbuseChIOC.prototype.getConfidence = function() {
+  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 4, 0.0));
+};
+
+
+/**
+ * @param {number} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setConfidence = function(value) {
+  return jspb.Message.setProto3FloatField(this, 4, value);
+};
+
+
+/**
+ * optional google.protobuf.Timestamp first_seen = 5;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.AbuseChIOC.prototype.getFirstSeen = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 5));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.AbuseChIOC} returns this
+*/
+proto.service.AbuseChIOC.prototype.setFirstSeen = function(value) {
+  return jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.clearFirstSeen = function() {
+  return this.setFirstSeen(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.AbuseChIOC.prototype.hasFirstSeen = function() {
+  return jspb.Message.getField(this, 5) != null;
+};
+
+
+/**
+ * optional google.protobuf.Timestamp last_seen = 6;
+ * @return {?proto.google.protobuf.Timestamp}
+ */
+proto.service.AbuseChIOC.prototype.getLastSeen = function() {
+  return /** @type{?proto.google.protobuf.Timestamp} */ (
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.Timestamp|undefined} value
+ * @return {!proto.service.AbuseChIOC} returns this
+*/
+proto.service.AbuseChIOC.prototype.setLastSeen = function(value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.clearLastSeen = function() {
+  return this.setLastSeen(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.service.AbuseChIOC.prototype.hasLastSeen = function() {
+  return jspb.Message.getField(this, 6) != null;
+};
+
+
+/**
+ * repeated string malware_alias = 7;
+ * @return {!Array<string>}
+ */
+proto.service.AbuseChIOC.prototype.getMalwareAliasList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 7));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setMalwareAliasList = function(value) {
+  return jspb.Message.setField(this, 7, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.addMalwareAlias = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 7, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.clearMalwareAliasList = function() {
+  return this.setMalwareAliasList([]);
+};
+
+
+/**
+ * repeated string tags = 8;
+ * @return {!Array<string>}
+ */
+proto.service.AbuseChIOC.prototype.getTagsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 8));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.setTagsList = function(value) {
+  return jspb.Message.setField(this, 8, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.addTags = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 8, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.AbuseChIOC} returns this
+ */
+proto.service.AbuseChIOC.prototype.clearTagsList = function() {
+  return this.setTagsList([]);
+};
+
+
+
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.service.AbuseChSecurityResult.repeatedFields_ = [1,2];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * Optional fields that are not set will be set to undefined.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     net/proto2/compiler/js/internal/generator.cc#kKeyword.
+ * @param {boolean=} opt_includeInstance Deprecated. whether to include the
+ *     JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.service.AbuseChSecurityResult.prototype.toObject = function(opt_includeInstance) {
+  return proto.service.AbuseChSecurityResult.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Deprecated. Whether to include
+ *     the JSPB instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.service.AbuseChSecurityResult} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChSecurityResult.toObject = function(includeInstance, msg) {
+  var f, obj = {
+iocsList: jspb.Message.toObjectList(msg.getIocsList(),
+    proto.service.AbuseChIOC.toObject, includeInstance),
+errorsList: (f = jspb.Message.getRepeatedField(msg, 2)) == null ? undefined : f
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.service.AbuseChSecurityResult}
+ */
+proto.service.AbuseChSecurityResult.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.service.AbuseChSecurityResult;
+  return proto.service.AbuseChSecurityResult.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.service.AbuseChSecurityResult} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.service.AbuseChSecurityResult}
+ */
+proto.service.AbuseChSecurityResult.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.service.AbuseChIOC;
+      reader.readMessage(value,proto.service.AbuseChIOC.deserializeBinaryFromReader);
+      msg.addIocs(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.addErrors(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.service.AbuseChSecurityResult.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.service.AbuseChSecurityResult.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.service.AbuseChSecurityResult} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.service.AbuseChSecurityResult.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getIocsList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.service.AbuseChIOC.serializeBinaryToWriter
+    );
+  }
+  f = message.getErrorsList();
+  if (f.length > 0) {
+    writer.writeRepeatedString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * repeated AbuseChIOC iocs = 1;
+ * @return {!Array<!proto.service.AbuseChIOC>}
+ */
+proto.service.AbuseChSecurityResult.prototype.getIocsList = function() {
+  return /** @type{!Array<!proto.service.AbuseChIOC>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.service.AbuseChIOC, 1));
+};
+
+
+/**
+ * @param {!Array<!proto.service.AbuseChIOC>} value
+ * @return {!proto.service.AbuseChSecurityResult} returns this
+*/
+proto.service.AbuseChSecurityResult.prototype.setIocsList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.service.AbuseChIOC=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.service.AbuseChIOC}
+ */
+proto.service.AbuseChSecurityResult.prototype.addIocs = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.service.AbuseChIOC, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.AbuseChSecurityResult} returns this
+ */
+proto.service.AbuseChSecurityResult.prototype.clearIocsList = function() {
+  return this.setIocsList([]);
+};
+
+
+/**
+ * repeated string errors = 2;
+ * @return {!Array<string>}
+ */
+proto.service.AbuseChSecurityResult.prototype.getErrorsList = function() {
+  return /** @type {!Array<string>} */ (jspb.Message.getRepeatedField(this, 2));
+};
+
+
+/**
+ * @param {!Array<string>} value
+ * @return {!proto.service.AbuseChSecurityResult} returns this
+ */
+proto.service.AbuseChSecurityResult.prototype.setErrorsList = function(value) {
+  return jspb.Message.setField(this, 2, value || []);
+};
+
+
+/**
+ * @param {string} value
+ * @param {number=} opt_index
+ * @return {!proto.service.AbuseChSecurityResult} returns this
+ */
+proto.service.AbuseChSecurityResult.prototype.addErrors = function(value, opt_index) {
+  return jspb.Message.addToRepeatedField(this, 2, value, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.service.AbuseChSecurityResult} returns this
+ */
+proto.service.AbuseChSecurityResult.prototype.clearErrorsList = function() {
+  return this.setErrorsList([]);
 };
 
 

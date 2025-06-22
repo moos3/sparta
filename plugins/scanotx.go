@@ -1,9 +1,11 @@
-package main
+// plugins/scanotx.go
+package plugins
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"io"
 	"log"
 	"net/http"
@@ -13,13 +15,15 @@ import (
 	"github.com/google/uuid"
 	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
+	"github.com/moos3/sparta/internal/interfaces"
+	"github.com/moos3/sparta/proto"
 	"golang.org/x/time/rate"
 )
 
 // ScanOTXPlugin implements the OTX scan plugin
 type ScanOTXPlugin struct {
 	name        string
-	db          *db.Database
+	db          db.Database
 	client      *http.Client
 	rateLimiter *rate.Limiter
 	config      *config.Config
@@ -57,7 +61,7 @@ func (p *ScanOTXPlugin) Initialize() error {
 }
 
 // SetDatabase sets the database connection
-func (p *ScanOTXPlugin) SetDatabase(db *db.Database) {
+func (p *ScanOTXPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
 }
@@ -69,15 +73,15 @@ func (p *ScanOTXPlugin) SetConfig(cfg *config.Config) {
 }
 
 // ScanOTX queries AlienVault OTX API for threat intelligence
-func (p *ScanOTXPlugin) ScanOTX(domain string, dnsScanID string) (db.OTXSecurityResult, error) {
+func (p *ScanOTXPlugin) ScanOTX(domain string, dnsScanID string) (*proto.OTXSecurityResult, error) {
 	if p.db == nil {
-		return db.OTXSecurityResult{}, fmt.Errorf("database connection not provided")
+		return nil, fmt.Errorf("database connection not provided")
 	}
 	if p.client == nil {
-		return db.OTXSecurityResult{}, fmt.Errorf("OTX client not initialized")
+		return nil, fmt.Errorf("OTX client not initialized")
 	}
 
-	result := db.OTXSecurityResult{
+	result := &proto.OTXSecurityResult{
 		Errors: []string{},
 	}
 
@@ -111,7 +115,7 @@ func (p *ScanOTXPlugin) ScanOTX(domain string, dnsScanID string) (db.OTXSecurity
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("OTX URLs query error: %v", err))
 	} else {
-		result.URLs = urls
+		result.Urls = urls
 	}
 
 	// Query OTX API for passive DNS
@@ -119,7 +123,7 @@ func (p *ScanOTXPlugin) ScanOTX(domain string, dnsScanID string) (db.OTXSecurity
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("OTX passive DNS query error: %v", err))
 	} else {
-		result.PassiveDNS = passiveDNS
+		result.PassiveDns = passiveDNS
 	}
 
 	// Store result
@@ -135,7 +139,7 @@ func (p *ScanOTXPlugin) ScanOTX(domain string, dnsScanID string) (db.OTXSecurity
 }
 
 // queryOTXGeneral queries the OTX general endpoint
-func (p *ScanOTXPlugin) queryOTXGeneral(domain string) (*db.OTXGeneralInfo, error) {
+func (p *ScanOTXPlugin) queryOTXGeneral(domain string) (*proto.OTXGeneralInfo, error) {
 	url := fmt.Sprintf("%sindicators/domain/%s/general", p.config.OTX.BaseURL, domain)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -166,14 +170,14 @@ func (p *ScanOTXPlugin) queryOTXGeneral(domain string) (*db.OTXGeneralInfo, erro
 		return nil, err
 	}
 
-	return &db.OTXGeneralInfo{
-		PulseCount: general.PulseCount,
+	return &proto.OTXGeneralInfo{
+		PulseCount: int32(general.PulseCount),
 		Pulses:     general.Pulses,
 	}, nil
 }
 
 // queryOTXMalware queries the OTX malware endpoint
-func (p *ScanOTXPlugin) queryOTXMalware(domain string) ([]db.OTXMalware, error) {
+func (p *ScanOTXPlugin) queryOTXMalware(domain string) ([]*proto.OTXMalware, error) {
 	url := fmt.Sprintf("%sindicators/domain/%s/malware", p.config.OTX.BaseURL, domain)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -204,18 +208,23 @@ func (p *ScanOTXPlugin) queryOTXMalware(domain string) ([]db.OTXMalware, error) 
 		return nil, err
 	}
 
-	malware := make([]db.OTXMalware, len(malwareData))
+	malware := make([]*proto.OTXMalware, len(malwareData))
 	for i, m := range malwareData {
-		malware[i] = db.OTXMalware{
+		parsedTime, err := time.Parse(time.RFC3339, m.Datetime)
+		if err != nil {
+			log.Printf("Failed to parse malware datetime %s: %v", m.Datetime, err)
+			parsedTime = time.Time{}
+		}
+		malware[i] = &proto.OTXMalware{
 			Hash:     m.Hash,
-			Datetime: m.Datetime,
+			Datetime: timestamppb.New(parsedTime),
 		}
 	}
 	return malware, nil
 }
 
 // queryOTXURLs queries the OTX URLs endpoint
-func (p *ScanOTXPlugin) queryOTXURLs(domain string) ([]db.OTXURL, error) {
+func (p *ScanOTXPlugin) queryOTXURLs(domain string) ([]*proto.OTXURL, error) {
 	url := fmt.Sprintf("%sindicators/domain/%s/url_list", p.config.OTX.BaseURL, domain)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -246,18 +255,23 @@ func (p *ScanOTXPlugin) queryOTXURLs(domain string) ([]db.OTXURL, error) {
 		return nil, err
 	}
 
-	urls := make([]db.OTXURL, len(urlData))
+	urls := make([]*proto.OTXURL, len(urlData))
 	for i, u := range urlData {
-		urls[i] = db.OTXURL{
-			URL:      u.URL,
-			Datetime: u.Datetime,
+		parsedTime, err := time.Parse(time.RFC3339, u.Datetime)
+		if err != nil {
+			log.Printf("Failed to parse URL datetime %s: %v", u.Datetime, err)
+			parsedTime = time.Time{}
+		}
+		urls[i] = &proto.OTXURL{
+			Url:      u.URL,
+			Datetime: timestamppb.New(parsedTime),
 		}
 	}
 	return urls, nil
 }
 
 // queryOTXPassiveDNS queries the OTX passive DNS endpoint
-func (p *ScanOTXPlugin) queryOTXPassiveDNS(domain string) ([]db.OTXPassiveDNS, error) {
+func (p *ScanOTXPlugin) queryOTXPassiveDNS(domain string) ([]*proto.OTXPassiveDNS, error) {
 	url := fmt.Sprintf("%sindicators/domain/%s/passive_dns", p.config.OTX.BaseURL, domain)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -290,20 +304,25 @@ func (p *ScanOTXPlugin) queryOTXPassiveDNS(domain string) ([]db.OTXPassiveDNS, e
 		return nil, err
 	}
 
-	passiveDNS := make([]db.OTXPassiveDNS, len(dnsData))
+	passiveDNS := make([]*proto.OTXPassiveDNS, len(dnsData))
 	for i, d := range dnsData {
-		passiveDNS[i] = db.OTXPassiveDNS{
+		parsedTime, err := time.Parse(time.RFC3339, d.Datetime)
+		if err != nil {
+			log.Printf("Failed to parse passive DNS datetime %s: %v", d.Datetime, err)
+			parsedTime = time.Time{}
+		}
+		passiveDNS[i] = &proto.OTXPassiveDNS{
 			Address:  d.Address,
 			Hostname: d.Hostname,
 			Record:   d.Record,
-			Datetime: d.Datetime,
+			Datetime: timestamppb.New(parsedTime),
 		}
 	}
 	return passiveDNS, nil
 }
 
 // InsertOTXScanResult inserts an OTX scan result into the database
-func (p *ScanOTXPlugin) InsertOTXScanResult(domain string, dnsScanID string, result db.OTXSecurityResult) (string, error) {
+func (p *ScanOTXPlugin) InsertOTXScanResult(domain string, dnsScanID string, result *proto.OTXSecurityResult) (string, error) {
 	if p.db == nil {
 		return "", fmt.Errorf("database connection not provided")
 	}
@@ -312,9 +331,11 @@ func (p *ScanOTXPlugin) InsertOTXScanResult(domain string, dnsScanID string, res
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal result: %w", err)
 	}
-	_, err = p.db.Exec(
-		"INSERT INTO otx_scan_results (id, domain, dns_scan_id, result, created_at) VALUES ($1, $2, $3, $4, $5)",
-		id, domain, dnsScanID, resultJSON, time.Now())
+	query := `
+		INSERT INTO otx_scan_results (id, domain, dns_scan_id, result, created_at)
+		VALUES ($1, $2, $3, $4, $5)
+	`
+	_, err = p.db.Exec(query, id, domain, dnsScanID, resultJSON, time.Now())
 	if err != nil {
 		return "", fmt.Errorf("failed to insert OTX scan result: %w", err)
 	}
@@ -322,52 +343,49 @@ func (p *ScanOTXPlugin) InsertOTXScanResult(domain string, dnsScanID string, res
 }
 
 // GetOTXScanResultsByDomain retrieves historical OTX scan results
-func (p *ScanOTXPlugin) GetOTXScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	DNSScanID string
-	Result    db.OTXSecurityResult
-	CreatedAt time.Time
-}, error) {
+func (p *ScanOTXPlugin) GetOTXScanResultsByDomain(domain string) ([]interfaces.OTXScanResult, error) {
 	if p.db == nil {
 		return nil, fmt.Errorf("database connection not provided")
 	}
-	rows, err := p.db.Query(
-		"SELECT id, domain, dns_scan_id, result, created_at FROM otx_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		strings.TrimSpace(strings.ToLower(domain)))
+	query := `
+		SELECT id, domain, dns_scan_id, result, created_at
+		FROM otx_scan_results
+		WHERE domain = $1
+		ORDER BY created_at DESC
+	`
+	rows, err := p.db.Query(query, strings.TrimSpace(strings.ToLower(domain)))
 	if err != nil {
 		return nil, fmt.Errorf("failed to query OTX scan results: %w", err)
 	}
 	defer rows.Close()
 
-	var results []struct {
-		ID        string
-		Domain    string
-		DNSScanID string
-		Result    db.OTXSecurityResult
-		CreatedAt time.Time
-	}
+	var results []interfaces.OTXScanResult
 	for rows.Next() {
-		var id, domain, dnsScanID string
+		var r interfaces.OTXScanResult
 		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &dnsScanID, &resultJSON, &createdAt); err != nil {
+		if err := rows.Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
-		var result db.OTXSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
+		var scanResult proto.OTXSecurityResult
+		if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
 		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			DNSScanID string
-			Result    db.OTXSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, DNSScanID: dnsScanID, Result: result, CreatedAt: createdAt})
+		r.Result = scanResult
+		results = append(results, r)
 	}
 	return results, nil
 }
 
-// Plugin instance exported for the server
-var Plugin ScanOTXPlugin
+// Scan implements the GenericPlugin interface
+func (p *ScanOTXPlugin) Scan(ctx context.Context, domain, dnsScanID string) (interface{}, error) {
+	return p.ScanOTX(domain, dnsScanID)
+}
+
+// InsertResult implements the GenericPlugin interface
+func (p *ScanOTXPlugin) InsertResult(domain, dnsScanID string, result interface{}) (string, error) {
+	otxResult, ok := result.(*proto.OTXSecurityResult)
+	if !ok {
+		return "", fmt.Errorf("invalid result type")
+	}
+	return p.InsertOTXScanResult(domain, dnsScanID, otxResult)
+}

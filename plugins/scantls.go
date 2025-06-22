@@ -1,12 +1,11 @@
-package main
+// plugins/scantls.go
+package plugins
 
 import (
+	"context"
 	"crypto/rsa"
 	"crypto/tls"
 	"encoding/json"
-	"github.com/google/uuid"
-
-	//"crypto/x509"
 	"fmt"
 	"log"
 	"net"
@@ -14,13 +13,17 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/moos3/sparta/internal/db"
+	"github.com/moos3/sparta/internal/interfaces"
+	"github.com/moos3/sparta/proto"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-// ScanTLSPlugin implements the Plugin interface
+// ScanTLSPlugin implements the TLSScanPlugin interface
 type ScanTLSPlugin struct {
 	name string
-	db   *db.Database
+	db   db.Database
 }
 
 // Name returns the plugin name
@@ -41,18 +44,18 @@ func (p *ScanTLSPlugin) Initialize() error {
 }
 
 // SetDatabase sets the database connection
-func (p *ScanTLSPlugin) SetDatabase(db *db.Database) {
+func (p *ScanTLSPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
 }
 
 // ScanTLS performs TLS configuration assessment
-func (p *ScanTLSPlugin) ScanTLS(domain string, dnsScanID string) (db.TLSSecurityResult, error) {
+func (p *ScanTLSPlugin) ScanTLS(domain string, dnsScanID string) (*proto.TLSSecurityResult, error) {
 	if p.db == nil {
-		return db.TLSSecurityResult{}, fmt.Errorf("database connection not provided")
+		return nil, fmt.Errorf("database connection not provided")
 	}
 
-	result := db.TLSSecurityResult{
+	result := &proto.TLSSecurityResult{
 		Errors: []string{},
 	}
 
@@ -73,7 +76,7 @@ func (p *ScanTLSPlugin) ScanTLS(domain string, dnsScanID string) (db.TLSSecurity
 	defer conn.Close()
 
 	// Get TLS version and cipher suite
-	result.TLSVersion = tlsVersionToString(conn.ConnectionState().Version)
+	result.TlsVersion = tlsVersionToString(conn.ConnectionState().Version)
 	result.CipherSuite = tls.CipherSuiteName(conn.ConnectionState().CipherSuite)
 
 	// Get certificate details
@@ -82,14 +85,14 @@ func (p *ScanTLSPlugin) ScanTLS(domain string, dnsScanID string) (db.TLSSecurity
 		result.CertificateValid = time.Now().After(cert.NotBefore) && time.Now().Before(cert.NotAfter)
 		result.CertIssuer = cert.Issuer.String()
 		result.CertSubject = cert.Subject.String()
-		result.CertNotBefore = cert.NotBefore
-		result.CertNotAfter = cert.NotAfter
-		result.CertDNSNames = cert.DNSNames
+		result.CertNotBefore = timestamppb.New(cert.NotBefore)
+		result.CertNotAfter = timestamppb.New(cert.NotAfter)
+		result.CertDnsNames = cert.DNSNames
 		result.CertSignatureAlgorithm = cert.SignatureAlgorithm.String()
 
 		// Estimate key strength
 		if rsaKey, ok := cert.PublicKey.(*rsa.PublicKey); ok {
-			result.CertKeyStrength = rsaKey.Size() * 8 // Bits
+			result.CertKeyStrength = int32(rsaKey.Size() * 8) // Bits
 		} else {
 			result.CertKeyStrength = 0 // Unknown or non-RSA
 		}
@@ -103,7 +106,7 @@ func (p *ScanTLSPlugin) ScanTLS(domain string, dnsScanID string) (db.TLSSecurity
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("HSTS check error: %v", err))
 	} else {
-		result.HSTSHeader = hstsEnabled
+		result.HstsHeader = hstsEnabled
 	}
 
 	// Store result
@@ -153,7 +156,7 @@ func checkHSTS(domain string) (bool, error) {
 }
 
 // InsertTLSScanResult inserts a TLS scan result into the database
-func (p *ScanTLSPlugin) InsertTLSScanResult(domain string, dnsScanID string, result db.TLSSecurityResult) (string, error) {
+func (p *ScanTLSPlugin) InsertTLSScanResult(domain string, dnsScanID string, result *proto.TLSSecurityResult) (string, error) {
 	if p.db == nil {
 		return "", fmt.Errorf("database connection not provided")
 	}
@@ -162,9 +165,11 @@ func (p *ScanTLSPlugin) InsertTLSScanResult(domain string, dnsScanID string, res
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal result: %w", err)
 	}
-	_, err = p.db.Exec(
-		"INSERT INTO tls_scan_results (id, domain, dns_scan_id, result, created_at) VALUES ($1, $2, $3, $4, $5)",
-		id, domain, dnsScanID, resultJSON, time.Now())
+	query := `
+		INSERT INTO tls_scan_results (id, domain, dns_scan_id, result, created_at)
+		VALUES ($1, $2, $3, $4, $5)
+	`
+	_, err = p.db.Exec(query, id, domain, dnsScanID, resultJSON, time.Now())
 	if err != nil {
 		return "", fmt.Errorf("failed to insert TLS scan result: %w", err)
 	}
@@ -172,52 +177,49 @@ func (p *ScanTLSPlugin) InsertTLSScanResult(domain string, dnsScanID string, res
 }
 
 // GetTLSScanResultsByDomain retrieves historical TLS scan results
-func (p *ScanTLSPlugin) GetTLSScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	DNSScanID string
-	Result    db.TLSSecurityResult
-	CreatedAt time.Time
-}, error) {
+func (p *ScanTLSPlugin) GetTLSScanResultsByDomain(domain string) ([]interfaces.TLSScanResult, error) {
 	if p.db == nil {
 		return nil, fmt.Errorf("database connection not provided")
 	}
-	rows, err := p.db.Query(
-		"SELECT id, domain, dns_scan_id, result, created_at FROM tls_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		strings.TrimSpace(strings.ToLower(domain)))
+	query := `
+		SELECT id, domain, dns_scan_id, result, created_at
+		FROM tls_scan_results
+		WHERE domain = $1
+		ORDER BY created_at DESC
+	`
+	rows, err := p.db.Query(query, strings.TrimSpace(strings.ToLower(domain)))
 	if err != nil {
 		return nil, fmt.Errorf("failed to query TLS scan results: %w", err)
 	}
 	defer rows.Close()
 
-	var results []struct {
-		ID        string
-		Domain    string
-		DNSScanID string
-		Result    db.TLSSecurityResult
-		CreatedAt time.Time
-	}
+	var results []interfaces.TLSScanResult
 	for rows.Next() {
-		var id, domain, dnsScanID string
+		var r interfaces.TLSScanResult
 		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &dnsScanID, &resultJSON, &createdAt); err != nil {
+		if err := rows.Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
-		var result db.TLSSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
+		var scanResult proto.TLSSecurityResult
+		if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
 		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			DNSScanID string
-			Result    db.TLSSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, DNSScanID: dnsScanID, Result: result, CreatedAt: createdAt})
+		r.Result = scanResult
+		results = append(results, r)
 	}
 	return results, nil
 }
 
-// Plugin instance exported for the server
-var Plugin ScanTLSPlugin
+// Scan implements the GenericPlugin interface
+func (p *ScanTLSPlugin) Scan(ctx context.Context, domain, dnsScanID string) (interface{}, error) {
+	return p.ScanTLS(domain, dnsScanID)
+}
+
+// InsertResult implements the GenericPlugin interface
+func (p *ScanTLSPlugin) InsertResult(domain, dnsScanID string, result interface{}) (string, error) {
+	tlsResult, ok := result.(*proto.TLSSecurityResult)
+	if !ok {
+		return "", fmt.Errorf("invalid result type")
+	}
+	return p.InsertTLSScanResult(domain, dnsScanID, tlsResult)
+}

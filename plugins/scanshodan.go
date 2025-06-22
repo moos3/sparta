@@ -1,4 +1,4 @@
-package main
+package plugins
 
 import (
 	"context"
@@ -11,18 +11,20 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/shadowscatcher/shodan"
-	"golang.org/x/time/rate"
-	//"github.com/shadowscatcher/shodan/models"
 	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
+	"github.com/moos3/sparta/internal/interfaces"
+	"github.com/moos3/sparta/proto"
+	"github.com/shadowscatcher/shodan"
 	"github.com/shadowscatcher/shodan/search"
+	"golang.org/x/time/rate"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-// ScanShodanPlugin implements the Plugin interface
+// ScanShodanPlugin implements the ShodanScanPlugin interface
 type ScanShodanPlugin struct {
 	name        string
-	db          *db.Database
+	db          db.Database
 	client      *shodan.Client
 	rateLimiter *rate.Limiter
 	config      *config.Config
@@ -69,7 +71,7 @@ func (p *ScanShodanPlugin) Initialize() error {
 }
 
 // SetDatabase sets the database connection
-func (p *ScanShodanPlugin) SetDatabase(db *db.Database) {
+func (p *ScanShodanPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
 }
@@ -81,15 +83,15 @@ func (p *ScanShodanPlugin) SetConfig(cfg *config.Config) {
 }
 
 // ScanShodan queries Shodan API for host information
-func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.ShodanSecurityResult, error) {
+func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (*proto.ShodanSecurityResult, error) {
 	if p.db == nil {
-		return db.ShodanSecurityResult{}, fmt.Errorf("database connection not provided")
+		return nil, fmt.Errorf("database connection not provided")
 	}
 	if p.client == nil {
-		return db.ShodanSecurityResult{}, fmt.Errorf("Shodan client not initialized")
+		return nil, fmt.Errorf("Shodan client not initialized")
 	}
 
-	result := db.ShodanSecurityResult{
+	result := &proto.ShodanSecurityResult{
 		Errors: []string{},
 	}
 
@@ -137,7 +139,7 @@ func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.Shoda
 		if host.ISP != nil {
 			ispStr = *host.ISP
 		}
-		var ssl *db.ShodanSSL
+		var ssl *proto.ShodanSSL
 		if host.SSL != nil && host.SSL.Cert.Issuer.CN != "" {
 			issuer := ""
 			if host.SSL.Cert.Issuer.CN != "" {
@@ -147,13 +149,24 @@ func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.Shoda
 			if host.SSL.Cert.Subject.CN != "" {
 				subject = host.SSL.Cert.Subject.CN
 			}
-			ssl = &db.ShodanSSL{
-				Issuer:  issuer,
-				Subject: subject,
-				Expires: host.SSL.Cert.Expires,
+			var expires, notAfter *timestamppb.Timestamp
+			if host.SSL.Cert.Expires != "" {
+				parsedTime, err := time.Parse(time.RFC3339, host.SSL.Cert.Expires)
+				if err != nil {
+					result.Errors = append(result.Errors, fmt.Sprintf("Failed to parse SSL expires time: %v", err))
+				} else {
+					expires = timestamppb.New(parsedTime)
+					notAfter = timestamppb.New(parsedTime)
+				}
+			}
+			ssl = &proto.ShodanSSL{
+				Issuer:   issuer,
+				Subject:  subject,
+				Expires:  expires,
+				NotAfter: notAfter,
 			}
 		}
-		location := db.ShodanLocation{
+		location := &proto.ShodanLocation{
 			City:        "",
 			CountryName: "",
 			Latitude:    0.0,
@@ -166,28 +179,36 @@ func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.Shoda
 			location.CountryName = *host.Location.CountryName
 		}
 		if host.Location.Latitude != nil {
-			location.Latitude = float64(*host.Location.Latitude)
+			location.Latitude = float32(*host.Location.Latitude)
 		}
 		if host.Location.Longitude != nil {
-			location.Longitude = float64(*host.Location.Longitude)
+			location.Longitude = float32(*host.Location.Longitude)
 		}
-		timestamp := host.Timestamp
-		shodanMeta := db.ShodanMetadata{
+		var timestamp *timestamppb.Timestamp
+		if host.Timestamp != "" {
+			parsedTime, err := time.Parse(time.RFC3339, host.Timestamp)
+			if err != nil {
+				result.Errors = append(result.Errors, fmt.Sprintf("Failed to parse host timestamp: %v", err))
+			} else {
+				timestamp = timestamppb.New(parsedTime)
+			}
+		}
+		shodanMeta := &proto.ShodanMetadata{
 			Module: host.Shodan.Module,
 		}
-		result.Hosts = append(result.Hosts, db.ShodanHost{
-			IP:         ipStr,
-			Port:       host.Port,
+		result.Hosts = append(result.Hosts, &proto.ShodanHost{
+			Ip:         ipStr,
+			Port:       int32(host.Port),
 			Hostnames:  host.Hostnames,
-			OS:         osStr,
+			Os:         osStr,
 			Banner:     host.Data,
 			Tags:       host.Tags,
 			Location:   location,
-			SSL:        ssl,
+			Ssl:        ssl,
 			Domains:    host.Domains,
-			ASN:        asnStr,
+			Asn:        asnStr,
 			Org:        orgStr,
-			ISP:        ispStr,
+			Isp:        ispStr,
 			Timestamp:  timestamp,
 			ShodanMeta: shodanMeta,
 		})
@@ -206,7 +227,7 @@ func (p *ScanShodanPlugin) ScanShodan(domain string, dnsScanID string) (db.Shoda
 }
 
 // InsertShodanScanResult inserts a Shodan scan result into the database
-func (p *ScanShodanPlugin) InsertShodanScanResult(domain string, dnsScanID string, result db.ShodanSecurityResult) (string, error) {
+func (p *ScanShodanPlugin) InsertShodanScanResult(domain string, dnsScanID string, result *proto.ShodanSecurityResult) (string, error) {
 	if p.db == nil {
 		return "", fmt.Errorf("database connection not provided")
 	}
@@ -215,9 +236,11 @@ func (p *ScanShodanPlugin) InsertShodanScanResult(domain string, dnsScanID strin
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal result: %w", err)
 	}
-	_, err = p.db.Exec(
-		"INSERT INTO shodan_scan_results (id, domain, dns_scan_id, result, created_at) VALUES ($1, $2, $3, $4, $5)",
-		id, domain, dnsScanID, resultJSON, time.Now())
+	query := `
+		INSERT INTO shodan_scan_results (id, domain, dns_scan_id, result, created_at)
+		VALUES ($1, $2, $3, $4, $5)
+	`
+	_, err = p.db.Exec(query, id, domain, dnsScanID, resultJSON, time.Now())
 	if err != nil {
 		return "", fmt.Errorf("failed to insert Shodan scan result: %w", err)
 	}
@@ -225,52 +248,49 @@ func (p *ScanShodanPlugin) InsertShodanScanResult(domain string, dnsScanID strin
 }
 
 // GetShodanScanResultsByDomain retrieves historical Shodan scan results
-func (p *ScanShodanPlugin) GetShodanScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	DNSScanID string
-	Result    db.ShodanSecurityResult
-	CreatedAt time.Time
-}, error) {
+func (p *ScanShodanPlugin) GetShodanScanResultsByDomain(domain string) ([]interfaces.ShodanScanResult, error) {
 	if p.db == nil {
 		return nil, fmt.Errorf("database connection not provided")
 	}
-	rows, err := p.db.Query(
-		"SELECT id, domain, dns_scan_id, result, created_at FROM shodan_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		strings.TrimSpace(strings.ToLower(domain)))
+	query := `
+		SELECT id, domain, dns_scan_id, result, created_at
+		FROM shodan_scan_results
+		WHERE domain = $1
+		ORDER BY created_at DESC
+	`
+	rows, err := p.db.Query(query, strings.TrimSpace(strings.ToLower(domain)))
 	if err != nil {
 		return nil, fmt.Errorf("failed to query Shodan scan results: %w", err)
 	}
 	defer rows.Close()
 
-	var results []struct {
-		ID        string
-		Domain    string
-		DNSScanID string
-		Result    db.ShodanSecurityResult
-		CreatedAt time.Time
-	}
+	var results []interfaces.ShodanScanResult
 	for rows.Next() {
-		var id, domain, dnsScanID string
+		var r interfaces.ShodanScanResult
 		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &dnsScanID, &resultJSON, &createdAt); err != nil {
+		if err := rows.Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
-		var result db.ShodanSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
+		var scanResult proto.ShodanSecurityResult
+		if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
 		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			DNSScanID string
-			Result    db.ShodanSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, DNSScanID: dnsScanID, Result: result, CreatedAt: createdAt})
+		r.Result = scanResult
+		results = append(results, r)
 	}
 	return results, nil
 }
 
-// Plugin instance exported for the server
-var Plugin ScanShodanPlugin
+// Scan implements the GenericPlugin interface
+func (p *ScanShodanPlugin) Scan(ctx context.Context, domain, dnsScanID string) (interface{}, error) {
+	return p.ScanShodan(domain, dnsScanID)
+}
+
+// InsertResult implements the GenericPlugin interface
+func (p *ScanShodanPlugin) InsertResult(domain, dnsScanID string, result interface{}) (string, error) {
+	shodanResult, ok := result.(*proto.ShodanSecurityResult)
+	if !ok {
+		return "", fmt.Errorf("invalid result type")
+	}
+	return p.InsertShodanScanResult(domain, dnsScanID, shodanResult)
+}

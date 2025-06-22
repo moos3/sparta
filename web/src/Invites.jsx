@@ -1,76 +1,55 @@
-// web/src/Invites.jsx
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { inviteUser, validateInvite } from './services/api';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from './App';
+import { TextField, Button, Box, Typography, FormControlLabel, Checkbox, Alert, Paper } from '@mui/material';
+import { AuthServiceClient } from './services/service_grpc_web_pb';
+import { InviteUserRequest } from './services/service_pb';
+
+const authClient = new AuthServiceClient('http://localhost:50051');
 
 function Invites() {
-    const [inviteEmail, setInviteEmail] = useState('');
-    const [inviteToken, setInviteToken] = useState('');
-    const [message, setMessage] = useState('');
+    const { user } = useContext(AuthContext);
+    const [email, setEmail] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [error, setError] = useState('');
 
-    const handleInvite = async () => {
-        try {
-            const response = await inviteUser(inviteEmail);
-            setMessage(`Invite sent! Token: ${response.invite_token}`);
-            setInviteEmail('');
-        } catch (error) {
-            setMessage(`Error: ${error.message}`);
-        }
-    };
-
-    const handleValidate = async () => {
-        try {
-            const response = await validateInvite(inviteToken);
-            setMessage(response.valid ? 'Valid invite token' : 'Invalid invite token');
-            setInviteToken('');
-        } catch (error) {
-            setMessage(`Error: ${error.message}`);
-        }
+    const handleInviteUser = () => {
+        const request = new InviteUserRequest();
+        request.setEmail(email);
+        request.setIsAdmin(isAdmin);
+        authClient.inviteUser(request, { 'x-api-key': user.token }, (err, response) => {
+            if (err) {
+                setError('Failed to send invitation: ' + err.message);
+                return;
+            }
+            setError('Invitation sent: ' + response.getToken());
+        });
     };
 
     return (
-        <Box>
+        <Box sx={{ p: 2 }}>
             <Typography variant="h4" gutterBottom>
-                Invites
+                Invite Users
             </Typography>
-            <Card sx={{ mb: 4 }}>
-                <CardContent>
-                    <Typography variant="h6">Invite User</Typography>
+            <Paper elevation={3} sx={{ p: 3 }}>
+                {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                     <TextField
-                        fullWidth
                         label="Email"
-                        value={inviteEmail}
-                        onChange={(e) => setInviteEmail(e.target.value)}
-                        margin="normal"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        variant="outlined"
+                        size="small"
                     />
-                    <Button variant="contained" onClick={handleInvite}>
-                        Send Invite
-                    </Button>
-                </CardContent>
-            </Card>
-            <Card>
-                <CardContent>
-                    <Typography variant="h6">Validate Invite Token</Typography>
-                    <TextField
-                        fullWidth
-                        label="Invite Token"
-                        value={inviteToken}
-                        onChange={(e) => setInviteToken(e.target.value)}
-                        margin="normal"
+                    <FormControlLabel
+                        control={<Checkbox checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)} />}
+                        label="Admin"
                     />
-                    <Button variant="contained" onClick={handleValidate}>
-                        Validate Token
+                    <Button variant="contained" onClick={handleInviteUser} sx={{ alignSelf: 'flex-start' }}>
+                        Send Invitation
                     </Button>
-                </CardContent>
-            </Card>
-            <Typography color="text.secondary" sx={{ mt: 2 }}>
-                {message}
-            </Typography>
+                </Box>
+            </Paper>
         </Box>
     );
 }

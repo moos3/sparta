@@ -1,3 +1,4 @@
+// internal/config/config.go
 package config
 
 import (
@@ -19,12 +20,13 @@ type Config struct {
 		HTTPPort int `yaml:"http_port"`
 	} `yaml:"server"`
 	Email struct {
-		APIKey      string `yaml:"api_key"`
-		SenderEmail string `yaml:"sender_email"`
-		SenderName  string `yaml:"sender_name"`
+		APIKey     string `yaml:"api_key"`
+		FromEmail  string `yaml:"from_email"`
+		SenderName string `yaml:"sender_name"`
 	} `yaml:"email"`
 	Auth struct {
-		APIKeyLength int `yaml:"api_key_length"`
+		APIKeyLength int    `yaml:"api_key_length"`
+		Secret       string `yaml:"secret"` // Secret for signing tokens
 	} `yaml:"auth"`
 	Chaos struct {
 		APIKey       string `yaml:"api_key"`
@@ -36,10 +38,20 @@ type Config struct {
 		RequestDelay int    `yaml:"request_delay"` // in milliseconds
 	} `yaml:"shodan"`
 	OTX struct {
-		APIKey       string `yaml:"apikey"`
-		BaseURL      string `yaml:"baseurl"`
+		APIKey       string `yaml:"api_key"`
+		BaseURL      string `yaml:"base_url"`
 		RequestDelay int    `yaml:"request_delay"`
 	} `yaml:"otx"`
+	Abuse struct {
+		APIKey       string `yaml:"api_key"`
+		BaseURL      string `yaml:"base_url"`
+		RequestDelay int    `yaml:"request_delay"` // in milliseconds
+	} `yaml:"abuse_ch"`
+	ISC struct {
+		APIKey       string `yaml:"api_key"`
+		BaseURL      string `yaml:"base_url"`
+		RequestDelay int    `yaml:"request_delay"` // in milliseconds
+	} `yaml:"isc"`
 }
 
 func Load(path string) (*Config, error) {

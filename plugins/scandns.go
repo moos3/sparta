@@ -1,7 +1,9 @@
-package main
+package plugins
 
 import (
+	"context"
 	"crypto/x509"
+	"database/sql"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -12,12 +14,14 @@ import (
 	"github.com/google/uuid"
 	"github.com/miekg/dns"
 	"github.com/moos3/sparta/internal/db"
+	"github.com/moos3/sparta/internal/interfaces"
+	"github.com/moos3/sparta/proto"
 )
 
-// ScanDNSPlugin implements the Plugin interface expected by the server
+// ScanDNSPlugin implements the DNSScanPlugin interface
 type ScanDNSPlugin struct {
 	name string
-	db   *db.Database
+	db   db.Database
 }
 
 // Name returns the plugin name
@@ -38,18 +42,18 @@ func (p *ScanDNSPlugin) Initialize() error {
 }
 
 // SetDatabase sets the database connection
-func (p *ScanDNSPlugin) SetDatabase(db *db.Database) {
+func (p *ScanDNSPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
 }
 
 // ScanDomain performs DNS security checks and stores results
-func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) {
+func (p *ScanDNSPlugin) ScanDomain(domain string) (*proto.DNSSecurityResult, error) {
 	if p.db == nil {
-		return db.DNSSecurityResult{}, fmt.Errorf("database connection not provided")
+		return nil, fmt.Errorf("database connection not provided")
 	}
 
-	result := db.DNSSecurityResult{
+	result := &proto.DNSSecurityResult{
 		Errors: []string{},
 	}
 
@@ -68,9 +72,9 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("SPF lookup error: %v", err))
 	} else {
-		result.SPFRecord = spfRecord
-		result.SPFValid = spfValid
-		result.SPFPolicy = spfPolicy
+		result.SpfRecord = spfRecord
+		result.SpfValid = spfValid
+		result.SpfPolicy = spfPolicy
 	}
 
 	// Lookup DKIM
@@ -78,9 +82,9 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("DKIM lookup error: %v", err))
 	} else {
-		result.DKIMRecord = dkimRecord
-		result.DKIMValid = dkimValid
-		result.DKIMValidationError = dkimError
+		result.DkimRecord = dkimRecord
+		result.DkimValid = dkimValid
+		result.DkimValidationError = dkimError
 	}
 
 	// Lookup DMARC
@@ -88,10 +92,10 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("DMARC lookup error: %v", err))
 	} else {
-		result.DMARCRecord = dmarcRecord
-		result.DMARCPolicy = dmarcPolicy
-		result.DMARCValid = dmarcValid
-		result.DMARCValidationError = dmarcError
+		result.DmarcRecord = dmarcRecord
+		result.DmarcPolicy = dmarcPolicy
+		result.DmarcValid = dmarcValid
+		result.DmarcValidationError = dmarcError
 	}
 
 	// Check DNSSEC
@@ -99,9 +103,9 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("DNSSEC check error: %v", err))
 	} else {
-		result.DNSSECEnabled = dnssecEnabled
-		result.DNSSECValid = dnssecValid
-		result.DNSSECValidationError = dnssecError
+		result.DnssecEnabled = dnssecEnabled
+		result.DnssecValid = dnssecValid
+		result.DnssecValidationError = dnssecError
 	}
 
 	// Lookup IPs
@@ -109,7 +113,7 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("IP lookup error: %v", err))
 	} else {
-		result.IPAddresses = ips
+		result.IpAddresses = ips
 	}
 
 	// Lookup MX
@@ -117,7 +121,7 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("MX lookup error: %v", err))
 	} else {
-		result.MXRecords = mxRecords
+		result.MxRecords = mxRecords
 	}
 
 	// Lookup NS
@@ -125,7 +129,7 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 	if err != nil {
 		result.Errors = append(result.Errors, fmt.Sprintf("NS lookup error: %v", err))
 	} else {
-		result.NSRecords = nsRecords
+		result.NsRecords = nsRecords
 	}
 
 	// Store result
@@ -142,7 +146,7 @@ func (p *ScanDNSPlugin) ScanDomain(domain string) (db.DNSSecurityResult, error) 
 }
 
 // InsertDNSScanResult inserts a DNS scan result into the database
-func (p *ScanDNSPlugin) InsertDNSScanResult(domain string, result db.DNSSecurityResult) (string, error) {
+func (p *ScanDNSPlugin) InsertDNSScanResult(domain string, result *proto.DNSSecurityResult) (string, error) {
 	if p.db == nil {
 		return "", fmt.Errorf("database connection not provided")
 	}
@@ -151,58 +155,90 @@ func (p *ScanDNSPlugin) InsertDNSScanResult(domain string, result db.DNSSecurity
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal result: %w", err)
 	}
-	_, err = p.db.Exec(
-		"INSERT INTO dns_scan_results (id, domain, result, created_at) VALUES ($1, $2, $3, $4)",
-		id, domain, resultJSON, time.Now())
+	query := `
+		INSERT INTO dns_scan_results (id, domain, result, created_at)
+		VALUES ($1, $2, $3, $4)
+	`
+	_, err = p.db.Exec(query, id, domain, resultJSON, time.Now())
 	if err != nil {
 		return "", fmt.Errorf("failed to insert DNS scan result: %w", err)
 	}
 	return id, nil
 }
 
-// GetDNSScanResultsByDomain retrieves historical DNS scan results
-func (p *ScanDNSPlugin) GetDNSScanResultsByDomain(domain string) ([]struct {
-	ID        string
-	Domain    string
-	Result    db.DNSSecurityResult
-	CreatedAt time.Time
-}, error) {
+// GetDNSScanResultsByDomain retrieves historical DNS scan results by domain
+func (p *ScanDNSPlugin) GetDNSScanResultsByDomain(domain string) ([]interfaces.DNSScanResult, error) {
 	if p.db == nil {
 		return nil, fmt.Errorf("database connection not provided")
 	}
-	rows, err := p.db.Query(
-		"SELECT id, domain, result, created_at FROM dns_scan_results WHERE domain = $1 ORDER BY created_at DESC",
-		strings.TrimSpace(strings.ToLower(domain)))
+	query := `
+		SELECT id, domain, id AS dns_scan_id, result, created_at
+		FROM dns_scan_results
+		WHERE domain = $1
+		ORDER BY created_at DESC
+	`
+	rows, err := p.db.Query(query, strings.TrimSpace(strings.ToLower(domain)))
 	if err != nil {
 		return nil, fmt.Errorf("failed to query DNS scan results: %w", err)
 	}
 	defer rows.Close()
 
-	var results []struct {
-		ID        string
-		Domain    string
-		Result    db.DNSSecurityResult
-		CreatedAt time.Time
-	}
+	var results []interfaces.DNSScanResult
 	for rows.Next() {
-		var id, domain string
+		var r interfaces.DNSScanResult
 		var resultJSON []byte
-		var createdAt time.Time
-		if err := rows.Scan(&id, &domain, &resultJSON, &createdAt); err != nil {
+		if err := rows.Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt); err != nil {
 			return nil, fmt.Errorf("failed to scan row: %w", err)
 		}
-		var result db.DNSSecurityResult
-		if err := json.Unmarshal(resultJSON, &result); err != nil {
+		var scanResult proto.DNSSecurityResult
+		if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
 			return nil, fmt.Errorf("failed to unmarshal result: %w", err)
 		}
-		results = append(results, struct {
-			ID        string
-			Domain    string
-			Result    db.DNSSecurityResult
-			CreatedAt time.Time
-		}{ID: id, Domain: domain, Result: result, CreatedAt: createdAt})
+		r.Result = scanResult
+		results = append(results, r)
 	}
 	return results, nil
+}
+
+// GetDNSScanResultByID retrieves a single DNS scan result by ID
+func (p *ScanDNSPlugin) GetDNSScanResultByID(dnsScanID string) (interfaces.DNSScanResult, error) {
+	if p.db == nil {
+		return interfaces.DNSScanResult{}, fmt.Errorf("database connection not provided")
+	}
+	query := `
+		SELECT id, domain, id AS dns_scan_id, result, created_at
+		FROM dns_scan_results
+		WHERE id = $1
+	`
+	var r interfaces.DNSScanResult
+	var resultJSON []byte
+	err := p.db.QueryRow(query, dnsScanID).Scan(&r.ID, &r.Domain, &r.DNSScanID, &resultJSON, &r.CreatedAt)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return interfaces.DNSScanResult{}, fmt.Errorf("no DNS scan result found for ID: %s", dnsScanID)
+		}
+		return interfaces.DNSScanResult{}, fmt.Errorf("failed to query DNS scan result: %w", err)
+	}
+	var scanResult proto.DNSSecurityResult
+	if err := json.Unmarshal(resultJSON, &scanResult); err != nil {
+		return interfaces.DNSScanResult{}, fmt.Errorf("failed to unmarshal result: %w", err)
+	}
+	r.Result = scanResult
+	return r, nil
+}
+
+// Scan implements the GenericPlugin interface
+func (p *ScanDNSPlugin) Scan(ctx context.Context, domain, dnsScanID string) (interface{}, error) {
+	return p.ScanDomain(domain)
+}
+
+// InsertResult implements the GenericPlugin interface
+func (p *ScanDNSPlugin) InsertResult(domain, dnsScanID string, result interface{}) (string, error) {
+	dnsResult, ok := result.(*proto.DNSSecurityResult)
+	if !ok {
+		return "", fmt.Errorf("invalid result type")
+	}
+	return p.InsertDNSScanResult(domain, dnsResult)
 }
 
 // lookupSPF queries TXT records for SPF
@@ -506,6 +542,3 @@ func lookupNS(client *dns.Client, server, domain string) ([]string, error) {
 	}
 	return nsRecords, nil
 }
-
-// Plugin instance exported for the server
-var Plugin ScanDNSPlugin
