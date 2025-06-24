@@ -11,22 +11,26 @@ export default defineConfig({
         react(),
         NodeGlobalsPolyfillPlugin({
             crypto: true,
+            buffer: true,
         }),
     ],
     resolve: {
         alias: {
             crypto: 'crypto',
+            buffer: 'buffer',
         },
     },
     build: {
         outDir: 'dist',
+        emptyOutDir: true,
         rollupOptions: {
             plugins: [nodePolyfills()],
-            input: path.resolve(__dirname, 'public/index.html'),
+            input: path.resolve(__dirname, 'index.html'),
         },
+        target: 'esnext', // Ensure ES module output
     },
-    base: '/', // Ensure correct base path for production
+    base: '/',
     server: {
-        port: 8000, // Dev server port
+        port: 5173,
     },
 });

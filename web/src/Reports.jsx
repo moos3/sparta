@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as proto from './service_grpc_web_pb';
 import * as protoService from './service_pb';
 
-const client = new proto.service.ReportServiceClient('http://localhost:50051', null, null);
+const client = new proto.service.ReportServiceClient('http://localhost:8080', null, null);
 
 const Reports = () => {
     const [reports, setReports] = useState([]);

@@ -4,7 +4,7 @@ import { AuthContext } from './App';
 import * as proto from './service_grpc_web_pb';
 import * as protoService from './service_pb';
 
-const client = new proto.service.AuthServiceClient('http://localhost:50051', null, null);
+const client = new proto.service.AuthServiceClient('http://localhost:8080', null, null);
 
 const Invites = () => {
     const { user } = useContext(AuthContext);

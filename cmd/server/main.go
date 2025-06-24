@@ -7,7 +7,9 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/moos3/sparta/internal/auth"
@@ -122,19 +124,36 @@ func main() {
 		log.Fatalf("Failed to listen on port %d: %v", cfg.Server.GRPCPort, err)
 	}
 
-	wrappedGrpc := grpcweb.WrapServer(grpcServer)
+	wrappedGrpc := grpcweb.WrapServer(grpcServer, grpcweb.WithOriginFunc(func(origin string) bool {
+		return true // Allow all origins for development
+	}))
 	router := mux.NewRouter()
 	router.HandleFunc("/{service:service\\..+}/{method}", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("gRPC-Web request: %s", r.URL.Path)
 		if wrappedGrpc.IsGrpcWebRequest(r) {
 			wrappedGrpc.ServeHTTP(w, r)
 			return
 		}
+		log.Printf("Non-gRPC-Web request to service path: %s", r.URL.Path)
 		http.NotFound(w, r)
 	})
 
-	// Custom file server with correct MIME types
-	fileServer := http.FileServer(http.Dir("./web/build"))
+	// Custom file server with correct MIME types and SPA fallback
+	fileServer := http.FileServer(http.Dir("./web/dist"))
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Static request: %s", r.URL.Path)
+		if strings.Contains(r.URL.Path, "/src/") {
+			log.Printf("Blocked request to /src/: %s", r.URL.Path)
+			http.Error(w, "Not found", http.StatusNotFound)
+			return
+		}
+		path := filepath.Join("./web/dist", r.URL.Path)
+		_, err := os.Stat(path)
+		if os.IsNotExist(err) || !strings.Contains(r.URL.Path, ".") {
+			log.Printf("Serving index.html for SPA route: %s", r.URL.Path)
+			http.ServeFile(w, r, "./web/dist/index.html")
+			return
+		}
 		ext := filepath.Ext(r.URL.Path)
 		if ext == ".js" || ext == ".jsx" {
 			w.Header().Set("Content-Type", "application/javascript")

@@ -6117,7 +6117,7 @@ const file_proto_service_proto_rawDesc = "" +
 	"\n" +
 	"InviteUser\x12\x1a.service.InviteUserRequest\x1a\x1b.service.InviteUserResponse\x12Q\n" +
 	"\x0eValidateInvite\x12\x1e.service.ValidateInviteRequest\x1a\x1f.service.ValidateInviteResponse2\xd9\f\n" +
-	"\vUserService\x12E\n" +
+	"\vScanService\x12E\n" +
 	"\n" +
 	"ScanDomain\x12\x1a.service.ScanDomainRequest\x1a\x1b.service.ScanDomainResponse\x12<\n" +
 	"\aScanTLS\x12\x17.service.ScanTLSRequest\x1a\x18.service.ScanTLSResponse\x12B\n" +
@@ -6339,23 +6339,23 @@ var file_proto_service_proto_depIdxs = []int32{
 	31,  // 80: service.AuthService.Login:input_type -> service.LoginRequest
 	33,  // 81: service.AuthService.InviteUser:input_type -> service.InviteUserRequest
 	35,  // 82: service.AuthService.ValidateInvite:input_type -> service.ValidateInviteRequest
-	37,  // 83: service.UserService.ScanDomain:input_type -> service.ScanDomainRequest
-	39,  // 84: service.UserService.ScanTLS:input_type -> service.ScanTLSRequest
-	44,  // 85: service.UserService.ScanCrtSh:input_type -> service.ScanCrtShRequest
-	49,  // 86: service.UserService.ScanChaos:input_type -> service.ScanChaosRequest
-	54,  // 87: service.UserService.ScanShodan:input_type -> service.ScanShodanRequest
-	59,  // 88: service.UserService.ScanOTX:input_type -> service.ScanOTXRequest
-	64,  // 89: service.UserService.ScanWhois:input_type -> service.ScanWhoisRequest
-	69,  // 90: service.UserService.ScanAbuseCh:input_type -> service.ScanAbuseChRequest
-	74,  // 91: service.UserService.GetDNSScanResultsByDomain:input_type -> service.GetDNSScanResultsByDomainRequest
-	41,  // 92: service.UserService.GetTLSScanResultsByDomain:input_type -> service.GetTLSScanResultsByDomainRequest
-	46,  // 93: service.UserService.GetCrtShScanResultsByDomain:input_type -> service.GetCrtShScanResultsByDomainRequest
-	51,  // 94: service.UserService.GetChaosScanResultsByDomain:input_type -> service.GetChaosScanResultsByDomainRequest
-	56,  // 95: service.UserService.GetShodanScanResultsByDomain:input_type -> service.GetShodanScanResultsByDomainRequest
-	61,  // 96: service.UserService.GetOTXScanResultsByDomain:input_type -> service.GetOTXScanResultsByDomainRequest
-	66,  // 97: service.UserService.GetWhoisScanResultsByDomain:input_type -> service.GetWhoisScanResultsByDomainRequest
-	71,  // 98: service.UserService.GetAbuseChScanResultsByDomain:input_type -> service.GetAbuseChScanResultsByDomainRequest
-	76,  // 99: service.UserService.GetDNSScanResultByID:input_type -> service.GetDNSScanResultByIDRequest
+	37,  // 83: service.ScanService.ScanDomain:input_type -> service.ScanDomainRequest
+	39,  // 84: service.ScanService.ScanTLS:input_type -> service.ScanTLSRequest
+	44,  // 85: service.ScanService.ScanCrtSh:input_type -> service.ScanCrtShRequest
+	49,  // 86: service.ScanService.ScanChaos:input_type -> service.ScanChaosRequest
+	54,  // 87: service.ScanService.ScanShodan:input_type -> service.ScanShodanRequest
+	59,  // 88: service.ScanService.ScanOTX:input_type -> service.ScanOTXRequest
+	64,  // 89: service.ScanService.ScanWhois:input_type -> service.ScanWhoisRequest
+	69,  // 90: service.ScanService.ScanAbuseCh:input_type -> service.ScanAbuseChRequest
+	74,  // 91: service.ScanService.GetDNSScanResultsByDomain:input_type -> service.GetDNSScanResultsByDomainRequest
+	41,  // 92: service.ScanService.GetTLSScanResultsByDomain:input_type -> service.GetTLSScanResultsByDomainRequest
+	46,  // 93: service.ScanService.GetCrtShScanResultsByDomain:input_type -> service.GetCrtShScanResultsByDomainRequest
+	51,  // 94: service.ScanService.GetChaosScanResultsByDomain:input_type -> service.GetChaosScanResultsByDomainRequest
+	56,  // 95: service.ScanService.GetShodanScanResultsByDomain:input_type -> service.GetShodanScanResultsByDomainRequest
+	61,  // 96: service.ScanService.GetOTXScanResultsByDomain:input_type -> service.GetOTXScanResultsByDomainRequest
+	66,  // 97: service.ScanService.GetWhoisScanResultsByDomain:input_type -> service.GetWhoisScanResultsByDomainRequest
+	71,  // 98: service.ScanService.GetAbuseChScanResultsByDomain:input_type -> service.GetAbuseChScanResultsByDomainRequest
+	76,  // 99: service.ScanService.GetDNSScanResultByID:input_type -> service.GetDNSScanResultByIDRequest
 	0,   // 100: service.ReportService.GenerateReport:input_type -> service.GenerateReportRequest
 	2,   // 101: service.ReportService.ListReports:input_type -> service.ListReportsRequest
 	5,   // 102: service.ReportService.GetReportById:input_type -> service.GetReportByIdRequest
@@ -6372,23 +6372,23 @@ var file_proto_service_proto_depIdxs = []int32{
 	32,  // 113: service.AuthService.Login:output_type -> service.LoginResponse
 	34,  // 114: service.AuthService.InviteUser:output_type -> service.InviteUserResponse
 	36,  // 115: service.AuthService.ValidateInvite:output_type -> service.ValidateInviteResponse
-	38,  // 116: service.UserService.ScanDomain:output_type -> service.ScanDomainResponse
-	40,  // 117: service.UserService.ScanTLS:output_type -> service.ScanTLSResponse
-	45,  // 118: service.UserService.ScanCrtSh:output_type -> service.ScanCrtShResponse
-	50,  // 119: service.UserService.ScanChaos:output_type -> service.ScanChaosResponse
-	55,  // 120: service.UserService.ScanShodan:output_type -> service.ScanShodanResponse
-	60,  // 121: service.UserService.ScanOTX:output_type -> service.ScanOTXResponse
-	65,  // 122: service.UserService.ScanWhois:output_type -> service.ScanWhoisResponse
-	70,  // 123: service.UserService.ScanAbuseCh:output_type -> service.ScanAbuseChResponse
-	75,  // 124: service.UserService.GetDNSScanResultsByDomain:output_type -> service.GetDNSScanResultsByDomainResponse
-	42,  // 125: service.UserService.GetTLSScanResultsByDomain:output_type -> service.GetTLSScanResultsByDomainResponse
-	47,  // 126: service.UserService.GetCrtShScanResultsByDomain:output_type -> service.GetCrtShScanResultsByDomainResponse
-	52,  // 127: service.UserService.GetChaosScanResultsByDomain:output_type -> service.GetChaosScanResultsByDomainResponse
-	57,  // 128: service.UserService.GetShodanScanResultsByDomain:output_type -> service.GetShodanScanResultsByDomainResponse
-	62,  // 129: service.UserService.GetOTXScanResultsByDomain:output_type -> service.GetOTXScanResultsByDomainResponse
-	67,  // 130: service.UserService.GetWhoisScanResultsByDomain:output_type -> service.GetWhoisScanResultsByDomainResponse
-	72,  // 131: service.UserService.GetAbuseChScanResultsByDomain:output_type -> service.GetAbuseChScanResultsByDomainResponse
-	77,  // 132: service.UserService.GetDNSScanResultByID:output_type -> service.GetDNSScanResultByIDResponse
+	38,  // 116: service.ScanService.ScanDomain:output_type -> service.ScanDomainResponse
+	40,  // 117: service.ScanService.ScanTLS:output_type -> service.ScanTLSResponse
+	45,  // 118: service.ScanService.ScanCrtSh:output_type -> service.ScanCrtShResponse
+	50,  // 119: service.ScanService.ScanChaos:output_type -> service.ScanChaosResponse
+	55,  // 120: service.ScanService.ScanShodan:output_type -> service.ScanShodanResponse
+	60,  // 121: service.ScanService.ScanOTX:output_type -> service.ScanOTXResponse
+	65,  // 122: service.ScanService.ScanWhois:output_type -> service.ScanWhoisResponse
+	70,  // 123: service.ScanService.ScanAbuseCh:output_type -> service.ScanAbuseChResponse
+	75,  // 124: service.ScanService.GetDNSScanResultsByDomain:output_type -> service.GetDNSScanResultsByDomainResponse
+	42,  // 125: service.ScanService.GetTLSScanResultsByDomain:output_type -> service.GetTLSScanResultsByDomainResponse
+	47,  // 126: service.ScanService.GetCrtShScanResultsByDomain:output_type -> service.GetCrtShScanResultsByDomainResponse
+	52,  // 127: service.ScanService.GetChaosScanResultsByDomain:output_type -> service.GetChaosScanResultsByDomainResponse
+	57,  // 128: service.ScanService.GetShodanScanResultsByDomain:output_type -> service.GetShodanScanResultsByDomainResponse
+	62,  // 129: service.ScanService.GetOTXScanResultsByDomain:output_type -> service.GetOTXScanResultsByDomainResponse
+	67,  // 130: service.ScanService.GetWhoisScanResultsByDomain:output_type -> service.GetWhoisScanResultsByDomainResponse
+	72,  // 131: service.ScanService.GetAbuseChScanResultsByDomain:output_type -> service.GetAbuseChScanResultsByDomainResponse
+	77,  // 132: service.ScanService.GetDNSScanResultByID:output_type -> service.GetDNSScanResultByIDResponse
 	1,   // 133: service.ReportService.GenerateReport:output_type -> service.GenerateReportResponse
 	4,   // 134: service.ReportService.ListReports:output_type -> service.ListReportsResponse
 	6,   // 135: service.ReportService.GetReportById:output_type -> service.GetReportByIdResponse

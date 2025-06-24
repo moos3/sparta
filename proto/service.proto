@@ -22,7 +22,7 @@ service AuthService {
   rpc ValidateInvite(ValidateInviteRequest) returns (ValidateInviteResponse);
 }
 
-service UserService {
+service ScanService {
   // Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
   rpc ScanDomain(ScanDomainRequest) returns (ScanDomainResponse);
   rpc ScanTLS(ScanTLSRequest) returns (ScanTLSResponse);

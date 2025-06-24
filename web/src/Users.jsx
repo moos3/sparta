@@ -5,7 +5,7 @@ import * as proto from './service_grpc_web_pb';
 import * as protoService from './service_pb';
 import { AuthContext } from './App';
 
-const client = new proto.service.AuthServiceClient('http://localhost:50051', null, null);
+const client = new proto.service.AuthServiceClient('http://localhost:8080', null, null);
 
 const Users = () => {
     const { user } = useContext(AuthContext);
@@ -17,7 +17,7 @@ const Users = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        const request = new protoService.service.ListUsersRequest();
+        const request = new protoService.ListUsersRequest();
         client.listUsers(request, {}, (err, response) => {
             if (err) {
                 setError(`Failed to fetch users: ${err.message}`);
@@ -28,7 +28,7 @@ const Users = () => {
     }, []);
 
     const handleCreateUser = () => {
-        const request = new protoService.service.CreateUserRequest();
+        const request = new protoService.CreateUserRequest();
         request.setEmail(email);
         request.setFirstName(firstName);
         request.setLastName(lastName);
@@ -48,7 +48,7 @@ const Users = () => {
     };
 
     const handleCreateAPIKey = (userId) => {
-        const request = new protoService.service.CreateAPIKeyRequest();
+        const request = new protoService.CreateAPIKeyRequest();
         request.setUserId(userId);
         request.setRole('user');
         request.setIsServiceKey(false);

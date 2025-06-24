@@ -5,7 +5,7 @@ import * as proto from './service_grpc_web_pb';
 import * as protoService from './service_pb';
 import { AuthContext } from './App';
 
-const client = new proto.service.AuthServiceClient('http://localhost:50051', null, null);
+const client = new proto.service.AuthServiceClient('http://localhost:8080', null, null);
 
 const Login = () => {
     const [email, setEmail] = useState('');

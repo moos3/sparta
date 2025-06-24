@@ -3,7 +3,7 @@ import { Box, Typography, TextField, Button, List, ListItem, ListItemText, Paper
 import * as proto from './service_grpc_web_pb';
 import * as protoService from './service_pb';
 
-const client = new proto.service.UserServiceClient('http://localhost:50051', null, null);
+const client = new proto.service.UserServiceClient('http://localhost:8080', null, null);
 
 const Scans = () => {
     const [domain, setDomain] = useState('');
