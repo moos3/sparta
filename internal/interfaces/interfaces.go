@@ -19,8 +19,9 @@ type Plugin interface {
 // Generic Plugin interface for server-side usage
 type GenericPlugin interface {
 	Initialize() error
-	Scan(ctx context.Context, domain string, dnsScanID string) (interface{}, error)
-	InsertResult(domain string, dnsScanID string, result interface{}) (string, error)
+	Scan(ctx context.Context, domain string, options string) (interface{}, error)
+	SetDatabase(db db.Database)
+	SetConfig(config *config.Config) error
 }
 
 type DNSScanPlugin interface {

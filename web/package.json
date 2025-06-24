@@ -1,24 +1,27 @@
 {
   "name": "sparta-web",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "serve": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@improbable-eng/grpc-web": "^0.15.0",
-    "@mui/icons-material": "^5.15.0",
-    "@mui/material": "^5.15.0",
-    "protobufjs": "^7.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0"
+    "react-router-dom": "^6.16.0",
+    "@mui/material": "^5.14.0",
+    "@mui/icons-material": "^5.14.0",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@grpc/grpc-js": "^1.9.0",
+    "google-protobuf": "^3.21.2",
+    "@vitejs/plugin-react": "^4.0.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.2.0",
-    "vite": "^5.4.19"
+    "vite": "^4.0.0"
   }
 }

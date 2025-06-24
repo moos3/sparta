@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from './App';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Box, Typography, Alert, Paper } from '@mui/material';
-import { AuthServiceClient } from './services/service_grpc_web_pb';
-import { LoginRequest } from './services/service_pb';
+import * as proto from './service_grpc_web_pb';
+import * as protoService from './service_pb';
+import { AuthContext } from './App';
 
-const authClient = new AuthServiceClient('http://localhost:50051');
+const client = new proto.service.AuthServiceClient('http://localhost:50051', null, null);
 
-function Login() {
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -15,44 +15,38 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        const request = new LoginRequest();
+        const request = new protoService.service.LoginRequest();
         request.setEmail(email);
         request.setPassword(password);
-
-        authClient.login(request, {}, (err, response) => {
+        client.login(request, {}, (err, response) => {
             if (err) {
-                setError('Login failed: ' + err.message);
+                setError(`Login failed: ${err.message}`);
                 return;
             }
-            const userData = {
+            setUser({
                 userId: response.getUserId(),
                 firstName: response.getFirstName(),
                 lastName: response.getLastName(),
                 isAdmin: response.getIsAdmin(),
                 token: response.getToken(),
-            };
-            localStorage.setItem('sparta_token', response.getToken());
-            localStorage.setItem('sparta_user', JSON.stringify(userData));
-            setUser(userData);
-            setError('');
-            navigate('/');
+            });
+            navigate('/dashboard');
         });
     };
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', bgcolor: 'background.default' }}>
-            <Paper elevation={3} sx={{ p: 4, maxWidth: 400, width: '100%' }}>
-                <Typography variant="h4" gutterBottom align="center">
-                    Sparta Login
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <Paper sx={{ p: 4, maxWidth: 400, width: '100%' }}>
+                <Typography variant="h5" gutterBottom>
+                    Login
                 </Typography>
+                {error && <Alert severity="error">{error}</Alert>}
                 <TextField
                     label="Email"
-                    type="email"
                     fullWidth
                     margin="normal"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    variant="outlined"
                 />
                 <TextField
                     label="Password"
@@ -61,20 +55,13 @@ function Login() {
                     margin="normal"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    variant="outlined"
                 />
-                <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{ mt: 2 }}
-                    onClick={handleLogin}
-                >
-                    Sign In
+                <Button variant="contained" fullWidth onClick={handleLogin} sx={{ mt: 2 }}>
+                    Login
                 </Button>
-                {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
             </Paper>
         </Box>
     );
-}
+};
 
 export default Login;

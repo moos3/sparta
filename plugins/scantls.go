@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
 	"github.com/moos3/sparta/internal/interfaces"
 	"github.com/moos3/sparta/proto"
@@ -22,8 +23,9 @@ import (
 
 // ScanTLSPlugin implements the TLSScanPlugin interface
 type ScanTLSPlugin struct {
-	name string
-	db   db.Database
+	name   string
+	db     db.Database
+	config *config.Config
 }
 
 // Name returns the plugin name
@@ -47,6 +49,12 @@ func (p *ScanTLSPlugin) Initialize() error {
 func (p *ScanTLSPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
+}
+
+func (p *ScanTLSPlugin) SetConfig(cfg *config.Config) error {
+	p.config = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ScanTLS performs TLS configuration assessment

@@ -594,9 +594,6 @@ const (
 	UserService_GetWhoisScanResultsByDomain_FullMethodName   = "/service.UserService/GetWhoisScanResultsByDomain"
 	UserService_GetAbuseChScanResultsByDomain_FullMethodName = "/service.UserService/GetAbuseChScanResultsByDomain"
 	UserService_GetDNSScanResultByID_FullMethodName          = "/service.UserService/GetDNSScanResultByID"
-	UserService_CalculateRiskScore_FullMethodName            = "/service.UserService/CalculateRiskScore"
-	UserService_GenerateReport_FullMethodName                = "/service.UserService/GenerateReport"
-	UserService_ListReports_FullMethodName                   = "/service.UserService/ListReports"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -623,10 +620,6 @@ type UserServiceClient interface {
 	GetAbuseChScanResultsByDomain(ctx context.Context, in *GetAbuseChScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetAbuseChScanResultsByDomainResponse, error)
 	// Method to retrieve a specific DNS scan result by ID
 	GetDNSScanResultByID(ctx context.Context, in *GetDNSScanResultByIDRequest, opts ...grpc.CallOption) (*GetDNSScanResultByIDResponse, error)
-	// Methods for risk score calculation and report generation
-	CalculateRiskScore(ctx context.Context, in *CalculateRiskScoreRequest, opts ...grpc.CallOption) (*CalculateRiskScoreResponse, error)
-	GenerateReport(ctx context.Context, in *GenerateReportRequest, opts ...grpc.CallOption) (*GenerateReportResponse, error)
-	ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error)
 }
 
 type userServiceClient struct {
@@ -807,36 +800,6 @@ func (c *userServiceClient) GetDNSScanResultByID(ctx context.Context, in *GetDNS
 	return out, nil
 }
 
-func (c *userServiceClient) CalculateRiskScore(ctx context.Context, in *CalculateRiskScoreRequest, opts ...grpc.CallOption) (*CalculateRiskScoreResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CalculateRiskScoreResponse)
-	err := c.cc.Invoke(ctx, UserService_CalculateRiskScore_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) GenerateReport(ctx context.Context, in *GenerateReportRequest, opts ...grpc.CallOption) (*GenerateReportResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GenerateReportResponse)
-	err := c.cc.Invoke(ctx, UserService_GenerateReport_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ListReportsResponse)
-	err := c.cc.Invoke(ctx, UserService_ListReports_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -861,10 +824,6 @@ type UserServiceServer interface {
 	GetAbuseChScanResultsByDomain(context.Context, *GetAbuseChScanResultsByDomainRequest) (*GetAbuseChScanResultsByDomainResponse, error)
 	// Method to retrieve a specific DNS scan result by ID
 	GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error)
-	// Methods for risk score calculation and report generation
-	CalculateRiskScore(context.Context, *CalculateRiskScoreRequest) (*CalculateRiskScoreResponse, error)
-	GenerateReport(context.Context, *GenerateReportRequest) (*GenerateReportResponse, error)
-	ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -925,15 +884,6 @@ func (UnimplementedUserServiceServer) GetAbuseChScanResultsByDomain(context.Cont
 }
 func (UnimplementedUserServiceServer) GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDNSScanResultByID not implemented")
-}
-func (UnimplementedUserServiceServer) CalculateRiskScore(context.Context, *CalculateRiskScoreRequest) (*CalculateRiskScoreResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CalculateRiskScore not implemented")
-}
-func (UnimplementedUserServiceServer) GenerateReport(context.Context, *GenerateReportRequest) (*GenerateReportResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateReport not implemented")
-}
-func (UnimplementedUserServiceServer) ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListReports not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -1262,60 +1212,6 @@ func _UserService_GetDNSScanResultByID_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_CalculateRiskScore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CalculateRiskScoreRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).CalculateRiskScore(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_CalculateRiskScore_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CalculateRiskScore(ctx, req.(*CalculateRiskScoreRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_GenerateReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GenerateReportRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).GenerateReport(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_GenerateReport_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GenerateReport(ctx, req.(*GenerateReportRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_ListReports_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListReportsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).ListReports(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_ListReports_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).ListReports(ctx, req.(*ListReportsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1391,17 +1287,183 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "GetDNSScanResultByID",
 			Handler:    _UserService_GetDNSScanResultByID_Handler,
 		},
-		{
-			MethodName: "CalculateRiskScore",
-			Handler:    _UserService_CalculateRiskScore_Handler,
-		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/service.proto",
+}
+
+const (
+	ReportService_GenerateReport_FullMethodName = "/service.ReportService/GenerateReport"
+	ReportService_ListReports_FullMethodName    = "/service.ReportService/ListReports"
+	ReportService_GetReportById_FullMethodName  = "/service.ReportService/GetReportById"
+)
+
+// ReportServiceClient is the client API for ReportService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type ReportServiceClient interface {
+	GenerateReport(ctx context.Context, in *GenerateReportRequest, opts ...grpc.CallOption) (*GenerateReportResponse, error)
+	ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error)
+	GetReportById(ctx context.Context, in *GetReportByIdRequest, opts ...grpc.CallOption) (*GetReportByIdResponse, error)
+}
+
+type reportServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewReportServiceClient(cc grpc.ClientConnInterface) ReportServiceClient {
+	return &reportServiceClient{cc}
+}
+
+func (c *reportServiceClient) GenerateReport(ctx context.Context, in *GenerateReportRequest, opts ...grpc.CallOption) (*GenerateReportResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GenerateReportResponse)
+	err := c.cc.Invoke(ctx, ReportService_GenerateReport_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reportServiceClient) ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListReportsResponse)
+	err := c.cc.Invoke(ctx, ReportService_ListReports_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *reportServiceClient) GetReportById(ctx context.Context, in *GetReportByIdRequest, opts ...grpc.CallOption) (*GetReportByIdResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetReportByIdResponse)
+	err := c.cc.Invoke(ctx, ReportService_GetReportById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ReportServiceServer is the server API for ReportService service.
+// All implementations must embed UnimplementedReportServiceServer
+// for forward compatibility.
+type ReportServiceServer interface {
+	GenerateReport(context.Context, *GenerateReportRequest) (*GenerateReportResponse, error)
+	ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error)
+	GetReportById(context.Context, *GetReportByIdRequest) (*GetReportByIdResponse, error)
+	mustEmbedUnimplementedReportServiceServer()
+}
+
+// UnimplementedReportServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedReportServiceServer struct{}
+
+func (UnimplementedReportServiceServer) GenerateReport(context.Context, *GenerateReportRequest) (*GenerateReportResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateReport not implemented")
+}
+func (UnimplementedReportServiceServer) ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListReports not implemented")
+}
+func (UnimplementedReportServiceServer) GetReportById(context.Context, *GetReportByIdRequest) (*GetReportByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReportById not implemented")
+}
+func (UnimplementedReportServiceServer) mustEmbedUnimplementedReportServiceServer() {}
+func (UnimplementedReportServiceServer) testEmbeddedByValue()                       {}
+
+// UnsafeReportServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ReportServiceServer will
+// result in compilation errors.
+type UnsafeReportServiceServer interface {
+	mustEmbedUnimplementedReportServiceServer()
+}
+
+func RegisterReportServiceServer(s grpc.ServiceRegistrar, srv ReportServiceServer) {
+	// If the following call pancis, it indicates UnimplementedReportServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ReportService_ServiceDesc, srv)
+}
+
+func _ReportService_GenerateReport_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateReportRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReportServiceServer).GenerateReport(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReportService_GenerateReport_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReportServiceServer).GenerateReport(ctx, req.(*GenerateReportRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReportService_ListReports_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListReportsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReportServiceServer).ListReports(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReportService_ListReports_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReportServiceServer).ListReports(ctx, req.(*ListReportsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ReportService_GetReportById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReportByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReportServiceServer).GetReportById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ReportService_GetReportById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReportServiceServer).GetReportById(ctx, req.(*GetReportByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ReportService_ServiceDesc is the grpc.ServiceDesc for ReportService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ReportService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.ReportService",
+	HandlerType: (*ReportServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GenerateReport",
-			Handler:    _UserService_GenerateReport_Handler,
+			Handler:    _ReportService_GenerateReport_Handler,
 		},
 		{
 			MethodName: "ListReports",
-			Handler:    _UserService_ListReports_Handler,
+			Handler:    _ReportService_ListReports_Handler,
+		},
+		{
+			MethodName: "GetReportById",
+			Handler:    _ReportService_GetReportById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

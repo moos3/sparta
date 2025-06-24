@@ -28,10 +28,10 @@ type ScanChaosPlugin struct {
 
 func (p *ScanChaosPlugin) Initialize() error {
 	p.name = "ScanChaos"
-	if p.config == nil {
-		log.Printf("Warning: configuration not provided for plugin %s", p.name)
-		return nil
-	}
+	//if p.config == nil {
+	//	log.Printf("Warning: configuration not provided for plugin %s", p.name)
+	//	return nil
+	//}
 	if p.config.Chaos.APIKey == "" {
 		log.Printf("Warning: Chaos API key not provided for plugin %s", p.name)
 		return nil
@@ -53,8 +53,10 @@ func (p *ScanChaosPlugin) SetDatabase(db db.Database) {
 	log.Printf("Database connection set for plugin %s", p.name)
 }
 
-func (p *ScanChaosPlugin) SetConfig(cfg *config.Config) {
+func (p *ScanChaosPlugin) SetConfig(cfg *config.Config) error {
 	p.config = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 func (p *ScanChaosPlugin) ScanChaos(ctx context.Context, domain, dnsScanID string) (*proto.ChaosSecurityResult, error) {

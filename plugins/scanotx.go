@@ -67,9 +67,10 @@ func (p *ScanOTXPlugin) SetDatabase(db db.Database) {
 }
 
 // SetConfig sets the configuration
-func (p *ScanOTXPlugin) SetConfig(cfg *config.Config) {
+func (p *ScanOTXPlugin) SetConfig(cfg *config.Config) error {
 	p.config = cfg
 	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ScanOTX queries AlienVault OTX API for threat intelligence

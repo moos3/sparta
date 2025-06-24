@@ -13,6 +13,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/miekg/dns"
+	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
 	"github.com/moos3/sparta/internal/interfaces"
 	"github.com/moos3/sparta/proto"
@@ -20,8 +21,9 @@ import (
 
 // ScanDNSPlugin implements the DNSScanPlugin interface
 type ScanDNSPlugin struct {
-	name string
-	db   db.Database
+	name   string
+	db     db.Database
+	config *config.Config
 }
 
 // Name returns the plugin name
@@ -45,6 +47,13 @@ func (p *ScanDNSPlugin) Initialize() error {
 func (p *ScanDNSPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
+}
+
+// SetConfig sets the configuration for the plugin
+func (p *ScanDNSPlugin) SetConfig(cfg *config.Config) error {
+	p.config = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ScanDomain performs DNS security checks and stores results

@@ -77,9 +77,10 @@ func (p *ScanShodanPlugin) SetDatabase(db db.Database) {
 }
 
 // SetConfig sets the configuration
-func (p *ScanShodanPlugin) SetConfig(cfg *config.Config) {
+func (p *ScanShodanPlugin) SetConfig(cfg *config.Config) error {
 	p.config = cfg
 	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ScanShodan queries Shodan API for host information

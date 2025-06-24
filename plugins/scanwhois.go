@@ -11,6 +11,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/likexian/whois"
+	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
 	"github.com/moos3/sparta/internal/interfaces"
 	"github.com/moos3/sparta/proto"
@@ -18,8 +19,9 @@ import (
 )
 
 type ScanWhoisPlugin struct {
-	name string
-	db   db.Database
+	name   string
+	db     db.Database
+	config *config.Config
 }
 
 func (p *ScanWhoisPlugin) Initialize() error {
@@ -39,6 +41,12 @@ func (p *ScanWhoisPlugin) Name() string {
 func (p *ScanWhoisPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
+}
+
+func (p *ScanWhoisPlugin) SetConfig(cfg *config.Config) error {
+	p.config = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 func (p *ScanWhoisPlugin) ScanWhois(domain, dnsScanID string) (*proto.WhoisSecurityResult, error) {

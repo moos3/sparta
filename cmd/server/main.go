@@ -3,9 +3,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net"
 	"net/http"
+	"path/filepath"
 
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/moos3/sparta/internal/auth"
@@ -85,6 +87,7 @@ func main() {
 
 	abuseChSp := &plugins.ScanAbuseChPlugin{}
 	abuseChSp.SetDatabase(db)
+	abuseChSp.SetConfig(cfg)
 	if err := abuseChSp.Initialize(); err != nil {
 		log.Fatalf("Failed to initialize AbuseCh scan plugin: %v", err)
 	}
@@ -106,9 +109,11 @@ func main() {
 	)
 
 	s := server.New(db, authService, emailService, pluginMap)
+	reportService := server.NewReportService(db, pluginMap) // New ReportService
 
 	pb.RegisterAuthServiceServer(grpcServer, authService)
 	pb.RegisterUserServiceServer(grpcServer, s)
+	pb.RegisterReportServiceServer(grpcServer, reportService) // Register ReportService
 
 	authService.ScheduleAPIKeyRotation()
 
@@ -118,9 +123,28 @@ func main() {
 	}
 
 	wrappedGrpc := grpcweb.WrapServer(grpcServer)
+	router := mux.NewRouter()
+	router.HandleFunc("/{service:service\\..+}/{method}", func(w http.ResponseWriter, r *http.Request) {
+		if wrappedGrpc.IsGrpcWebRequest(r) {
+			wrappedGrpc.ServeHTTP(w, r)
+			return
+		}
+		http.NotFound(w, r)
+	})
+
+	// Custom file server with correct MIME types
+	fileServer := http.FileServer(http.Dir("./web/build"))
+	router.PathPrefix("/").Handler(http.StripPrefix("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ext := filepath.Ext(r.URL.Path)
+		if ext == ".js" || ext == ".jsx" {
+			w.Header().Set("Content-Type", "application/javascript")
+		}
+		fileServer.ServeHTTP(w, r)
+	})))
+
 	httpServer := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Server.HTTPPort),
-		Handler: wrappedGrpc,
+		Handler: router,
 	}
 
 	log.Printf("Starting gRPC server on port %d and HTTP server on port %d", cfg.Server.GRPCPort, cfg.Server.HTTPPort)

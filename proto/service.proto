@@ -45,13 +45,15 @@ service UserService {
 
   // Method to retrieve a specific DNS scan result by ID
   rpc GetDNSScanResultByID(GetDNSScanResultByIDRequest) returns (GetDNSScanResultByIDResponse);
-
-  // Methods for risk score calculation and report generation
-  rpc CalculateRiskScore(CalculateRiskScoreRequest) returns (CalculateRiskScoreResponse);
-  rpc GenerateReport(GenerateReportRequest) returns (GenerateReportResponse);
-  rpc ListReports(ListReportsRequest) returns (ListReportsResponse);
 }
 
+service ReportService {
+  rpc GenerateReport(GenerateReportRequest) returns (GenerateReportResponse);
+  rpc ListReports(ListReportsRequest) returns (ListReportsResponse);
+  rpc GetReportById(GetReportByIdRequest) returns (GetReportByIdResponse);
+}
+
+// Report-related messages
 message GenerateReportRequest {
   string domain = 1;
 }
@@ -79,6 +81,14 @@ message Report {
 
 message ListReportsResponse {
   repeated Report reports = 1;
+}
+
+message GetReportByIdRequest {
+  string report_id = 1;
+}
+
+message GetReportByIdResponse {
+  Report report = 1;
 }
 
 message CalculateRiskScoreRequest {

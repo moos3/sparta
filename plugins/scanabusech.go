@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
 	"github.com/moos3/sparta/internal/interfaces"
 	"github.com/moos3/sparta/proto"
@@ -21,8 +22,9 @@ import (
 
 // ScanAbuseChPlugin implements the ScanAbuseChPlugin interface
 type ScanAbuseChPlugin struct {
-	name string
-	db   db.Database
+	name    string
+	db      db.Database
+	conifig *config.Config
 }
 
 // Name returns the plugin name
@@ -46,6 +48,13 @@ func (p *ScanAbuseChPlugin) Initialize() error {
 func (p *ScanAbuseChPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
+}
+
+// SetConfig sets the configuration for the plugin
+func (p *ScanAbuseChPlugin) SetConfig(cfg *config.Config) error {
+	p.conifig = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ThreatFoxResponse represents the ThreatFox API response structure

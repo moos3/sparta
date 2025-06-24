@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/moos3/sparta/internal/config"
 	"github.com/moos3/sparta/internal/db"
 	"github.com/moos3/sparta/internal/interfaces"
 	"github.com/moos3/sparta/proto"
@@ -23,6 +24,7 @@ type ScanCrtShPlugin struct {
 	name        string
 	db          db.Database
 	rateLimiter *rate.Limiter
+	config      *config.Config
 }
 
 // Name returns the plugin name
@@ -47,6 +49,13 @@ func (p *ScanCrtShPlugin) Initialize() error {
 func (p *ScanCrtShPlugin) SetDatabase(db db.Database) {
 	p.db = db
 	log.Printf("Database connection set for plugin %s", p.name)
+}
+
+// SetConfig sets the configuration for the plugin
+func (p *ScanCrtShPlugin) SetConfig(cfg *config.Config) error {
+	p.config = cfg
+	log.Printf("Configuration set for plugin %s", p.name)
+	return nil
 }
 
 // ScanCrtSh queries crt.sh for certificate and subdomain information
