@@ -1,6 +1,6 @@
+// web/src/Dashboard.tsx
 import React, { useContext } from 'react';
-import { AuthContext } from './App';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import {
     Drawer,
     List,
@@ -19,11 +19,19 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import MailIcon from '@mui/icons-material/Mail';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DescriptionIcon from '@mui/icons-material/Description';
+
+import { AuthContext } from './App'; // Import AuthContext
 
 const drawerWidth = 240;
 
-function Dashboard({ children }) {
-    const { user, setUser } = useContext(AuthContext);
+function Dashboard() {
+    const authContext = useContext(AuthContext); // Access AuthContext
+    if (!authContext) {
+        throw new Error("Dashboard must be used within an AuthContext.Provider");
+    }
+    const { user, setUser } = authContext; // Destructure user and setUser
+
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -78,6 +86,14 @@ function Dashboard({ children }) {
                             <ListItemText primary="Scans" />
                         </ListItemButton>
                     </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/reports')}>
+                            <ListItemIcon>
+                                <DescriptionIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Reports" />
+                        </ListItemButton>
+                    </ListItem>
                     {user && user.isAdmin && (
                         <>
                             <ListItem disablePadding>
@@ -105,7 +121,7 @@ function Dashboard({ children }) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                {children}
+                <Outlet />
             </Box>
         </Box>
     );

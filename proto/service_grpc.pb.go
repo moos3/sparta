@@ -19,6 +19,908 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	ScanService_ScanDomain_FullMethodName                    = "/service.ScanService/ScanDomain"
+	ScanService_ScanTLS_FullMethodName                       = "/service.ScanService/ScanTLS"
+	ScanService_ScanCrtSh_FullMethodName                     = "/service.ScanService/ScanCrtSh"
+	ScanService_ScanChaos_FullMethodName                     = "/service.ScanService/ScanChaos"
+	ScanService_ScanShodan_FullMethodName                    = "/service.ScanService/ScanShodan"
+	ScanService_ScanOTX_FullMethodName                       = "/service.ScanService/ScanOTX"
+	ScanService_ScanWhois_FullMethodName                     = "/service.ScanService/ScanWhois"
+	ScanService_ScanAbuseCh_FullMethodName                   = "/service.ScanService/ScanAbuseCh"
+	ScanService_ScanISC_FullMethodName                       = "/service.ScanService/ScanISC"
+	ScanService_GetDNSScanResultsByDomain_FullMethodName     = "/service.ScanService/GetDNSScanResultsByDomain"
+	ScanService_GetTLSScanResultsByDomain_FullMethodName     = "/service.ScanService/GetTLSScanResultsByDomain"
+	ScanService_GetCrtShScanResultsByDomain_FullMethodName   = "/service.ScanService/GetCrtShScanResultsByDomain"
+	ScanService_GetChaosScanResultsByDomain_FullMethodName   = "/service.ScanService/GetChaosScanResultsByDomain"
+	ScanService_GetShodanScanResultsByDomain_FullMethodName  = "/service.ScanService/GetShodanScanResultsByDomain"
+	ScanService_GetOTXScanResultsByDomain_FullMethodName     = "/service.ScanService/GetOTXScanResultsByDomain"
+	ScanService_GetWhoisScanResultsByDomain_FullMethodName   = "/service.ScanService/GetWhoisScanResultsByDomain"
+	ScanService_GetAbuseChScanResultsByDomain_FullMethodName = "/service.ScanService/GetAbuseChScanResultsByDomain"
+	ScanService_GetISCScanResultsByDomain_FullMethodName     = "/service.ScanService/GetISCScanResultsByDomain"
+	ScanService_GetDNSScanResultByID_FullMethodName          = "/service.ScanService/GetDNSScanResultByID"
+)
+
+// ScanServiceClient is the client API for ScanService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Scan Service Methods
+type ScanServiceClient interface {
+	// Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
+	ScanDomain(ctx context.Context, in *ScanDomainRequest, opts ...grpc.CallOption) (*ScanDomainResponse, error)
+	ScanTLS(ctx context.Context, in *ScanTLSRequest, opts ...grpc.CallOption) (*ScanTLSResponse, error)
+	ScanCrtSh(ctx context.Context, in *ScanCrtShRequest, opts ...grpc.CallOption) (*ScanCrtShResponse, error)
+	ScanChaos(ctx context.Context, in *ScanChaosRequest, opts ...grpc.CallOption) (*ScanChaosResponse, error)
+	ScanShodan(ctx context.Context, in *ScanShodanRequest, opts ...grpc.CallOption) (*ScanShodanResponse, error)
+	ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error)
+	ScanWhois(ctx context.Context, in *ScanWhoisRequest, opts ...grpc.CallOption) (*ScanWhoisResponse, error)
+	ScanAbuseCh(ctx context.Context, in *ScanAbuseChRequest, opts ...grpc.CallOption) (*ScanAbuseChResponse, error)
+	ScanISC(ctx context.Context, in *ScanISCRequest, opts ...grpc.CallOption) (*ScanISCResponse, error)
+	// Methods to retrieve scan results by domain
+	GetDNSScanResultsByDomain(ctx context.Context, in *GetDNSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetDNSScanResultsByDomainResponse, error)
+	GetTLSScanResultsByDomain(ctx context.Context, in *GetTLSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetTLSScanResultsByDomainResponse, error)
+	GetCrtShScanResultsByDomain(ctx context.Context, in *GetCrtShScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetCrtShScanResultsByDomainResponse, error)
+	GetChaosScanResultsByDomain(ctx context.Context, in *GetChaosScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetChaosScanResultsByDomainResponse, error)
+	GetShodanScanResultsByDomain(ctx context.Context, in *GetShodanScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetShodanScanResultsByDomainResponse, error)
+	GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error)
+	GetWhoisScanResultsByDomain(ctx context.Context, in *GetWhoisScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetWhoisScanResultsByDomainResponse, error)
+	GetAbuseChScanResultsByDomain(ctx context.Context, in *GetAbuseChScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetAbuseChScanResultsByDomainResponse, error)
+	GetISCScanResultsByDomain(ctx context.Context, in *GetISCScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetISCScanResultsByDomainResponse, error)
+	// Method to retrieve a specific DNS scan result by ID
+	GetDNSScanResultByID(ctx context.Context, in *GetDNSScanResultByIDRequest, opts ...grpc.CallOption) (*GetDNSScanResultByIDResponse, error)
+}
+
+type scanServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewScanServiceClient(cc grpc.ClientConnInterface) ScanServiceClient {
+	return &scanServiceClient{cc}
+}
+
+func (c *scanServiceClient) ScanDomain(ctx context.Context, in *ScanDomainRequest, opts ...grpc.CallOption) (*ScanDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanTLS(ctx context.Context, in *ScanTLSRequest, opts ...grpc.CallOption) (*ScanTLSResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanTLSResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanTLS_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanCrtSh(ctx context.Context, in *ScanCrtShRequest, opts ...grpc.CallOption) (*ScanCrtShResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanCrtShResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanCrtSh_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanChaos(ctx context.Context, in *ScanChaosRequest, opts ...grpc.CallOption) (*ScanChaosResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanChaosResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanChaos_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanShodan(ctx context.Context, in *ScanShodanRequest, opts ...grpc.CallOption) (*ScanShodanResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanShodanResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanShodan_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanOTXResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanOTX_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanWhois(ctx context.Context, in *ScanWhoisRequest, opts ...grpc.CallOption) (*ScanWhoisResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanWhoisResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanWhois_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanAbuseCh(ctx context.Context, in *ScanAbuseChRequest, opts ...grpc.CallOption) (*ScanAbuseChResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanAbuseChResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanAbuseCh_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) ScanISC(ctx context.Context, in *ScanISCRequest, opts ...grpc.CallOption) (*ScanISCResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ScanISCResponse)
+	err := c.cc.Invoke(ctx, ScanService_ScanISC_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetDNSScanResultsByDomain(ctx context.Context, in *GetDNSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetDNSScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDNSScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetDNSScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetTLSScanResultsByDomain(ctx context.Context, in *GetTLSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetTLSScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetTLSScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetTLSScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetCrtShScanResultsByDomain(ctx context.Context, in *GetCrtShScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetCrtShScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCrtShScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetCrtShScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetChaosScanResultsByDomain(ctx context.Context, in *GetChaosScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetChaosScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetChaosScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetChaosScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetShodanScanResultsByDomain(ctx context.Context, in *GetShodanScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetShodanScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetShodanScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetShodanScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetOTXScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetOTXScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetWhoisScanResultsByDomain(ctx context.Context, in *GetWhoisScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetWhoisScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWhoisScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetWhoisScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetAbuseChScanResultsByDomain(ctx context.Context, in *GetAbuseChScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetAbuseChScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAbuseChScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetAbuseChScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetISCScanResultsByDomain(ctx context.Context, in *GetISCScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetISCScanResultsByDomainResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetISCScanResultsByDomainResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetISCScanResultsByDomain_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *scanServiceClient) GetDNSScanResultByID(ctx context.Context, in *GetDNSScanResultByIDRequest, opts ...grpc.CallOption) (*GetDNSScanResultByIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDNSScanResultByIDResponse)
+	err := c.cc.Invoke(ctx, ScanService_GetDNSScanResultByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ScanServiceServer is the server API for ScanService service.
+// All implementations must embed UnimplementedScanServiceServer
+// for forward compatibility.
+//
+// Scan Service Methods
+type ScanServiceServer interface {
+	// Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
+	ScanDomain(context.Context, *ScanDomainRequest) (*ScanDomainResponse, error)
+	ScanTLS(context.Context, *ScanTLSRequest) (*ScanTLSResponse, error)
+	ScanCrtSh(context.Context, *ScanCrtShRequest) (*ScanCrtShResponse, error)
+	ScanChaos(context.Context, *ScanChaosRequest) (*ScanChaosResponse, error)
+	ScanShodan(context.Context, *ScanShodanRequest) (*ScanShodanResponse, error)
+	ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error)
+	ScanWhois(context.Context, *ScanWhoisRequest) (*ScanWhoisResponse, error)
+	ScanAbuseCh(context.Context, *ScanAbuseChRequest) (*ScanAbuseChResponse, error)
+	ScanISC(context.Context, *ScanISCRequest) (*ScanISCResponse, error)
+	// Methods to retrieve scan results by domain
+	GetDNSScanResultsByDomain(context.Context, *GetDNSScanResultsByDomainRequest) (*GetDNSScanResultsByDomainResponse, error)
+	GetTLSScanResultsByDomain(context.Context, *GetTLSScanResultsByDomainRequest) (*GetTLSScanResultsByDomainResponse, error)
+	GetCrtShScanResultsByDomain(context.Context, *GetCrtShScanResultsByDomainRequest) (*GetCrtShScanResultsByDomainResponse, error)
+	GetChaosScanResultsByDomain(context.Context, *GetChaosScanResultsByDomainRequest) (*GetChaosScanResultsByDomainResponse, error)
+	GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error)
+	GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error)
+	GetWhoisScanResultsByDomain(context.Context, *GetWhoisScanResultsByDomainRequest) (*GetWhoisScanResultsByDomainResponse, error)
+	GetAbuseChScanResultsByDomain(context.Context, *GetAbuseChScanResultsByDomainRequest) (*GetAbuseChScanResultsByDomainResponse, error)
+	GetISCScanResultsByDomain(context.Context, *GetISCScanResultsByDomainRequest) (*GetISCScanResultsByDomainResponse, error)
+	// Method to retrieve a specific DNS scan result by ID
+	GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error)
+	mustEmbedUnimplementedScanServiceServer()
+}
+
+// UnimplementedScanServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedScanServiceServer struct{}
+
+func (UnimplementedScanServiceServer) ScanDomain(context.Context, *ScanDomainRequest) (*ScanDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanDomain not implemented")
+}
+func (UnimplementedScanServiceServer) ScanTLS(context.Context, *ScanTLSRequest) (*ScanTLSResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanTLS not implemented")
+}
+func (UnimplementedScanServiceServer) ScanCrtSh(context.Context, *ScanCrtShRequest) (*ScanCrtShResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanCrtSh not implemented")
+}
+func (UnimplementedScanServiceServer) ScanChaos(context.Context, *ScanChaosRequest) (*ScanChaosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanChaos not implemented")
+}
+func (UnimplementedScanServiceServer) ScanShodan(context.Context, *ScanShodanRequest) (*ScanShodanResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanShodan not implemented")
+}
+func (UnimplementedScanServiceServer) ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanOTX not implemented")
+}
+func (UnimplementedScanServiceServer) ScanWhois(context.Context, *ScanWhoisRequest) (*ScanWhoisResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanWhois not implemented")
+}
+func (UnimplementedScanServiceServer) ScanAbuseCh(context.Context, *ScanAbuseChRequest) (*ScanAbuseChResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanAbuseCh not implemented")
+}
+func (UnimplementedScanServiceServer) ScanISC(context.Context, *ScanISCRequest) (*ScanISCResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ScanISC not implemented")
+}
+func (UnimplementedScanServiceServer) GetDNSScanResultsByDomain(context.Context, *GetDNSScanResultsByDomainRequest) (*GetDNSScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDNSScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetTLSScanResultsByDomain(context.Context, *GetTLSScanResultsByDomainRequest) (*GetTLSScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTLSScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetCrtShScanResultsByDomain(context.Context, *GetCrtShScanResultsByDomainRequest) (*GetCrtShScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCrtShScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetChaosScanResultsByDomain(context.Context, *GetChaosScanResultsByDomainRequest) (*GetChaosScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChaosScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetShodanScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOTXScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetWhoisScanResultsByDomain(context.Context, *GetWhoisScanResultsByDomainRequest) (*GetWhoisScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWhoisScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetAbuseChScanResultsByDomain(context.Context, *GetAbuseChScanResultsByDomainRequest) (*GetAbuseChScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAbuseChScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetISCScanResultsByDomain(context.Context, *GetISCScanResultsByDomainRequest) (*GetISCScanResultsByDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetISCScanResultsByDomain not implemented")
+}
+func (UnimplementedScanServiceServer) GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDNSScanResultByID not implemented")
+}
+func (UnimplementedScanServiceServer) mustEmbedUnimplementedScanServiceServer() {}
+func (UnimplementedScanServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeScanServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ScanServiceServer will
+// result in compilation errors.
+type UnsafeScanServiceServer interface {
+	mustEmbedUnimplementedScanServiceServer()
+}
+
+func RegisterScanServiceServer(s grpc.ServiceRegistrar, srv ScanServiceServer) {
+	// If the following call pancis, it indicates UnimplementedScanServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ScanService_ServiceDesc, srv)
+}
+
+func _ScanService_ScanDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanDomain(ctx, req.(*ScanDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanTLS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanTLSRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanTLS(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanTLS_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanTLS(ctx, req.(*ScanTLSRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanCrtSh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanCrtShRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanCrtSh(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanCrtSh_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanCrtSh(ctx, req.(*ScanCrtShRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanChaos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanChaosRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanChaos(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanChaos_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanChaos(ctx, req.(*ScanChaosRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanShodan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanShodanRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanShodan(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanShodan_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanShodan(ctx, req.(*ScanShodanRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanOTX_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanOTXRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanOTX(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanOTX_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanOTX(ctx, req.(*ScanOTXRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanWhois_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanWhoisRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanWhois(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanWhois_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanWhois(ctx, req.(*ScanWhoisRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanAbuseCh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanAbuseChRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanAbuseCh(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanAbuseCh_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanAbuseCh(ctx, req.(*ScanAbuseChRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_ScanISC_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ScanISCRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).ScanISC(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_ScanISC_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).ScanISC(ctx, req.(*ScanISCRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetDNSScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDNSScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetDNSScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetDNSScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetDNSScanResultsByDomain(ctx, req.(*GetDNSScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetTLSScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTLSScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetTLSScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetTLSScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetTLSScanResultsByDomain(ctx, req.(*GetTLSScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetCrtShScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCrtShScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetCrtShScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetCrtShScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetCrtShScanResultsByDomain(ctx, req.(*GetCrtShScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetChaosScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChaosScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetChaosScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetChaosScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetChaosScanResultsByDomain(ctx, req.(*GetChaosScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetShodanScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetShodanScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetShodanScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetShodanScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetShodanScanResultsByDomain(ctx, req.(*GetShodanScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetOTXScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOTXScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetOTXScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetOTXScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetOTXScanResultsByDomain(ctx, req.(*GetOTXScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetWhoisScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWhoisScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetWhoisScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetWhoisScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetWhoisScanResultsByDomain(ctx, req.(*GetWhoisScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetAbuseChScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAbuseChScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetAbuseChScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetAbuseChScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetAbuseChScanResultsByDomain(ctx, req.(*GetAbuseChScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetISCScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetISCScanResultsByDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetISCScanResultsByDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetISCScanResultsByDomain_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetISCScanResultsByDomain(ctx, req.(*GetISCScanResultsByDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ScanService_GetDNSScanResultByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDNSScanResultByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScanServiceServer).GetDNSScanResultByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScanService_GetDNSScanResultByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScanServiceServer).GetDNSScanResultByID(ctx, req.(*GetDNSScanResultByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ScanService_ServiceDesc is the grpc.ServiceDesc for ScanService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ScanService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.ScanService",
+	HandlerType: (*ScanServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ScanDomain",
+			Handler:    _ScanService_ScanDomain_Handler,
+		},
+		{
+			MethodName: "ScanTLS",
+			Handler:    _ScanService_ScanTLS_Handler,
+		},
+		{
+			MethodName: "ScanCrtSh",
+			Handler:    _ScanService_ScanCrtSh_Handler,
+		},
+		{
+			MethodName: "ScanChaos",
+			Handler:    _ScanService_ScanChaos_Handler,
+		},
+		{
+			MethodName: "ScanShodan",
+			Handler:    _ScanService_ScanShodan_Handler,
+		},
+		{
+			MethodName: "ScanOTX",
+			Handler:    _ScanService_ScanOTX_Handler,
+		},
+		{
+			MethodName: "ScanWhois",
+			Handler:    _ScanService_ScanWhois_Handler,
+		},
+		{
+			MethodName: "ScanAbuseCh",
+			Handler:    _ScanService_ScanAbuseCh_Handler,
+		},
+		{
+			MethodName: "ScanISC",
+			Handler:    _ScanService_ScanISC_Handler,
+		},
+		{
+			MethodName: "GetDNSScanResultsByDomain",
+			Handler:    _ScanService_GetDNSScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetTLSScanResultsByDomain",
+			Handler:    _ScanService_GetTLSScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetCrtShScanResultsByDomain",
+			Handler:    _ScanService_GetCrtShScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetChaosScanResultsByDomain",
+			Handler:    _ScanService_GetChaosScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetShodanScanResultsByDomain",
+			Handler:    _ScanService_GetShodanScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetOTXScanResultsByDomain",
+			Handler:    _ScanService_GetOTXScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetWhoisScanResultsByDomain",
+			Handler:    _ScanService_GetWhoisScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetAbuseChScanResultsByDomain",
+			Handler:    _ScanService_GetAbuseChScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetISCScanResultsByDomain",
+			Handler:    _ScanService_GetISCScanResultsByDomain_Handler,
+		},
+		{
+			MethodName: "GetDNSScanResultByID",
+			Handler:    _ScanService_GetDNSScanResultByID_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/service.proto",
+}
+
+const (
+	UserService_CalculateRiskScore_FullMethodName = "/service.UserService/CalculateRiskScore"
+)
+
+// UserServiceClient is the client API for UserService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// User Service
+type UserServiceClient interface {
+	CalculateRiskScore(ctx context.Context, in *CalculateRiskScoreRequest, opts ...grpc.CallOption) (*CalculateRiskScoreResponse, error)
+}
+
+type userServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
+	return &userServiceClient{cc}
+}
+
+func (c *userServiceClient) CalculateRiskScore(ctx context.Context, in *CalculateRiskScoreRequest, opts ...grpc.CallOption) (*CalculateRiskScoreResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CalculateRiskScoreResponse)
+	err := c.cc.Invoke(ctx, UserService_CalculateRiskScore_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// UserServiceServer is the server API for UserService service.
+// All implementations must embed UnimplementedUserServiceServer
+// for forward compatibility.
+//
+// User Service
+type UserServiceServer interface {
+	CalculateRiskScore(context.Context, *CalculateRiskScoreRequest) (*CalculateRiskScoreResponse, error)
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+// UnimplementedUserServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedUserServiceServer struct{}
+
+func (UnimplementedUserServiceServer) CalculateRiskScore(context.Context, *CalculateRiskScoreRequest) (*CalculateRiskScoreResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CalculateRiskScore not implemented")
+}
+func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
+func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
+
+// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServiceServer will
+// result in compilation errors.
+type UnsafeUserServiceServer interface {
+	mustEmbedUnimplementedUserServiceServer()
+}
+
+func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
+	// If the following call pancis, it indicates UnimplementedUserServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&UserService_ServiceDesc, srv)
+}
+
+func _UserService_CalculateRiskScore_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CalculateRiskScoreRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CalculateRiskScore(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CalculateRiskScore_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CalculateRiskScore(ctx, req.(*CalculateRiskScoreRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var UserService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "service.UserService",
+	HandlerType: (*UserServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CalculateRiskScore",
+			Handler:    _UserService_CalculateRiskScore_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/service.proto",
+}
+
+const (
 	AuthService_CreateUser_FullMethodName       = "/service.AuthService/CreateUser"
 	AuthService_GetUser_FullMethodName          = "/service.AuthService/GetUser"
 	AuthService_UpdateUser_FullMethodName       = "/service.AuthService/UpdateUser"
@@ -37,6 +939,8 @@ const (
 // AuthServiceClient is the client API for AuthService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Auth Service
 type AuthServiceClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
@@ -194,6 +1098,8 @@ func (c *authServiceClient) ValidateInvite(ctx context.Context, in *ValidateInvi
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
+//
+// Auth Service
 type AuthServiceServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
@@ -577,722 +1483,6 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	ScanService_ScanDomain_FullMethodName                    = "/service.ScanService/ScanDomain"
-	ScanService_ScanTLS_FullMethodName                       = "/service.ScanService/ScanTLS"
-	ScanService_ScanCrtSh_FullMethodName                     = "/service.ScanService/ScanCrtSh"
-	ScanService_ScanChaos_FullMethodName                     = "/service.ScanService/ScanChaos"
-	ScanService_ScanShodan_FullMethodName                    = "/service.ScanService/ScanShodan"
-	ScanService_ScanOTX_FullMethodName                       = "/service.ScanService/ScanOTX"
-	ScanService_ScanWhois_FullMethodName                     = "/service.ScanService/ScanWhois"
-	ScanService_ScanAbuseCh_FullMethodName                   = "/service.ScanService/ScanAbuseCh"
-	ScanService_GetDNSScanResultsByDomain_FullMethodName     = "/service.ScanService/GetDNSScanResultsByDomain"
-	ScanService_GetTLSScanResultsByDomain_FullMethodName     = "/service.ScanService/GetTLSScanResultsByDomain"
-	ScanService_GetCrtShScanResultsByDomain_FullMethodName   = "/service.ScanService/GetCrtShScanResultsByDomain"
-	ScanService_GetChaosScanResultsByDomain_FullMethodName   = "/service.ScanService/GetChaosScanResultsByDomain"
-	ScanService_GetShodanScanResultsByDomain_FullMethodName  = "/service.ScanService/GetShodanScanResultsByDomain"
-	ScanService_GetOTXScanResultsByDomain_FullMethodName     = "/service.ScanService/GetOTXScanResultsByDomain"
-	ScanService_GetWhoisScanResultsByDomain_FullMethodName   = "/service.ScanService/GetWhoisScanResultsByDomain"
-	ScanService_GetAbuseChScanResultsByDomain_FullMethodName = "/service.ScanService/GetAbuseChScanResultsByDomain"
-	ScanService_GetDNSScanResultByID_FullMethodName          = "/service.ScanService/GetDNSScanResultByID"
-)
-
-// ScanServiceClient is the client API for ScanService service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ScanServiceClient interface {
-	// Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
-	ScanDomain(ctx context.Context, in *ScanDomainRequest, opts ...grpc.CallOption) (*ScanDomainResponse, error)
-	ScanTLS(ctx context.Context, in *ScanTLSRequest, opts ...grpc.CallOption) (*ScanTLSResponse, error)
-	ScanCrtSh(ctx context.Context, in *ScanCrtShRequest, opts ...grpc.CallOption) (*ScanCrtShResponse, error)
-	ScanChaos(ctx context.Context, in *ScanChaosRequest, opts ...grpc.CallOption) (*ScanChaosResponse, error)
-	ScanShodan(ctx context.Context, in *ScanShodanRequest, opts ...grpc.CallOption) (*ScanShodanResponse, error)
-	ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error)
-	ScanWhois(ctx context.Context, in *ScanWhoisRequest, opts ...grpc.CallOption) (*ScanWhoisResponse, error)
-	ScanAbuseCh(ctx context.Context, in *ScanAbuseChRequest, opts ...grpc.CallOption) (*ScanAbuseChResponse, error)
-	// Methods to retrieve scan results by domain
-	GetDNSScanResultsByDomain(ctx context.Context, in *GetDNSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetDNSScanResultsByDomainResponse, error)
-	GetTLSScanResultsByDomain(ctx context.Context, in *GetTLSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetTLSScanResultsByDomainResponse, error)
-	GetCrtShScanResultsByDomain(ctx context.Context, in *GetCrtShScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetCrtShScanResultsByDomainResponse, error)
-	GetChaosScanResultsByDomain(ctx context.Context, in *GetChaosScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetChaosScanResultsByDomainResponse, error)
-	GetShodanScanResultsByDomain(ctx context.Context, in *GetShodanScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetShodanScanResultsByDomainResponse, error)
-	GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error)
-	GetWhoisScanResultsByDomain(ctx context.Context, in *GetWhoisScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetWhoisScanResultsByDomainResponse, error)
-	GetAbuseChScanResultsByDomain(ctx context.Context, in *GetAbuseChScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetAbuseChScanResultsByDomainResponse, error)
-	// Method to retrieve a specific DNS scan result by ID
-	GetDNSScanResultByID(ctx context.Context, in *GetDNSScanResultByIDRequest, opts ...grpc.CallOption) (*GetDNSScanResultByIDResponse, error)
-}
-
-type scanServiceClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewScanServiceClient(cc grpc.ClientConnInterface) ScanServiceClient {
-	return &scanServiceClient{cc}
-}
-
-func (c *scanServiceClient) ScanDomain(ctx context.Context, in *ScanDomainRequest, opts ...grpc.CallOption) (*ScanDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanTLS(ctx context.Context, in *ScanTLSRequest, opts ...grpc.CallOption) (*ScanTLSResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanTLSResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanTLS_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanCrtSh(ctx context.Context, in *ScanCrtShRequest, opts ...grpc.CallOption) (*ScanCrtShResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanCrtShResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanCrtSh_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanChaos(ctx context.Context, in *ScanChaosRequest, opts ...grpc.CallOption) (*ScanChaosResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanChaosResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanChaos_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanShodan(ctx context.Context, in *ScanShodanRequest, opts ...grpc.CallOption) (*ScanShodanResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanShodanResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanShodan_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanOTX(ctx context.Context, in *ScanOTXRequest, opts ...grpc.CallOption) (*ScanOTXResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanOTXResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanOTX_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanWhois(ctx context.Context, in *ScanWhoisRequest, opts ...grpc.CallOption) (*ScanWhoisResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanWhoisResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanWhois_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) ScanAbuseCh(ctx context.Context, in *ScanAbuseChRequest, opts ...grpc.CallOption) (*ScanAbuseChResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ScanAbuseChResponse)
-	err := c.cc.Invoke(ctx, ScanService_ScanAbuseCh_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetDNSScanResultsByDomain(ctx context.Context, in *GetDNSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetDNSScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetDNSScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetDNSScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetTLSScanResultsByDomain(ctx context.Context, in *GetTLSScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetTLSScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetTLSScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetTLSScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetCrtShScanResultsByDomain(ctx context.Context, in *GetCrtShScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetCrtShScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetCrtShScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetCrtShScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetChaosScanResultsByDomain(ctx context.Context, in *GetChaosScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetChaosScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetChaosScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetChaosScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetShodanScanResultsByDomain(ctx context.Context, in *GetShodanScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetShodanScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetShodanScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetShodanScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetOTXScanResultsByDomain(ctx context.Context, in *GetOTXScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetOTXScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetOTXScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetOTXScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetWhoisScanResultsByDomain(ctx context.Context, in *GetWhoisScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetWhoisScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetWhoisScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetWhoisScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetAbuseChScanResultsByDomain(ctx context.Context, in *GetAbuseChScanResultsByDomainRequest, opts ...grpc.CallOption) (*GetAbuseChScanResultsByDomainResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAbuseChScanResultsByDomainResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetAbuseChScanResultsByDomain_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *scanServiceClient) GetDNSScanResultByID(ctx context.Context, in *GetDNSScanResultByIDRequest, opts ...grpc.CallOption) (*GetDNSScanResultByIDResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetDNSScanResultByIDResponse)
-	err := c.cc.Invoke(ctx, ScanService_GetDNSScanResultByID_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ScanServiceServer is the server API for ScanService service.
-// All implementations must embed UnimplementedScanServiceServer
-// for forward compatibility.
-type ScanServiceServer interface {
-	// Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
-	ScanDomain(context.Context, *ScanDomainRequest) (*ScanDomainResponse, error)
-	ScanTLS(context.Context, *ScanTLSRequest) (*ScanTLSResponse, error)
-	ScanCrtSh(context.Context, *ScanCrtShRequest) (*ScanCrtShResponse, error)
-	ScanChaos(context.Context, *ScanChaosRequest) (*ScanChaosResponse, error)
-	ScanShodan(context.Context, *ScanShodanRequest) (*ScanShodanResponse, error)
-	ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error)
-	ScanWhois(context.Context, *ScanWhoisRequest) (*ScanWhoisResponse, error)
-	ScanAbuseCh(context.Context, *ScanAbuseChRequest) (*ScanAbuseChResponse, error)
-	// Methods to retrieve scan results by domain
-	GetDNSScanResultsByDomain(context.Context, *GetDNSScanResultsByDomainRequest) (*GetDNSScanResultsByDomainResponse, error)
-	GetTLSScanResultsByDomain(context.Context, *GetTLSScanResultsByDomainRequest) (*GetTLSScanResultsByDomainResponse, error)
-	GetCrtShScanResultsByDomain(context.Context, *GetCrtShScanResultsByDomainRequest) (*GetCrtShScanResultsByDomainResponse, error)
-	GetChaosScanResultsByDomain(context.Context, *GetChaosScanResultsByDomainRequest) (*GetChaosScanResultsByDomainResponse, error)
-	GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error)
-	GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error)
-	GetWhoisScanResultsByDomain(context.Context, *GetWhoisScanResultsByDomainRequest) (*GetWhoisScanResultsByDomainResponse, error)
-	GetAbuseChScanResultsByDomain(context.Context, *GetAbuseChScanResultsByDomainRequest) (*GetAbuseChScanResultsByDomainResponse, error)
-	// Method to retrieve a specific DNS scan result by ID
-	GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error)
-	mustEmbedUnimplementedScanServiceServer()
-}
-
-// UnimplementedScanServiceServer must be embedded to have
-// forward compatible implementations.
-//
-// NOTE: this should be embedded by value instead of pointer to avoid a nil
-// pointer dereference when methods are called.
-type UnimplementedScanServiceServer struct{}
-
-func (UnimplementedScanServiceServer) ScanDomain(context.Context, *ScanDomainRequest) (*ScanDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanDomain not implemented")
-}
-func (UnimplementedScanServiceServer) ScanTLS(context.Context, *ScanTLSRequest) (*ScanTLSResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanTLS not implemented")
-}
-func (UnimplementedScanServiceServer) ScanCrtSh(context.Context, *ScanCrtShRequest) (*ScanCrtShResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanCrtSh not implemented")
-}
-func (UnimplementedScanServiceServer) ScanChaos(context.Context, *ScanChaosRequest) (*ScanChaosResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanChaos not implemented")
-}
-func (UnimplementedScanServiceServer) ScanShodan(context.Context, *ScanShodanRequest) (*ScanShodanResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanShodan not implemented")
-}
-func (UnimplementedScanServiceServer) ScanOTX(context.Context, *ScanOTXRequest) (*ScanOTXResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanOTX not implemented")
-}
-func (UnimplementedScanServiceServer) ScanWhois(context.Context, *ScanWhoisRequest) (*ScanWhoisResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanWhois not implemented")
-}
-func (UnimplementedScanServiceServer) ScanAbuseCh(context.Context, *ScanAbuseChRequest) (*ScanAbuseChResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ScanAbuseCh not implemented")
-}
-func (UnimplementedScanServiceServer) GetDNSScanResultsByDomain(context.Context, *GetDNSScanResultsByDomainRequest) (*GetDNSScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDNSScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetTLSScanResultsByDomain(context.Context, *GetTLSScanResultsByDomainRequest) (*GetTLSScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTLSScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetCrtShScanResultsByDomain(context.Context, *GetCrtShScanResultsByDomainRequest) (*GetCrtShScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCrtShScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetChaosScanResultsByDomain(context.Context, *GetChaosScanResultsByDomainRequest) (*GetChaosScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetChaosScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetShodanScanResultsByDomain(context.Context, *GetShodanScanResultsByDomainRequest) (*GetShodanScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetShodanScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetOTXScanResultsByDomain(context.Context, *GetOTXScanResultsByDomainRequest) (*GetOTXScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOTXScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetWhoisScanResultsByDomain(context.Context, *GetWhoisScanResultsByDomainRequest) (*GetWhoisScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetWhoisScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetAbuseChScanResultsByDomain(context.Context, *GetAbuseChScanResultsByDomainRequest) (*GetAbuseChScanResultsByDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAbuseChScanResultsByDomain not implemented")
-}
-func (UnimplementedScanServiceServer) GetDNSScanResultByID(context.Context, *GetDNSScanResultByIDRequest) (*GetDNSScanResultByIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDNSScanResultByID not implemented")
-}
-func (UnimplementedScanServiceServer) mustEmbedUnimplementedScanServiceServer() {}
-func (UnimplementedScanServiceServer) testEmbeddedByValue()                     {}
-
-// UnsafeScanServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ScanServiceServer will
-// result in compilation errors.
-type UnsafeScanServiceServer interface {
-	mustEmbedUnimplementedScanServiceServer()
-}
-
-func RegisterScanServiceServer(s grpc.ServiceRegistrar, srv ScanServiceServer) {
-	// If the following call pancis, it indicates UnimplementedScanServiceServer was
-	// embedded by pointer and is nil.  This will cause panics if an
-	// unimplemented method is ever invoked, so we test this at initialization
-	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&ScanService_ServiceDesc, srv)
-}
-
-func _ScanService_ScanDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanDomain(ctx, req.(*ScanDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanTLS_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanTLSRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanTLS(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanTLS_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanTLS(ctx, req.(*ScanTLSRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanCrtSh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanCrtShRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanCrtSh(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanCrtSh_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanCrtSh(ctx, req.(*ScanCrtShRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanChaos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanChaosRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanChaos(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanChaos_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanChaos(ctx, req.(*ScanChaosRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanShodan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanShodanRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanShodan(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanShodan_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanShodan(ctx, req.(*ScanShodanRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanOTX_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanOTXRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanOTX(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanOTX_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanOTX(ctx, req.(*ScanOTXRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanWhois_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanWhoisRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanWhois(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanWhois_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanWhois(ctx, req.(*ScanWhoisRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_ScanAbuseCh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScanAbuseChRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).ScanAbuseCh(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_ScanAbuseCh_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).ScanAbuseCh(ctx, req.(*ScanAbuseChRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetDNSScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDNSScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetDNSScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetDNSScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetDNSScanResultsByDomain(ctx, req.(*GetDNSScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetTLSScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTLSScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetTLSScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetTLSScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetTLSScanResultsByDomain(ctx, req.(*GetTLSScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetCrtShScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCrtShScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetCrtShScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetCrtShScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetCrtShScanResultsByDomain(ctx, req.(*GetCrtShScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetChaosScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetChaosScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetChaosScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetChaosScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetChaosScanResultsByDomain(ctx, req.(*GetChaosScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetShodanScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetShodanScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetShodanScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetShodanScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetShodanScanResultsByDomain(ctx, req.(*GetShodanScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetOTXScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOTXScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetOTXScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetOTXScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetOTXScanResultsByDomain(ctx, req.(*GetOTXScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetWhoisScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetWhoisScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetWhoisScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetWhoisScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetWhoisScanResultsByDomain(ctx, req.(*GetWhoisScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetAbuseChScanResultsByDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAbuseChScanResultsByDomainRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetAbuseChScanResultsByDomain(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetAbuseChScanResultsByDomain_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetAbuseChScanResultsByDomain(ctx, req.(*GetAbuseChScanResultsByDomainRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ScanService_GetDNSScanResultByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDNSScanResultByIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScanServiceServer).GetDNSScanResultByID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScanService_GetDNSScanResultByID_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScanServiceServer).GetDNSScanResultByID(ctx, req.(*GetDNSScanResultByIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// ScanService_ServiceDesc is the grpc.ServiceDesc for ScanService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var ScanService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "service.ScanService",
-	HandlerType: (*ScanServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ScanDomain",
-			Handler:    _ScanService_ScanDomain_Handler,
-		},
-		{
-			MethodName: "ScanTLS",
-			Handler:    _ScanService_ScanTLS_Handler,
-		},
-		{
-			MethodName: "ScanCrtSh",
-			Handler:    _ScanService_ScanCrtSh_Handler,
-		},
-		{
-			MethodName: "ScanChaos",
-			Handler:    _ScanService_ScanChaos_Handler,
-		},
-		{
-			MethodName: "ScanShodan",
-			Handler:    _ScanService_ScanShodan_Handler,
-		},
-		{
-			MethodName: "ScanOTX",
-			Handler:    _ScanService_ScanOTX_Handler,
-		},
-		{
-			MethodName: "ScanWhois",
-			Handler:    _ScanService_ScanWhois_Handler,
-		},
-		{
-			MethodName: "ScanAbuseCh",
-			Handler:    _ScanService_ScanAbuseCh_Handler,
-		},
-		{
-			MethodName: "GetDNSScanResultsByDomain",
-			Handler:    _ScanService_GetDNSScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetTLSScanResultsByDomain",
-			Handler:    _ScanService_GetTLSScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetCrtShScanResultsByDomain",
-			Handler:    _ScanService_GetCrtShScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetChaosScanResultsByDomain",
-			Handler:    _ScanService_GetChaosScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetShodanScanResultsByDomain",
-			Handler:    _ScanService_GetShodanScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetOTXScanResultsByDomain",
-			Handler:    _ScanService_GetOTXScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetWhoisScanResultsByDomain",
-			Handler:    _ScanService_GetWhoisScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetAbuseChScanResultsByDomain",
-			Handler:    _ScanService_GetAbuseChScanResultsByDomain_Handler,
-		},
-		{
-			MethodName: "GetDNSScanResultByID",
-			Handler:    _ScanService_GetDNSScanResultByID_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/service.proto",
-}
-
-const (
 	ReportService_GenerateReport_FullMethodName = "/service.ReportService/GenerateReport"
 	ReportService_ListReports_FullMethodName    = "/service.ReportService/ListReports"
 	ReportService_GetReportById_FullMethodName  = "/service.ReportService/GetReportById"
@@ -1301,6 +1491,8 @@ const (
 // ReportServiceClient is the client API for ReportService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Report Service
 type ReportServiceClient interface {
 	GenerateReport(ctx context.Context, in *GenerateReportRequest, opts ...grpc.CallOption) (*GenerateReportResponse, error)
 	ListReports(ctx context.Context, in *ListReportsRequest, opts ...grpc.CallOption) (*ListReportsResponse, error)
@@ -1348,6 +1540,8 @@ func (c *reportServiceClient) GetReportById(ctx context.Context, in *GetReportBy
 // ReportServiceServer is the server API for ReportService service.
 // All implementations must embed UnimplementedReportServiceServer
 // for forward compatibility.
+//
+// Report Service
 type ReportServiceServer interface {
 	GenerateReport(context.Context, *GenerateReportRequest) (*GenerateReportResponse, error)
 	ListReports(context.Context, *ListReportsRequest) (*ListReportsResponse, error)

@@ -84,6 +84,14 @@ type AbuseChScanPlugin interface {
 	GetAbuseChScanResultsByDomain(domain string) ([]AbuseChScanResult, error)
 }
 
+type ISCScanPlugin interface {
+	Plugin
+	ScanISC(ctx context.Context, domain, dnsScanID string) (*proto.ISCSecurityResult, error)
+	InsertISCScanResult(domain, dnsScanID string, result *proto.ISCSecurityResult) (string, error)
+	GetISCScanResultsByDomain(domain string) ([]ISCScanResult, error)
+	SetConfig(cfg *config.Config) // ISC plugin also needs config for API key/URL
+}
+
 type DNSScanResult struct {
 	ID        string
 	Domain    string
@@ -145,5 +153,13 @@ type AbuseChScanResult struct {
 	Domain    string
 	DNSScanID string
 	Result    proto.AbuseChSecurityResult
+	CreatedAt time.Time
+}
+
+type ISCScanResult struct {
+	ID        string
+	Domain    string
+	DNSScanID string
+	Result    proto.ISCSecurityResult
 	CreatedAt time.Time
 }

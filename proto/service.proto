@@ -6,53 +6,6 @@ option go_package = "github.com/moos3/sparta/proto";
 
 import "google/protobuf/timestamp.proto";
 
-service AuthService {
-  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
-  rpc GetUser(GetUserRequest) returns (GetUserResponse);
-  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
-  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
-  rpc CreateAPIKey(CreateAPIKeyRequest) returns (CreateAPIKeyResponse);
-  rpc RotateAPIKey(RotateAPIKeyRequest) returns (RotateAPIKeyResponse);
-  rpc ActivateAPIKey(ActivateAPIKeyRequest) returns (ActivateAPIKeyResponse);
-  rpc DeactivateAPIKey(DeactivateAPIKeyRequest) returns (DeactivateAPIKeyResponse);
-  rpc ListAPIKeys(ListAPIKeysRequest) returns (ListAPIKeysResponse);
-  rpc Login(LoginRequest) returns (LoginResponse);
-  rpc InviteUser(InviteUserRequest) returns (InviteUserResponse);
-  rpc ValidateInvite(ValidateInviteRequest) returns (ValidateInviteResponse);
-}
-
-service ScanService {
-  // Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
-  rpc ScanDomain(ScanDomainRequest) returns (ScanDomainResponse);
-  rpc ScanTLS(ScanTLSRequest) returns (ScanTLSResponse);
-  rpc ScanCrtSh(ScanCrtShRequest) returns (ScanCrtShResponse);
-  rpc ScanChaos(ScanChaosRequest) returns (ScanChaosResponse);
-  rpc ScanShodan(ScanShodanRequest) returns (ScanShodanResponse);
-  rpc ScanOTX(ScanOTXRequest) returns (ScanOTXResponse);
-  rpc ScanWhois(ScanWhoisRequest) returns (ScanWhoisResponse);
-  rpc ScanAbuseCh(ScanAbuseChRequest) returns (ScanAbuseChResponse);
-
-  // Methods to retrieve scan results by domain
-  rpc GetDNSScanResultsByDomain(GetDNSScanResultsByDomainRequest) returns (GetDNSScanResultsByDomainResponse);
-  rpc GetTLSScanResultsByDomain(GetTLSScanResultsByDomainRequest) returns (GetTLSScanResultsByDomainResponse);
-  rpc GetCrtShScanResultsByDomain(GetCrtShScanResultsByDomainRequest) returns (GetCrtShScanResultsByDomainResponse);
-  rpc GetChaosScanResultsByDomain(GetChaosScanResultsByDomainRequest) returns (GetChaosScanResultsByDomainResponse);
-  rpc GetShodanScanResultsByDomain(GetShodanScanResultsByDomainRequest) returns (GetShodanScanResultsByDomainResponse);
-  rpc GetOTXScanResultsByDomain(GetOTXScanResultsByDomainRequest) returns (GetOTXScanResultsByDomainResponse);
-  rpc GetWhoisScanResultsByDomain(GetWhoisScanResultsByDomainRequest) returns (GetWhoisScanResultsByDomainResponse);
-  rpc GetAbuseChScanResultsByDomain(GetAbuseChScanResultsByDomainRequest) returns (GetAbuseChScanResultsByDomainResponse);
-
-  // Method to retrieve a specific DNS scan result by ID
-  rpc GetDNSScanResultByID(GetDNSScanResultByIDRequest) returns (GetDNSScanResultByIDResponse);
-}
-
-service ReportService {
-  rpc GenerateReport(GenerateReportRequest) returns (GenerateReportResponse);
-  rpc ListReports(ListReportsRequest) returns (ListReportsResponse);
-  rpc GetReportById(GetReportByIdRequest) returns (GetReportByIdResponse);
-}
-
 // Report-related messages
 message GenerateReportRequest {
   string domain = 1;
@@ -100,6 +53,7 @@ message CalculateRiskScoreResponse {
   string risk_tier = 2;
 }
 
+// Auth Service
 message CreateUserRequest {
   string first_name = 1;
   string last_name = 2;
@@ -243,6 +197,8 @@ message ValidateInviteResponse {
   bool is_admin = 2;
 }
 
+
+// Scan Service Messages
 message ScanDomainRequest {
   string domain = 1;
 }
@@ -250,6 +206,30 @@ message ScanDomainRequest {
 message ScanDomainResponse {
   string scan_id = 1;
   DNSSecurityResult result = 2;
+}
+
+message GetDNSScanResultsByDomainRequest {
+  string domain = 1;
+}
+
+message GetDNSScanResultsByDomainResponse {
+  repeated DNSScanResult results = 1;
+}
+
+message GetDNSScanResultByIDRequest {
+  string dns_scan_id = 1;
+}
+
+message GetDNSScanResultByIDResponse {
+  DNSScanResult result = 1;
+}
+
+message DNSScanResult {
+  string id = 1;
+  string domain = 2;
+  string dns_scan_id = 3;
+  DNSSecurityResult result = 4;
+  google.protobuf.Timestamp created_at = 5;
 }
 
 message ScanTLSRequest {
@@ -434,30 +414,48 @@ message AbuseChScanResult {
   google.protobuf.Timestamp created_at = 5;
 }
 
-message GetDNSScanResultsByDomainRequest {
+// New SANS ISC messages
+message ScanISCRequest {
+  string domain = 1;
+  string dns_scan_id = 2;
+}
+
+message ScanISCResponse {
+  string scan_id = 1;
+  ISCSecurityResult result = 2;
+}
+
+message GetISCScanResultsByDomainRequest {
   string domain = 1;
 }
 
-message GetDNSScanResultsByDomainResponse {
-  repeated DNSScanResult results = 1;
+message GetISCScanResultsByDomainResponse {
+  repeated ISCScanResult results = 1;
 }
 
-message GetDNSScanResultByIDRequest {
-  string dns_scan_id = 1;
-}
-
-message GetDNSScanResultByIDResponse {
-  DNSScanResult result = 1;
-}
-
-message DNSScanResult {
+message ISCScanResult {
   string id = 1;
   string domain = 2;
   string dns_scan_id = 3;
-  DNSSecurityResult result = 4;
+  ISCSecurityResult result = 4;
   google.protobuf.Timestamp created_at = 5;
 }
 
+message ISCIncident {
+  string id = 1;
+  google.protobuf.Timestamp date = 2;
+  string description = 3;
+  string severity = 4; // e.g., "Low", "Medium", "High"
+}
+
+message ISCSecurityResult {
+  repeated ISCIncident incidents = 1;
+  string overall_risk = 2;
+  repeated string errors = 3;
+}
+
+
+// --- Security Result Structures ---
 message DNSSecurityResult {
   string spf_record = 1;
   bool spf_valid = 2;
@@ -518,7 +516,7 @@ message ChaosSecurityResult {
 message ShodanLocation {
   string city = 1;
   string country_name = 2;
-  float latitude = 3;  // Changed from double to float
+  float latitude = 3; // Changed from double to float
   float longitude = 4; // Changed from double to float
 }
 
@@ -586,7 +584,7 @@ message OTXSecurityResult {
 }
 
 message WhoisSecurityResult {
-  string domain = 1;                     // Added to provide context
+  string domain = 1; // Added to provide context
   string registrar = 2;
   google.protobuf.Timestamp creation_date = 3;
   google.protobuf.Timestamp expiry_date = 4;
@@ -598,7 +596,7 @@ message AbuseChIOC {
   string ioc_type = 1;
   string ioc_value = 2;
   string threat_type = 3;
-  float confidence = 4;                  // Changed from double to float
+  float confidence = 4; // Changed from double to float
   google.protobuf.Timestamp first_seen = 5;
   google.protobuf.Timestamp last_seen = 6;
   repeated string malware_alias = 7;
@@ -608,4 +606,62 @@ message AbuseChIOC {
 message AbuseChSecurityResult {
   repeated AbuseChIOC iocs = 1;
   repeated string errors = 2;
+}
+
+
+// Scan Service Methods
+service ScanService {
+  // Individual scan methods (retained for flexibility, deprecated as GenerateReport is preferred)
+  rpc ScanDomain (ScanDomainRequest) returns (ScanDomainResponse);
+  rpc ScanTLS (ScanTLSRequest) returns (ScanTLSResponse);
+  rpc ScanCrtSh (ScanCrtShRequest) returns (ScanCrtShResponse);
+  rpc ScanChaos (ScanChaosRequest) returns (ScanChaosResponse);
+  rpc ScanShodan (ScanShodanRequest) returns (ScanShodanResponse);
+  rpc ScanOTX (ScanOTXRequest) returns (ScanOTXResponse);
+  rpc ScanWhois (ScanWhoisRequest) returns (ScanWhoisResponse);
+  rpc ScanAbuseCh (ScanAbuseChRequest) returns (ScanAbuseChResponse);
+  rpc ScanISC (ScanISCRequest) returns (ScanISCResponse); // New ISC scan method
+
+  // Methods to retrieve scan results by domain
+  rpc GetDNSScanResultsByDomain (GetDNSScanResultsByDomainRequest) returns (GetDNSScanResultsByDomainResponse);
+  rpc GetTLSScanResultsByDomain (GetTLSScanResultsByDomainRequest) returns (GetTLSScanResultsByDomainResponse);
+  rpc GetCrtShScanResultsByDomain (GetCrtShScanResultsByDomainRequest) returns (GetCrtShScanResultsByDomainResponse);
+  rpc GetChaosScanResultsByDomain (GetChaosScanResultsByDomainRequest) returns (GetChaosScanResultsByDomainResponse);
+  rpc GetShodanScanResultsByDomain (GetShodanScanResultsByDomainRequest) returns (GetShodanScanResultsByDomainResponse);
+  rpc GetOTXScanResultsByDomain (GetOTXScanResultsByDomainRequest) returns (GetOTXScanResultsByDomainResponse);
+  rpc GetWhoisScanResultsByDomain (GetWhoisScanResultsByDomainRequest) returns (GetWhoisScanResultsByDomainResponse);
+  rpc GetAbuseChScanResultsByDomain (GetAbuseChScanResultsByDomainRequest) returns (GetAbuseChScanResultsByDomainResponse);
+  rpc GetISCScanResultsByDomain (GetISCScanResultsByDomainRequest) returns (GetISCScanResultsByDomainResponse); // New ISC get results method
+
+  // Method to retrieve a specific DNS scan result by ID
+  rpc GetDNSScanResultByID (GetDNSScanResultByIDRequest) returns (GetDNSScanResultByIDResponse);
+}
+
+// User Service
+service UserService {
+  rpc CalculateRiskScore (CalculateRiskScoreRequest) returns (CalculateRiskScoreResponse);
+}
+
+// Auth Service
+service AuthService {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+  rpc CreateAPIKey (CreateAPIKeyRequest) returns (CreateAPIKeyResponse);
+  rpc RotateAPIKey (RotateAPIKeyRequest) returns (RotateAPIKeyResponse);
+  rpc ActivateAPIKey (ActivateAPIKeyRequest) returns (ActivateAPIKeyResponse);
+  rpc DeactivateAPIKey (DeactivateAPIKeyRequest) returns (DeactivateAPIKeyResponse);
+  rpc ListAPIKeys (ListAPIKeysRequest) returns (ListAPIKeysResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc InviteUser (InviteUserRequest) returns (InviteUserResponse);
+  rpc ValidateInvite (ValidateInviteRequest) returns (ValidateInviteResponse);
+}
+
+// Report Service
+service ReportService {
+  rpc GenerateReport (GenerateReportRequest) returns (GenerateReportResponse);
+  rpc ListReports (ListReportsRequest) returns (ListReportsResponse);
+  rpc GetReportById (GetReportByIdRequest) returns (GetReportByIdResponse);
 }

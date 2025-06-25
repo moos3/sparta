@@ -137,6 +137,17 @@ func (s *Server) CalculateRiskScore(ctx context.Context, req *pb.CalculateRiskSc
 				return nil
 			},
 		},
+		{
+			"isc_scan_results",
+			func(data []byte, results *scoring.DomainScanResults) error {
+				var r pb.ISCSecurityResult
+				if err := protojson.Unmarshal(data, &r); err != nil {
+					return err
+				}
+				results.ISC = &r
+				return nil
+			},
+		},
 	}
 
 	for _, p := range plugins {

@@ -4,13 +4,6 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"log"
-	"net"
-	"net/http"
-	"os"
-	"path/filepath"
-	"strings"
-
 	"github.com/improbable-eng/grpc-web/go/grpcweb"
 	"github.com/moos3/sparta/internal/auth"
 	"github.com/moos3/sparta/internal/config"
@@ -21,7 +14,32 @@ import (
 	"github.com/moos3/sparta/plugins"
 	pb "github.com/moos3/sparta/proto"
 	"google.golang.org/grpc"
+	"log"
+	"net"
+	"net/http"
 )
+
+// corsMiddleware is a simple CORS middleware that adds necessary headers for cross-origin requests.
+func corsMiddleware(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Allow all origins for development. In production, restrict this to specific domains.
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		// Allowed HTTP methods for CORS requests.
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		// Allowed request headers, including gRPC-Web specific and custom headers like X-Api-Key.
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, X-Grpc-Web, X-User-Agent, Grpc-Metadata-X-Goog-Api-Key, x-grpc-web, Grpc-Metadata-X-Api-Key")
+		// Expose custom headers to the client.
+		w.Header().Set("Access-Control-Expose-Headers", "Grpc-Metadata-X-Api-Key")
+
+		// Handle preflight OPTIONS requests immediately.
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		// Pass the request to the next handler in the chain.
+		h.ServeHTTP(w, r)
+	})
+}
 
 func main() {
 	cfg, err := config.Load("config.yaml")
@@ -94,6 +112,13 @@ func main() {
 		log.Fatalf("Failed to initialize AbuseCh scan plugin: %v", err)
 	}
 
+	iscSp := &plugins.ScanISCPlugin{}
+	iscSp.SetDatabase(db)
+	iscSp.SetConfig(cfg) // Pass config for API key
+	if err := iscSp.Initialize(); err != nil {
+		log.Fatalf("Failed to initialize ISC scan plugin: %v", err)
+	}
+
 	// Create plugins map
 	pluginMap := map[string]interfaces.GenericPlugin{
 		"ScanDNS":     dnsSp,
@@ -104,6 +129,7 @@ func main() {
 		"ScanOTX":     otxSp,
 		"ScanWhois":   whoisSp,
 		"ScanAbuseCh": abuseChSp,
+		"ScanISC":     iscSp,
 	}
 
 	grpcServer := grpc.NewServer(
@@ -119,53 +145,32 @@ func main() {
 
 	authService.ScheduleAPIKeyRotation()
 
+	// Create a TCP listener for the gRPC server.
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Server.GRPCPort))
 	if err != nil {
 		log.Fatalf("Failed to listen on port %d: %v", cfg.Server.GRPCPort, err)
 	}
 
+	// Wrap the gRPC server with grpc-web compatibility.
 	wrappedGrpc := grpcweb.WrapServer(grpcServer, grpcweb.WithOriginFunc(func(origin string) bool {
 		return true // Allow all origins for development
 	}))
-	router := mux.NewRouter()
-	router.HandleFunc("/{service:service\\..+}/{method}", func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("gRPC-Web request: %s", r.URL.Path)
-		if wrappedGrpc.IsGrpcWebRequest(r) {
-			wrappedGrpc.ServeHTTP(w, r)
-			return
-		}
-		log.Printf("Non-gRPC-Web request to service path: %s", r.URL.Path)
-		http.NotFound(w, r)
-	})
 
-	// Custom file server with correct MIME types and SPA fallback
-	fileServer := http.FileServer(http.Dir("./web/dist"))
-	router.PathPrefix("/").Handler(http.StripPrefix("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		log.Printf("Static request: %s", r.URL.Path)
-		if strings.Contains(r.URL.Path, "/src/") {
-			log.Printf("Blocked request to /src/: %s", r.URL.Path)
-			http.Error(w, "Not found", http.StatusNotFound)
-			return
-		}
-		path := filepath.Join("./web/dist", r.URL.Path)
-		_, err := os.Stat(path)
-		if os.IsNotExist(err) || !strings.Contains(r.URL.Path, ".") {
-			log.Printf("Serving index.html for SPA route: %s", r.URL.Path)
-			http.ServeFile(w, r, "./web/dist/index.html")
-			return
-		}
-		ext := filepath.Ext(r.URL.Path)
-		if ext == ".js" || ext == ".jsx" {
-			w.Header().Set("Content-Type", "application/javascript")
-		}
-		fileServer.ServeHTTP(w, r)
-	})))
+	// Create a new HTTP router using gorilla/mux.
+	httpRouter := mux.NewRouter()
 
+	// Handle gRPC-Web requests by prefixing them.
+	// All requests starting with "/service." will be handled by the wrapped gRPC-Web server.
+	httpRouter.PathPrefix("/service.").Handler(wrappedGrpc)
+
+	// Create the HTTP server.
 	httpServer := &http.Server{
-		Addr:    fmt.Sprintf(":%d", cfg.Server.HTTPPort),
-		Handler: router,
+		Addr: fmt.Sprintf(":%d", cfg.Server.HTTPPort),
+		// Apply the CORS middleware to the entire HTTP router.
+		Handler: corsMiddleware(httpRouter),
 	}
 
+	// Start the HTTP server in a goroutine.
 	log.Printf("Starting gRPC server on port %d and HTTP server on port %d", cfg.Server.GRPCPort, cfg.Server.HTTPPort)
 	go func() {
 		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
@@ -173,6 +178,7 @@ func main() {
 		}
 	}()
 
+	// Start the gRPC server (blocking call).
 	if err := grpcServer.Serve(listener); err != nil {
 		log.Fatalf("Failed to serve gRPC: %v", err)
 	}

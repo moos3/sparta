@@ -78,6 +78,13 @@ func Load(path string) (*Config, error) {
 	if cfg.Shodan.RequestDelay == 0 {
 		cfg.Shodan.RequestDelay = 2500 // Default to 2.5 seconds
 	}
+	// Default values for ISC
+	if cfg.ISC.BaseURL == "" {
+		cfg.ISC.BaseURL = "https://isc.sans.edu/api" // Hypothetical default base URL for ISC
+	}
+	if cfg.ISC.RequestDelay == 0 {
+		cfg.ISC.RequestDelay = 5000 // Default to 5 seconds to be very polite to external APIs
+	}
 
 	return &cfg, nil
 }

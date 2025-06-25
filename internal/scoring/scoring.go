@@ -20,6 +20,7 @@ type DomainScanResults struct {
 	OTX     *pb.OTXSecurityResult
 	Whois   *pb.WhoisSecurityResult
 	AbuseCh *pb.AbuseChSecurityResult
+	ISC     *pb.ISCSecurityResult // New: ISC Scan Result
 }
 
 func CalculateRiskScore(results *DomainScanResults) RiskScore {
@@ -173,6 +174,22 @@ func CalculateRiskScore(results *DomainScanResults) RiskScore {
 		}
 		if len(results.AbuseCh.Errors) > 0 {
 			score += 5 * len(results.AbuseCh.Errors)
+		}
+	}
+
+	// New: ISC Scoring
+	if results.ISC != nil {
+		if results.ISC.OverallRisk == "High" {
+			score += 30 // High overall risk from ISC
+		} else if results.ISC.OverallRisk == "Medium" {
+			score += 15 // Medium overall risk
+		}
+		if len(results.ISC.Incidents) > 0 {
+			score += 10 * len(results.ISC.Incidents) // Each incident increases risk
+			// Further scoring could differentiate by incident severity
+		}
+		if len(results.ISC.Errors) > 0 {
+			score += 5 * len(results.ISC.Errors) // Errors indicate issues with scan
 		}
 	}
 

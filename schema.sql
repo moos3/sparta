@@ -200,3 +200,13 @@ CREATE TABLE reports (
     risk_tier TEXT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE isc_scan_results (
+    id TEXT PRIMARY KEY,
+    domain TEXT,
+    dns_scan_id TEXT,
+    result JSONB,
+    created_at TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_isc_scan_results_domain ON isc_scan_results (domain);
+CREATE INDEX IF NOT EXISTS idx_isc_scan_results_dns_scan_id ON isc_scan_results (dns_scan_id)
