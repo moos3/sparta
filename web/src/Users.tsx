@@ -4,29 +4,46 @@ import { Box, Typography, TextField, Button, Table, TableBody, TableCell, TableC
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { CreateUserRequest, CreateUserResponse, ListUsersRequest, ListUsersResponse, User, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteUserRequest, UpdateUserRequest, GetUserRequest, GetUserResponse } from './proto/service'; // Import message types
-import { AuthServiceClient } from './proto/service.client'; // Import client
-import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport'; // Import transport
-import { AuthContext } from './App';
-import { Timestamp } from './proto/google/protobuf/timestamp'; // Import Timestamp for formatting
+import { CreateUserRequest, CreateUserResponse, ListUsersRequest, ListUsersResponse, User, CreateAPIKeyRequest, CreateAPIKeyResponse, DeleteUserRequest, UpdateUserRequest, GetUserRequest, GetUserResponse } from './proto/service';
+import { AuthServiceClient, UserServiceClient } from './proto/service.client';
+import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
+import { AuthContext } from './AuthContext'; // Corrected import path
+import { Timestamp } from './proto/google/protobuf/timestamp';
+import { RpcInterceptorFn, RpcOptions } from '@protobuf-ts/runtime-rpc'; // NEW: Import RpcInterceptorFn, RpcOptions
 
-const transport = new GrpcWebFetchTransport({
+// AuthClient for AuthService methods
+const authTransport = new GrpcWebFetchTransport({
     baseUrl: 'http://localhost:8080',
-    // Add interceptor to include x-api-key header
     interceptors: [{
-        intercept(method, next) {
-            return async req => {
-                const authContext = useContext(AuthContext);
-                const userToken = authContext?.user?.token; // Get token from context
+        intercept(next: RpcInterceptorFn) { // Corrected signature
+            return async (req: RpcOptions) => {
+                const userToken = localStorage.getItem('sparta_token');
                 if (userToken) {
                     req.headers.set('x-api-key', userToken);
                 }
-                return await next(method, req);
+                return await next(req);
             };
         }
     }]
 });
-const authClient = new AuthServiceClient(transport); // Instantiate client
+const authClient = new AuthServiceClient(authTransport);
+
+// UserClient for UserService methods (API Key Management, Change Password)
+const userTransport = new GrpcWebFetchTransport({
+    baseUrl: 'http://localhost:8080',
+    interceptors: [{
+        intercept(next: RpcInterceptorFn) { // Corrected signature
+            return async (req: RpcOptions) => {
+                const userToken = localStorage.getItem('sparta_token');
+                if (userToken) {
+                    req.headers.set('x-api-key', userToken);
+                }
+                return await next(req);
+            };
+        }
+    }]
+});
+const userClient = new UserServiceClient(userTransport); // Instantiate userClient
 
 interface CurrentUser {
     userId: string;
@@ -34,7 +51,7 @@ interface CurrentUser {
     lastName: string;
     email: string;
     isAdmin: boolean;
-    password?: string; // Password is optional for update
+    password?: string;
 }
 
 const Users: React.FC = () => {
@@ -51,6 +68,7 @@ const Users: React.FC = () => {
     const [success, setSuccess] = useState<string>('');
     const [openEditDialog, setOpenEditDialog] = useState<boolean>(false);
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentEmailBeforeEdit, setCurrentEmailBeforeEdit] = useState<string>('');
 
     const fetchUsers = async () => {
         setError('');
@@ -71,9 +89,9 @@ const Users: React.FC = () => {
     };
 
     useEffect(() => {
-        if (user?.token && user.isAdmin) { // Fetch users only if user is logged in and is admin
+        if (user?.token && user.isAdmin) {
             fetchUsers();
-        } else if (user && !user.isAdmin) { // Clear users if not admin
+        } else if (user && !user.isAdmin) {
             setUsers([]);
             setError("You do not have permission to view users.");
         }
@@ -104,7 +122,7 @@ const Users: React.FC = () => {
             setLastName('');
             setPassword('');
             setIsAdmin(false);
-            fetchUsers(); // Refresh the user list
+            fetchUsers();
         } catch (err: any) {
             setError(`Failed to create user: ${err.message}`);
         }
@@ -114,20 +132,23 @@ const Users: React.FC = () => {
         setError('');
         setSuccess('');
 
-        if (!user || (!user.isAdmin && user.userId !== userId)) {
+        if (!user || !user.token) {
+            setError("You must be logged in to create API keys.");
+            return;
+        }
+        if (!user.isAdmin && user.userId !== userId) {
             setError("You do not have permission to create API keys for other users.");
             return;
         }
 
         const request: CreateAPIKeyRequest = {
             userId: userId,
-            role: 'user', // Default role
+            role: 'user',
             isServiceKey: false,
         };
 
         try {
-            const response: CreateAPIKeyResponse = (await authClient.createAPIKey(request)).response;
-            // Display the API key, as it's only shown once
+            const response: CreateAPIKeyResponse = (await userClient.createAPIKey(request)).response; // NEW: Use userClient
             alert(`API Key created for ${userId}: ${response.apiKey}\nPlease save this key, it will not be shown again.`);
             setSuccess(`API Key created for user ID: ${userId}`);
         } catch (err: any) {
@@ -150,8 +171,9 @@ const Users: React.FC = () => {
             try {
                 await authClient.deleteUser(request);
                 setSuccess(`User ID: ${userId} deleted successfully.`);
-                fetchUsers(); // Refresh the user list
-            } catch (err: any) {
+                fetchUsers();
+            }
+            catch (err: any) {
                 setError(`Failed to delete user: ${err.message}`);
             }
         }
@@ -166,6 +188,7 @@ const Users: React.FC = () => {
             isAdmin: u.isAdmin,
             password: '',
         });
+        setCurrentEmailBeforeEdit(u.email);
         setOpenEditDialog(true);
     };
 
@@ -179,12 +202,20 @@ const Users: React.FC = () => {
             return;
         }
 
+        if (currentUser.email !== currentEmailBeforeEdit && !user.isAdmin) {
+            setError("Error: Email address can only be changed by an administrator.");
+            return;
+        }
+        if (currentUser.password && !user.isAdmin) {
+            setError("Error: Password can only be changed by an administrator through this interface. Regular users must use 'Change Password' on their profile.");
+            return;
+        }
+
         const request: UpdateUserRequest = {
             userId: currentUser.userId,
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             email: currentUser.email,
-            // Only include password if it's provided in the dialog
             ...(currentUser.password && { password: currentUser.password })
         };
 
@@ -192,7 +223,7 @@ const Users: React.FC = () => {
             await authClient.updateUser(request);
             setSuccess(`User ${currentUser.email} updated successfully.`);
             setOpenEditDialog(false);
-            fetchUsers(); // Refresh the user list
+            fetchUsers();
         } catch (err: any) {
             setError(`Failed to update user: ${err.message}`);
         }
@@ -201,6 +232,7 @@ const Users: React.FC = () => {
     const handleCloseEditDialog = () => {
         setOpenEditDialog(false);
         setCurrentUser(null);
+        setCurrentEmailBeforeEdit('');
     };
 
     const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -209,6 +241,10 @@ const Users: React.FC = () => {
     };
 
     const handleIsAdminChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!user || !user.isAdmin) {
+            setError("You do not have permission to change admin status.");
+            return;
+        }
         setCurrentUser(prev => ({ ...prev, isAdmin: e.target.checked } as CurrentUser));
     };
 
@@ -350,18 +386,22 @@ const Users: React.FC = () => {
                                 variant="outlined"
                                 value={currentUser.email}
                                 onChange={handleEditChange}
+                                disabled={!user?.isAdmin}
+                                helperText={!user?.isAdmin ? "Only admin can change email" : ""}
                             />
-                            <TextField
-                                margin="dense"
-                                name="password"
-                                label="New Password (optional)"
-                                type="password"
-                                fullWidth
-                                variant="outlined"
-                                value={currentUser.password}
-                                onChange={handleEditChange}
-                                placeholder="Leave blank to keep current password"
-                            />
+                            {user?.isAdmin && (
+                                <TextField
+                                    margin="dense"
+                                    name="password"
+                                    label="New Password (optional, admin only)"
+                                    type="password"
+                                    fullWidth
+                                    variant="outlined"
+                                    value={currentUser.password}
+                                    onChange={handleEditChange}
+                                    placeholder="Leave blank to keep current password"
+                                />
+                            )}
                             {user && user.isAdmin && (
                                 <FormControlLabel
                                     control={

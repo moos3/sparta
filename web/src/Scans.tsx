@@ -1,5 +1,5 @@
 // web/src/Scans.tsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react'; // Added useMemo
 import { Box, Typography, TextField, Button, List, ListItem, ListItemText, Paper, Alert, CircularProgress, Tabs, Tab } from '@mui/material';
 import {
     ScanDomainRequest, ScanDomainResponse,
@@ -18,41 +18,47 @@ import {
     GetOTXScanResultsByDomainRequest, GetOTXScanResultsByDomainResponse, OTXScanResult,
     GetWhoisScanResultsByDomainRequest, GetWhoisScanResultsByDomainResponse, WhoisScanResult,
     GetAbuseChScanResultsByDomainRequest, GetAbuseChScanResultsByDomainResponse, AbuseChScanResult,
-} from './proto/service'; // Import message types
-import { ScanServiceClient } from './proto/service.client'; // Import client
-import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport'; // Import transport
-import { AuthContext } from './App';
-import { Timestamp } from './proto/google/protobuf/timestamp'; // Import Timestamp for formatting
+} from './proto/service';
+import { ScanServiceClient } from './proto/service.client';
+import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
+import { AuthContext } from './AuthContext';
+import { Timestamp } from './proto/google/protobuf/timestamp';
+import { RpcInterceptorFn, RpcOptions } from '@protobuf-ts/runtime-rpc';
 
-const transport = new GrpcWebFetchTransport({
-    baseUrl: 'http://localhost:8080',
-    // Add interceptor to include x-api-key header
-    interceptors: [{
-        intercept(method, next) {
-            return async req => {
-                const authContext = useContext(AuthContext);
-                const userToken = authContext?.user?.token; // Get token from context
-                if (userToken) {
-                    req.headers.set('x-api-key', userToken);
-                }
-                return await next(method, req);
-            };
-        }
-    }]
-});
-const scanClient = new ScanServiceClient(transport); // Instantiate client
+// REMOVE GLOBAL transport and scanClient HERE
 
 const Scans: React.FC = () => {
     const authContext = useContext(AuthContext);
     const user = authContext?.user;
 
+    // NEW: Instantiate transport and client inside the component using useMemo
+    const scanClient = useMemo(() => {
+        const transport = new GrpcWebFetchTransport({
+            baseUrl: 'http://localhost:8080',
+            interceptors: [{
+                intercept(next) {
+                    console.log("Interceptor: Intercept function invoked (Scans from useMemo)."); // Added for debug
+                    return async (req) => {
+                        const userToken = localStorage.getItem('sparta_token');
+                        console.log("Interceptor (Scans from useMemo): User token:", userToken); // Added for debug
+                        if (userToken) {
+                            req.headers.set('x-api-key', userToken);
+                        }
+                        return await next(req);
+                    };
+                }
+            }]
+        });
+        return new ScanServiceClient(transport);
+    }, []); // Empty dependency array means it's created once
+
     const [domain, setDomain] = useState<string>('');
-    const [dnsScanId, setDnsScanId] = useState<string>(''); // To store the ID from the initial DNS scan
-    const [results, setResults] = useState<any[]>([]); // Can hold various scan result types
+    const [dnsScanId, setDnsScanId] = useState<string>('');
+    const [results, setResults] = useState<any[]>([]);
     const [error, setError] = useState<string>('');
     const [success, setSuccess] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const [activeTab, setActiveTab] = useState<number>(0); // 0 for Run Scans, 1 for View Results
+    const [activeTab, setActiveTab] = useState<number>(0);
 
     const handleRunScan = async (scanType: string) => {
         setError('');
@@ -76,50 +82,51 @@ const Scans: React.FC = () => {
         }
 
         try {
-            let response;
+            let callResponse;
             let newScanId: string | undefined;
 
             switch (scanType) {
                 case 'dns':
                     const dnsReq: ScanDomainRequest = { domain: domain };
-                    response = await scanClient.scanDomain(dnsReq);
-                    newScanId = (response.response as ScanDomainResponse).scanId;
+                    console.log("Running dns scan for domain:", domain);
+                    callResponse = await scanClient.scanDomain(dnsReq);
+                    newScanId = (callResponse.response as ScanDomainResponse).scanId;
                     setDnsScanId(newScanId || '');
                     break;
                 case 'tls':
                     const tlsReq: ScanTLSRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanTLS(tlsReq);
-                    newScanId = (response.response as ScanTLSResponse).scanId;
+                    callResponse = await scanClient.scanTLS(tlsReq);
+                    newScanId = (callResponse.response as ScanTLSResponse).scanId;
                     break;
                 case 'crtsh':
                     const crtshReq: ScanCrtShRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanCrtSh(crtshReq);
-                    newScanId = (response.response as ScanCrtShResponse).scanId;
+                    callResponse = await scanClient.scanCrtSh(crtshReq);
+                    newScanId = (callResponse.response as ScanCrtShResponse).scanId;
                     break;
                 case 'chaos':
                     const chaosReq: ScanChaosRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanChaos(chaosReq);
-                    newScanId = (response.response as ScanChaosResponse).scanId;
+                    callResponse = await scanClient.scanChaos(chaosReq);
+                    newScanId = (callResponse.response as ScanChaosResponse).scanId;
                     break;
                 case 'shodan':
                     const shodanReq: ScanShodanRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanShodan(shodanReq);
-                    newScanId = (response.response as ScanShodanResponse).scanId;
+                    callResponse = await scanClient.scanShodan(shodanReq);
+                    newScanId = (callResponse.response as ScanShodanResponse).scanId;
                     break;
                 case 'otx':
                     const otxReq: ScanOTXRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanOTX(otxReq);
-                    newScanId = (response.response as ScanOTXResponse).scanId;
+                    callResponse = await scanClient.scanOTX(otxReq);
+                    newScanId = (callResponse.response as ScanOTXResponse).scanId;
                     break;
                 case 'whois':
                     const whoisReq: ScanWhoisRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanWhois(whoisReq);
-                    newScanId = (response.response as ScanWhoisResponse).scanId;
+                    callResponse = await scanClient.scanWhois(whoisReq);
+                    newScanId = (callResponse.response as ScanWhoisResponse).scanId;
                     break;
                 case 'abusech':
                     const abuseChReq: ScanAbuseChRequest = { domain: domain, dnsScanId: dnsScanId };
-                    response = await scanClient.scanAbuseCh(abuseChReq);
-                    newScanId = (response.response as ScanAbuseChResponse).scanId;
+                    callResponse = await scanClient.scanAbuseCh(abuseChReq);
+                    newScanId = (callResponse.response as ScanAbuseChResponse).scanId;
                     break;
                 default:
                     setError('Invalid scan type');
@@ -139,7 +146,7 @@ const Scans: React.FC = () => {
         setError('');
         setSuccess('');
         setLoading(true);
-        setResults([]); // Clear previous results
+        setResults([]);
 
         if (!domain) {
             setError("Domain is required to view scan results.");
@@ -153,45 +160,45 @@ const Scans: React.FC = () => {
         }
 
         try {
-            let response;
+            let callResponse;
             switch (scanType) {
                 case 'dns':
-                    response = await scanClient.getDNSScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetDNSScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getDNSScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetDNSScanResultsByDomainResponse).results);
                     break;
                 case 'tls':
-                    response = await scanClient.getTLSScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetTLSScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getTLSScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetTLSScanResultsByDomainResponse).results);
                     break;
                 case 'crtsh':
-                    response = await scanClient.getCrtShScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetCrtShScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getCrtShScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetCrtShScanResultsByDomainResponse).results);
                     break;
                 case 'chaos':
-                    response = await scanClient.getChaosScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetChaosScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getChaosScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetChaosScanResultsByDomainResponse).results);
                     break;
                 case 'shodan':
-                    response = await scanClient.getShodanScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetShodanScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getShodanScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetShodanScanResultsByDomainResponse).results);
                     break;
                 case 'otx':
-                    response = await scanClient.getOTXScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetOTXScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getOTXScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetOTXScanResultsByDomainResponse).results);
                     break;
                 case 'whois':
-                    response = await scanClient.getWhoisScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetWhoisScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getWhoisScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetWhoisScanResultsByDomainResponse).results);
                     break;
                 case 'abusech':
-                    response = await scanClient.getAbuseChScanResultsByDomain({ domain: domain });
-                    setResults((response.response as GetAbuseChScanResultsByDomainResponse).results);
+                    callResponse = await scanClient.getAbuseChScanResultsByDomain({ domain: domain });
+                    setResults((callResponse.response as GetAbuseChScanResultsByDomainResponse).results);
                     break;
                 default:
                     setError('Invalid scan type');
                     return;
             }
-            setSuccess(`Fetched ${response.response.results.length} ${scanType} scan results for ${domain}.`);
+            setSuccess(`Fetched ${callResponse.response.results.length} ${scanType} scan results for ${domain}.`);
         } catch (err: any) {
             setError(`Failed to fetch ${scanType} scan results: ${err.message}`);
         } finally {
@@ -204,7 +211,7 @@ const Scans: React.FC = () => {
         setError('');
         setSuccess('');
         setResults([]);
-        setDnsScanId(''); // Clear DNS scan ID on tab change
+        setDnsScanId('');
     };
 
     const formatTimestamp = (timestamp: Timestamp | undefined) => {
@@ -239,97 +246,97 @@ const Scans: React.FC = () => {
                     />
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                         <Button variant="contained" onClick={() => handleRunScan('dns')} disabled={loading}>
-                            Run DNS Scan
+                        Run DNS Scan
                         </Button>
                         <Button variant="contained" onClick={() => handleRunScan('tls')} disabled={loading || !dnsScanId}>
-                            Run TLS Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('crtsh')} disabled={loading || !dnsScanId}>
-                            Run Crt.sh Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('chaos')} disabled={loading || !dnsScanId}>
-                            Run Chaos Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('shodan')} disabled={loading || !dnsScanId}>
-                            Run Shodan Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('otx')} disabled={loading || !dnsScanId}>
-                            Run OTX Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('whois')} disabled={loading || !dnsScanId}>
-                            Run Whois Scan
-                        </Button>
-                        <Button variant="contained" onClick={() => handleRunScan('abusech')} disabled={loading || !dnsScanId}>
-                            Run Abuse.ch Scan
-                        </Button>
-                    </Box>
-                    {dnsScanId && (
-                        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-                            Current DNS Scan ID: <strong>{dnsScanId}</strong> (used for subsequent scans)
-                        </Typography>
-                    )}
-                </Paper>
-            )}
+                        Run TLS Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('crtsh')} disabled={loading || !dnsScanId}>
+                        Run Crt.sh Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('chaos')} disabled={loading || !dnsScanId}>
+                        Run Chaos Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('shodan')} disabled={loading || !dnsScanId}>
+                        Run Shodan Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('otx')} disabled={loading || !dnsScanId}>
+                        Run OTX Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('whois')} disabled={loading || !dnsScanId}>
+                        Run Whois Scan
+                    </Button>
+                    <Button variant="contained" onClick={() => handleRunScan('abusech')} disabled={loading || !dnsScanId}>
+                        Run Abuse.ch Scan
+                    </Button>
+                </Box>
+            {dnsScanId && (
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            Current DNS Scan ID: <strong>{dnsScanId}</strong> (used for subsequent scans)
+        </Typography>
+    )}
+</Paper>
+)}
 
-            {activeTab === 1 && (
-                <Paper sx={{ p: 3 }}>
-                    <Typography variant="h6" gutterBottom>View Past Scan Results</Typography>
-                    <TextField
-                        label="Domain"
-                        value={domain}
-                        onChange={(e) => setDomain(e.target.value)}
-                        fullWidth
-                        sx={{ mb: 2 }}
-                        placeholder="e.g., example.com"
-                    />
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-                        <Button variant="contained" onClick={() => handleViewResults('dns')} disabled={loading}>
-                            View DNS Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('tls')} disabled={loading}>
-                            View TLS Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('crtsh')} disabled={loading}>
-                            View Crt.sh Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('chaos')} disabled={loading}>
-                            View Chaos Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('shodan')} disabled={loading}>
-                            View Shodan Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('otx')} disabled={loading}>
-                            View OTX Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('whois')} disabled={loading}>
-                            View Whois Results
-                        </Button>
-                        <Button variant="contained" onClick={() => handleViewResults('abusech')} disabled={loading}>
-                            View Abuse.ch Results
-                        </Button>
-                    </Box>
-
-                    <Typography variant="subtitle1" gutterBottom>Results List</Typography>
-                    <List dense sx={{ maxHeight: 400, overflow: 'auto', border: '1px solid #eee', borderRadius: 1 }}>
-                        {results.length > 0 ? (
-                            results.map((result: any, index: number) => ( // Use 'any' as results array holds mixed types
-                                <ListItem key={result.id || index} divider>
-                                    <ListItemText
-                                        primary={`ID: ${result.id || 'N/A'} - Domain: ${result.domain}`}
-                                        secondary={`Created: ${formatTimestamp(result.createdAt)}`}
-                                    />
-                                </ListItem>
-                            ))
-                        ) : (
-                            <ListItem>
-                                <ListItemText primary="No scan results found for this domain and type." />
-                            </ListItem>
-                        )}
-                    </List>
-                </Paper>
-            )}
+{activeTab === 1 && (
+    <Paper sx={{ p: 3 }}>
+        <Typography variant="h6" gutterBottom>View Past Scan Results</Typography>
+        <TextField
+            label="Domain"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+            placeholder="e.g., example.com"
+        />
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+            <Button variant="contained" onClick={() => handleViewResults('dns')} disabled={loading}>
+                View DNS Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('tls')} disabled={loading}>
+                View TLS Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('crtsh')} disabled={loading}>
+                View Crt.sh Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('chaos')} disabled={loading}>
+                View Chaos Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('shodan')} disabled={loading}>
+                View Shodan Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('otx')} disabled={loading}>
+                View OTX Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('whois')} disabled={loading}>
+                View Whois Results
+            </Button>
+            <Button variant="contained" onClick={() => handleViewResults('abusech')} disabled={loading}>
+                View Abuse.ch Results
+            </Button>
         </Box>
-    );
+
+        <Typography variant="subtitle1" gutterBottom>Results List</Typography>
+        <List dense sx={{ maxHeight: 400, overflow: 'auto', border: '1px solid #eee', borderRadius: 1 }}>
+            {results.length > 0 ? (
+                results.map((result: any, index: number) => (
+                    <ListItem key={result.id || index} divider>
+                        <ListItemText
+                            primary={`ID: ${result.id || 'N/A'} - Domain: ${result.domain}`}
+                            secondary={`Created: ${formatTimestamp(result.createdAt)}`}
+                        />
+                    </ListItem>
+                ))
+            ) : (
+                <ListItem>
+                    <ListItemText primary="No scan results found for this domain and type." />
+                </ListItem>
+            )}
+        </List>
+    </Paper>
+)}
+</Box>
+);
 };
 
 export default Scans;

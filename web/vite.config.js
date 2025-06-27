@@ -6,6 +6,7 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
+import path from 'path'; // Ensure path is imported for resolve.alias
 
 export default defineConfig({
     root: '.',
@@ -22,13 +23,20 @@ export default defineConfig({
             util: 'util',
             path: 'path-browserify',
             fs: 'browserify-fs',
-            process: 'process/browser'
+            process: 'process/browser',
+            'react': path.resolve(__dirname, 'node_modules/react'),
+            'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+            '@mui/material': path.resolve(__dirname, 'node_modules/@mui/material'),
+            '@mui/system': path.resolve(__dirname, 'node_modules/@mui/system'),
+            // REMOVED: '@mui/styled-engine': path.resolve(__dirname, 'node_modules/@emotion/react'), // Remove this line
+            '@emotion/react': path.resolve(__dirname, 'node_modules/@emotion/react'),
+            '@emotion/styled': path.resolve(__dirname, 'node_modules/@emotion/styled'),
         },
     },
     build: {
         outDir: 'dist',
         emptyOutDir: true,
-        minify: false, // Minification disabled for easier debugging
+        minify: false,
         rollupOptions: {
             plugins: [
                 nodeResolve({
@@ -56,13 +64,12 @@ export default defineConfig({
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
-                        if (id.includes('@mui')) { // Keep @mui in its own chunk
+                        if (id.includes('@mui')) {
                             return 'vendor_mui';
                         }
-                        if (id.includes('google-protobuf') || id.includes('grpc-web')) { // Keep grpc-related in their own chunk
+                        if (id.includes('google-protobuf') || id.includes('grpc-web')) {
                             return 'vendor_grpc_protobuf';
                         }
-                        // Generic vendor chunk for other node_modules, including react/react-dom if not specifically chunked above
                         if (id.includes('react') || id.includes('react-dom')) {
                             return 'vendor_react';
                         }
@@ -73,18 +80,26 @@ export default defineConfig({
         },
         target: 'esnext',
     },
-    // server: {
-    //     port: 5173,
-    //     proxy: {
-    //         '/service': {
-    //             target: 'http://localhost:8080',
-    //             changeOrigin: true,
-    //             rewrite: (path) => path,
-    //         },
-    //     },
-    // },
-    // Exclude react and react-dom from Vite's dependency optimization
+    server: {
+        port: 5173,
+        proxy: {
+            '/service': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                rewrite: (path) => path,
+            },
+        },
+    },
     optimizeDeps: {
-        include: ['grpc-web', 'google-protobuf'], // Keep these explicitly included
+        include: [
+            'grpc-web',
+            'google-protobuf',
+            '@mui/material',
+            '@mui/material/styles',
+            '@mui/system',
+            '@emotion/react',
+            '@emotion/styled',
+        ],
+        force: true,
     },
 });

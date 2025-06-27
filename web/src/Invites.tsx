@@ -1,32 +1,38 @@
 // web/src/Invites.tsx
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react'; // Added useMemo
 import { TextField, Button, Box, Typography, FormControlLabel, Checkbox, Alert, Paper, List, ListItem, ListItemText } from '@mui/material';
-import { AuthContext } from './App';
-import { InviteUserRequest, InviteUserResponse } from './proto/service'; // Import message types
-import { AuthServiceClient } from './proto/service.client'; // Import client
-import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport'; // Import transport
+import { AuthContext } from './AuthContext';
+import { InviteUserRequest, InviteUserResponse } from './proto/service';
+import { AuthServiceClient } from './proto/service.client';
+import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
+import { RpcOptions } from '@protobuf-ts/runtime-rpc';
 
-const transport = new GrpcWebFetchTransport({
-    baseUrl: 'http://localhost:8080',
-    // Add interceptor to include x-api-key header
-    interceptors: [{
-        intercept(method, next) {
-            return async req => {
-                const authContext = useContext(AuthContext);
-                const userToken = authContext?.user?.token; // Get token from context
-                if (userToken) {
-                    req.headers.set('x-api-key', userToken);
-                }
-                return await next(method, req);
-            };
-        }
-    }]
-});
-const authClient = new AuthServiceClient(transport); // Instantiate client
+// REMOVE GLOBAL transport and authClient HERE
 
 const Invites: React.FC = () => {
     const authContext = useContext(AuthContext);
-    const user = authContext?.user; // Access user from context
+    const user = authContext?.user;
+
+    // NEW: Instantiate transport and client inside the component using useMemo
+    const authClient = useMemo(() => {
+        const transport = new GrpcWebFetchTransport({
+            baseUrl: 'http://localhost:8080',
+            interceptors: [{
+                intercept(next) {
+                    console.log("Interceptor: Intercept function invoked (Invites from useMemo)."); // Added for debug
+                    return async (req) => {
+                        const userToken = localStorage.getItem('sparta_token');
+                        console.log("Interceptor (Invites from useMemo): User token:", userToken); // Added for debug
+                        if (userToken) {
+                            req.headers.set('x-api-key', userToken);
+                        }
+                        return await next(req);
+                    };
+                }
+            }]
+        });
+        return new AuthServiceClient(transport);
+    }, []); // Empty dependency array means it's created once
 
     const [email, setEmail] = useState<string>('');
     const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -47,7 +53,8 @@ const Invites: React.FC = () => {
             isAdmin: isAdmin,
         };
 
-        authClient.inviteUser(request).then((response: InviteUserResponse) => {
+        authClient.inviteUser(request).then((callResponse) => {
+            const response: InviteUserResponse = callResponse.response;
             setSuccess(`Invite sent to ${email}. Invitation ID: ${response.invitationId}, Token: ${response.token}, Expires: ${response.expiresAt?.toDate().toLocaleString()}`);
             setEmail('');
             setIsAdmin(false);

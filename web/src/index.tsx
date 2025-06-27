@@ -5,6 +5,7 @@ import App from './App';
 import './index.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { StyledEngineProvider } from '@mui/material'; // NEW: Import StyledEngineProvider from @mui/material
 
 // Define a simple dark theme
 const darkTheme = createTheme({
@@ -23,12 +24,15 @@ const darkTheme = createTheme({
     },
 });
 
-const root = createRoot(document.getElementById('root') as HTMLElement); // Added type assertion
+const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
-        <ThemeProvider theme={darkTheme}>
-            <CssBaseline />
-            <App />
-        </ThemeProvider>
+        {/* NEW: Wrap with StyledEngineProvider with injectFirst to prioritize Emotion styles */}
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={darkTheme}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
+        </StyledEngineProvider>
     </React.StrictMode>
 );

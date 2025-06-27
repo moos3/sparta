@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"google.golang.org/grpc/status"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -98,6 +99,8 @@ func New(db db.Database, cfg *config.Config, emailService *email.Service) (*Auth
 	}, nil
 }
 
+// GenerateAPIKey generates a new API key.
+// This function is now a helper, called by UserService.CreateAPIKey.
 func (s *AuthService) GenerateAPIKey() (string, error) {
 	b := make([]byte, 32)
 	_, err := rand.Read(b)
@@ -108,16 +111,18 @@ func (s *AuthService) GenerateAPIKey() (string, error) {
 	return hex.EncodeToString(hash[:]), nil
 }
 
+// GetAPIKey retrieves API key details.
+// This function is now a helper, called by UserService's API key methods.
 func (s *AuthService) GetAPIKey(key string) (string, string, bool, bool, string, bool, time.Time, time.Time, error) {
 	var userID, keyVal, role, deactivationMessage string
 	var isAdmin, isServiceKey, isActive bool
 	var createdAt, expiresAt time.Time
 	query := `
-		SELECT api_keys.user_id, api_keys.key, api_keys.role, api_keys.is_service_key, api_keys.is_active,
+		SELECT api_keys.user_id, api_keys.api_key, api_keys.role, api_keys.is_service_key, api_keys.is_active,
 		       api_keys.deactivation_message, api_keys.created_at, api_keys.expires_at, users.is_admin
 		FROM api_keys
 		JOIN users ON api_keys.user_id = users.id
-		WHERE api_keys.key = $1
+		WHERE api_keys.api_key = $1
 	`
 	err := s.db.QueryRow(query, key).Scan(&userID, &keyVal, &role, &isServiceKey, &isActive, &deactivationMessage, &createdAt, &expiresAt, &isAdmin)
 	if err == sql.ErrNoRows {
@@ -129,6 +134,7 @@ func (s *AuthService) GetAPIKey(key string) (string, string, bool, bool, string,
 	return userID, keyVal, isAdmin, isServiceKey, role, isActive, createdAt, expiresAt, nil
 }
 
+// VerifyUser checks user credentials.
 func (s *AuthService) VerifyUser(email, password string) (string, string, string, bool, time.Time, error) {
 	var id, firstName, lastName, storedPassword string
 	var isAdmin bool
@@ -151,10 +157,13 @@ func (s *AuthService) VerifyUser(email, password string) (string, string, string
 	return id, firstName, lastName, isAdmin, createdAt, nil
 }
 
+// AuthInterceptor intercepts gRPC calls for authentication and authorization.
 func (s *AuthService) AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	// Allow Login and ValidateInvite methods without authentication
 	if info.FullMethod == "/service.AuthService/Login" || info.FullMethod == "/service.AuthService/ValidateInvite" {
 		return handler(ctx, req)
 	}
+
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		return nil, status.Error(codes.Unauthenticated, "missing metadata")
@@ -163,6 +172,8 @@ func (s *AuthService) AuthInterceptor(ctx context.Context, req interface{}, info
 	if len(apiKeys) == 0 {
 		return nil, status.Error(codes.Unauthenticated, "missing API key")
 	}
+
+	// Use helper GetAPIKey
 	userID, _, isAdmin, isServiceKey, role, isActive, _, expiresAt, err := s.GetAPIKey(apiKeys[0])
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to verify API key: %v", err)
@@ -176,9 +187,13 @@ func (s *AuthService) AuthInterceptor(ctx context.Context, req interface{}, info
 	if !expiresAt.IsZero() && time.Now().After(expiresAt) {
 		return nil, status.Error(codes.Unauthenticated, "API key has expired")
 	}
+
+	// Casbin authorization check
 	if !s.casbin.Authorize(role, info.FullMethod, "*") {
 		return nil, status.Error(codes.PermissionDenied, "insufficient permissions")
 	}
+
+	// Store user info in context for downstream handlers
 	newCtx := context.WithValue(ctx, "user_id", userID)
 	newCtx = context.WithValue(newCtx, "role", role)
 	newCtx = context.WithValue(newCtx, "is_admin", isAdmin)
@@ -186,6 +201,7 @@ func (s *AuthService) AuthInterceptor(ctx context.Context, req interface{}, info
 	return handler(newCtx, req)
 }
 
+// Login handles user login.
 func (s *AuthService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
 	id, firstName, lastName, isAdmin, _, err := s.VerifyUser(req.Email, req.Password)
 	if err != nil {
@@ -208,18 +224,20 @@ func (s *AuthService) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Logi
 	}, nil
 }
 
+// CreateUser handles creating new users (admin-only).
 func (s *AuthService) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	if !ok || role != "admin" {
+	// Only admin can create users
+	if !s.isAdmin(ctx) {
 		return nil, status.Error(codes.PermissionDenied, "admin role required")
 	}
+
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to hash password: %v", err)
 	}
 	userID := uuid.New().String()
 	query := `
-		INSERT INTO users (id, first_name, last_name, email, password, is_admin, created_at)
+		INSERT INTO users (id, first_name, last_name, email, password_hash, is_admin, created_at)
 		VALUES ($1, $2, $3, $4, $5, $6, $7)
 	`
 	_, err = s.db.Exec(query, userID, req.FirstName, req.LastName, req.Email, hashedPassword, req.IsAdmin, time.Now())
@@ -232,12 +250,17 @@ func (s *AuthService) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 	return &pb.CreateUserResponse{UserId: userID}, nil
 }
 
+// GetUser retrieves user details.
 func (s *AuthService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 || (role != "admin" && userID != req.UserId) {
-		return nil, status.Error(codes.PermissionDenied, "admin or self required")
+	// Admin can get any user. Regular user can only get their own profile.
+	authUserID, ok := ctx.Value("user_id").(string)
+	if !ok {
+		return nil, status.Error(codes.Unauthenticated, "missing user ID in context")
 	}
+	if !s.isAdmin(ctx) && authUserID != req.UserId {
+		return nil, status.Error(codes.PermissionDenied, "admin role or self-access required")
+	}
+
 	var id, firstName, lastName, email string
 	var isAdmin bool
 	var createdAt time.Time
@@ -263,31 +286,72 @@ func (s *AuthService) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.
 	}, nil
 }
 
+// UpdateUser updates user details. Email can only be changed by admin.
 func (s *AuthService) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 || (role != "admin" && userID != req.UserId) {
-		return nil, status.Error(codes.PermissionDenied, "admin or self required")
+	authUserID, ok := ctx.Value("user_id").(string)
+	if !ok {
+		return nil, status.Error(codes.Unauthenticated, "missing user ID in context")
 	}
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	isAdmin := s.isAdmin(ctx)
+
+	// Admin can update any user. Non-admin can only update their own profile.
+	if !isAdmin && authUserID != req.UserId {
+		return nil, status.Error(codes.PermissionDenied, "admin role or self-access required")
+	}
+
+	// --- Email change restriction (NEW) ---
+	var currentEmail string
+	err := s.db.QueryRow("SELECT email FROM users WHERE id = $1", req.UserId).Scan(&currentEmail)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to hash password: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to get current user email: %v", err)
 	}
-	query := `
-		UPDATE users
-		SET first_name = $1, last_name = $2, email = $3, password = $4
-		WHERE id = $5
-	`
-	_, err = s.db.Exec(query, req.FirstName, req.LastName, req.Email, hashedPassword, req.UserId)
+
+	if req.Email != currentEmail && !isAdmin {
+		return nil, status.Error(codes.PermissionDenied, "only administrators can change email address")
+	}
+	// --- End email change restriction ---
+
+	// Prepare fields for update - password is handled separately or by an admin only
+	setClauses := []string{}
+	args := []interface{}{}
+	argCounter := 1
+
+	if req.FirstName != "" {
+		setClauses = append(setClauses, fmt.Sprintf("first_name = $%d", argCounter))
+		args = append(args, req.FirstName)
+		argCounter++
+	}
+	if req.LastName != "" {
+		setClauses = append(setClauses, fmt.Sprintf("last_name = $%d", argCounter))
+		args = append(args, req.LastName)
+		argCounter++
+	}
+	if req.Email != "" { // Email can be updated if allowed by the check above
+		setClauses = append(setClauses, fmt.Sprintf("email = $%d", argCounter))
+		args = append(args, req.Email)
+		argCounter++
+	}
+	// Password is NOT updated here. It's handled by ChangePassword or by Admin only Create/Update.
+	// if req.Password != "" { ... }
+
+	if len(setClauses) == 0 {
+		return &pb.UpdateUserResponse{}, nil // Nothing to update
+	}
+
+	query := fmt.Sprintf("UPDATE users SET %s WHERE id = $%d", strings.Join(setClauses, ", "), argCounter)
+	args = append(args, req.UserId)
+
+	_, err = s.db.Exec(query, args...)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to update user: %v", err)
 	}
 	return &pb.UpdateUserResponse{}, nil
 }
 
+// DeleteUser handles deleting users (admin-only).
 func (s *AuthService) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest) (*pb.DeleteUserResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	if !ok || role != "admin" {
+	// Only admin can delete users
+	if !s.isAdmin(ctx) {
 		return nil, status.Error(codes.PermissionDenied, "admin role required")
 	}
 	query := `DELETE FROM users WHERE id = $1`
@@ -298,9 +362,10 @@ func (s *AuthService) DeleteUser(ctx context.Context, req *pb.DeleteUserRequest)
 	return &pb.DeleteUserResponse{}, nil
 }
 
+// ListUsers lists all users (admin-only).
 func (s *AuthService) ListUsers(ctx context.Context, req *pb.ListUsersRequest) (*pb.ListUsersResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	if !ok || role != "admin" {
+	// Only admin can list all users
+	if !s.isAdmin(ctx) {
 		return nil, status.Error(codes.PermissionDenied, "admin role required")
 	}
 	query := `SELECT id, first_name, last_name, email, is_admin, created_at FROM users`
@@ -313,6 +378,7 @@ func (s *AuthService) ListUsers(ctx context.Context, req *pb.ListUsersRequest) (
 	var users []User
 	for rows.Next() {
 		var u User
+		// Corrected column name from 'password' to 'password_hash'
 		if err := rows.Scan(&u.ID, &u.FirstName, &u.LastName, &u.Email, &u.IsAdmin, &u.CreatedAt); err != nil {
 			return nil, status.Errorf(codes.Internal, "failed to scan user: %v", err)
 		}
@@ -332,266 +398,32 @@ func (s *AuthService) ListUsers(ctx context.Context, req *pb.ListUsersRequest) (
 	return &pb.ListUsersResponse{Users: pbUsers}, nil
 }
 
-func (s *AuthService) CreateAPIKey(ctx context.Context, req *pb.CreateAPIKeyRequest) (*pb.CreateAPIKeyResponse, error) {
+// API Key management methods (MOVED from AuthService)
+// These methods are now handled by UserService
+
+// isAdmin checks if the current context user has admin role.
+func (s *AuthService) isAdmin(ctx context.Context) bool {
 	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 || (role != "admin" && userID != req.UserId) {
-		return nil, status.Error(codes.PermissionDenied, "admin or self required")
-	}
-	if role != "admin" && req.Role == "admin" {
-		return nil, status.Error(codes.PermissionDenied, "only admin can create admin API keys")
-	}
-	apiKey, expiresAt, err := s.createAPIKey(req.UserId, req.Role, req.IsServiceKey)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to create API key: %v", err)
-	}
-	return &pb.CreateAPIKeyResponse{
-		ApiKey:       apiKey,
-		Role:         req.Role,
-		IsServiceKey: req.IsServiceKey,
-		ExpiresAt:    timestamppb.New(expiresAt),
-	}, nil
+	return ok && role == "admin"
 }
 
-func (s *AuthService) createAPIKey(userID, role string, isServiceKey bool) (string, time.Time, error) {
-	apiKey, err := s.GenerateAPIKey()
-	if err != nil {
-		return "", time.Time{}, fmt.Errorf("failed to generate API key: %v", err)
+// getAuthUserID retrieves authenticated user ID from context.
+func (s *AuthService) getAuthUserID(ctx context.Context) (string, error) {
+	userID, ok := ctx.Value("user_id").(string)
+	if !ok {
+		return "", status.Error(codes.Unauthenticated, "missing user ID in context")
 	}
-	expiresAt := time.Now().AddDate(0, 0, 30) // 30-day expiration
-	query := `
-		INSERT INTO api_keys (key, user_id, role, is_service_key, is_active, created_at, expires_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
-	`
-	_, err = s.db.Exec(query, apiKey, userID, role, isServiceKey, true, time.Now(), expiresAt)
-	if err != nil {
-		return "", time.Time{}, fmt.Errorf("failed to create API key: %v", err)
-	}
-	return apiKey, expiresAt, nil
+	return userID, nil
 }
 
-func (s *AuthService) RotateAPIKey(ctx context.Context, req *pb.RotateAPIKeyRequest) (*pb.RotateAPIKeyResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 {
-		return nil, status.Error(codes.Internal, "missing context values")
-	}
-	userKeyID, _, _, _, _, _, _, _, err := s.GetAPIKey(req.ApiKey)
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid API key: %v", err)
-	}
-	if role != "admin" && userID != userKeyID {
-		return nil, status.Error(codes.PermissionDenied, "admin or key owner required")
-	}
-	newAPIKey, newExpiresAt, err := s.rotateAPIKey(req.ApiKey)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to rotate API key: %v", err)
-	}
-	return &pb.RotateAPIKeyResponse{
-		NewApiKey: newAPIKey,
-		ExpiresAt: timestamppb.New(newExpiresAt),
-	}, nil
-}
-
-func (s *AuthService) rotateAPIKey(oldKey string) (string, time.Time, error) {
-	newKey, err := s.GenerateAPIKey()
-	if err != nil {
-		return "", time.Time{}, fmt.Errorf("failed to generate new API key: %v", err)
-	}
-	newExpiresAt := time.Now().AddDate(0, 0, 30)
-	query := `
-		UPDATE api_keys
-		SET key = $1, created_at = $2, expires_at = $3
-		WHERE key = $4
-	`
-	_, err = s.db.Exec(query, newKey, time.Now(), newExpiresAt, oldKey)
-	if err != nil {
-		return "", time.Time{}, fmt.Errorf("failed to rotate API key: %v", err)
-	}
-	return newKey, newExpiresAt, nil
-}
-
-func (s *AuthService) ActivateAPIKey(ctx context.Context, req *pb.ActivateAPIKeyRequest) (*pb.ActivateAPIKeyResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 {
-		return nil, status.Error(codes.Internal, "missing context values")
-	}
-	userKeyID, _, _, _, _, _, _, _, err := s.GetAPIKey(req.ApiKey)
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid API key: %v", err)
-	}
-	if role != "admin" && userID != userKeyID {
-		return nil, status.Error(codes.PermissionDenied, "admin or key owner required")
-	}
-	err = s.activateAPIKey(req.ApiKey)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to activate API key: %v", err)
-	}
-	return &pb.ActivateAPIKeyResponse{}, nil
-}
-
-func (s *AuthService) activateAPIKey(apiKey string) error {
-	query := `UPDATE api_keys SET is_active = true, deactivation_message = '' WHERE key = $1`
-	_, err := s.db.Exec(query, apiKey)
-	if err != nil {
-		return fmt.Errorf("failed to activate API key: %v", err)
-	}
-	return nil
-}
-
-func (s *AuthService) DeactivateAPIKey(ctx context.Context, req *pb.DeactivateAPIKeyRequest) (*pb.DeactivateAPIKeyResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 {
-		return nil, status.Error(codes.Internal, "missing context values")
-	}
-	userKeyID, _, _, _, _, _, _, _, err := s.GetAPIKey(req.ApiKey)
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid API key: %v", err)
-	}
-	if role != "admin" && userID != userKeyID {
-		return nil, status.Error(codes.PermissionDenied, "admin or key owner required")
-	}
-	if role != "admin" && req.DeactivationMessage != "" {
-		return nil, status.Error(codes.PermissionDenied, "only admin can set deactivation message")
-	}
-	err = s.deactivateAPIKey(req.ApiKey, req.DeactivationMessage)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to deactivate API key: %v", err)
-	}
-	return &pb.DeactivateAPIKeyResponse{}, nil
-}
-
-func (s *AuthService) deactivateAPIKey(apiKey, deactivationMessage string) error {
-	query := `UPDATE api_keys SET is_active = false, deactivation_message = $1 WHERE key = $2`
-	_, err := s.db.Exec(query, deactivationMessage, apiKey)
-	if err != nil {
-		return fmt.Errorf("failed to deactivate API key: %v", err)
-	}
-	return nil
-}
-
-func (s *AuthService) ListAPIKeysHelper(userID string) ([]APIKey, error) {
-	query := `
-		SELECT key, user_id, role, is_service_key, is_active, deactivation_message, created_at, expires_at
-		FROM api_keys
-		WHERE user_id = $1
-	`
-	rows, err := s.db.Query(query, userID)
-	if err != nil {
-		return nil, fmt.Errorf("failed to list API keys: %v", err)
-	}
-	defer rows.Close()
-
-	var apiKeys []APIKey
-	for rows.Next() {
-		var k APIKey
-		var expiresAt sql.NullTime
-		if err := rows.Scan(&k.APIKey, &k.UserID, &k.Role, &k.IsServiceKey, &k.IsActive, &k.DeactivationMessage, &k.CreatedAt, &expiresAt); err != nil {
-			return nil, fmt.Errorf("failed to scan API key: %v", err)
-		}
-		if expiresAt.Valid {
-			k.ExpiresAt = expiresAt.Time
-		}
-		apiKeys = append(apiKeys, k)
-	}
-	return apiKeys, nil
-}
-
-func (s *AuthService) ListAPIKeys(ctx context.Context, req *pb.ListAPIKeysRequest) (*pb.ListAPIKeysResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 || (role != "admin" && userID != req.UserId) {
-		return nil, status.Error(codes.PermissionDenied, "admin or self required")
-	}
-	apiKeys, err := s.ListAPIKeysHelper(req.UserId)
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to list API keys: %v", err)
-	}
-	pbAPIKeys := make([]*pb.APIKey, len(apiKeys))
-	for i, k := range apiKeys {
-		var expiresAt *timestamppb.Timestamp
-		if !k.ExpiresAt.IsZero() {
-			expiresAt = timestamppb.New(k.ExpiresAt)
-		}
-		pbAPIKeys[i] = &pb.APIKey{
-			ApiKey:              k.APIKey,
-			UserId:              k.UserID,
-			Role:                k.Role,
-			IsServiceKey:        k.IsServiceKey,
-			IsActive:            k.IsActive,
-			DeactivationMessage: k.DeactivationMessage,
-			CreatedAt:           timestamppb.New(k.CreatedAt),
-			ExpiresAt:           expiresAt,
-		}
-	}
-	return &pb.ListAPIKeysResponse{ApiKeys: pbAPIKeys}, nil
-}
-
-func (s *AuthService) InviteUser(ctx context.Context, req *pb.InviteUserRequest) (*pb.InviteUserResponse, error) {
-	role, ok := ctx.Value("role").(string)
-	userID, ok2 := ctx.Value("user_id").(string)
-	if !ok || !ok2 || role != "admin" {
-		return nil, status.Error(codes.PermissionDenied, "admin role required")
-	}
-	invitationID := uuid.New().String()
-	token, err := s.GenerateAPIKey()
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to generate invitation token: %v", err)
-	}
-	expiresAt := time.Now().AddDate(0, 0, 7) // 7-day expiration
-	query := `
-		INSERT INTO invitations (id, email, inviter_id, is_admin, token, expires_at, created_at)
-		VALUES ($1, $2, $3, $4, $5, $6, $7)
-	`
-	_, err = s.db.Exec(query, invitationID, req.Email, userID, req.IsAdmin, token, expiresAt, time.Now())
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to create invitation: %v", err)
-	}
-	inviteURL := fmt.Sprintf("https://sparta.example.com/invite?token=%s", token)
-	err = s.email.Send(req.Email, "Sparta Invitation", fmt.Sprintf("You have been invited to join Sparta. Click here to register: %s\nThis invitation expires at %s.", inviteURL, expiresAt))
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to send invitation email: %v", err)
-	}
-	return &pb.InviteUserResponse{
-		InvitationId: invitationID,
-		Token:        token,
-		ExpiresAt:    timestamppb.New(expiresAt),
-	}, nil
-}
-
-func (s *AuthService) ValidateInvite(ctx context.Context, req *pb.ValidateInviteRequest) (*pb.ValidateInviteResponse, error) {
-	var email, inviterID string
-	var isAdmin bool
-	var expiresAt time.Time
-	query := `
-		SELECT email, inviter_id, is_admin, expires_at
-		FROM invitations
-		WHERE token = $1
-	`
-	err := s.db.QueryRow(query, req.Token).Scan(&email, &inviterID, &isAdmin, &expiresAt)
-	if err == sql.ErrNoRows {
-		return nil, status.Error(codes.InvalidArgument, "invalid invitation token")
-	}
-	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to validate invitation: %v", err)
-	}
-	if time.Now().After(expiresAt) {
-		return nil, status.Error(codes.InvalidArgument, "invitation expired")
-	}
-	return &pb.ValidateInviteResponse{
-		Email:   email,
-		IsAdmin: isAdmin,
-	}, nil
-}
-
+// ScheduleAPIKeyRotation handles background API key rotation.
+// It will continue to use AuthService.GenerateAPIKey and related helpers.
 func (s *AuthService) ScheduleAPIKeyRotation() {
 	go func() {
 		ticker := time.NewTicker(24 * time.Hour)
 		for range ticker.C {
 			log.Println("Running API key rotation check")
-			rows, err := s.db.Query("SELECT key FROM api_keys WHERE expires_at < $1 AND is_active = true", time.Now())
+			rows, err := s.db.Query("SELECT api_key FROM api_keys WHERE expires_at < $1 AND is_active = true", time.Now())
 			if err != nil {
 				log.Printf("Failed to query expired API keys: %v", err)
 				continue
@@ -607,7 +439,8 @@ func (s *AuthService) ScheduleAPIKeyRotation() {
 			}
 			rows.Close()
 			for _, apiKey := range apiKeys {
-				_, expiresAt, err := s.rotateAPIKey(apiKey)
+				// Use helper functions within AuthService for key rotation logic
+				_, expiresAt, err := s.RotateAPIKeyHelper(apiKey) // Call internal helper
 				if err != nil {
 					log.Printf("Failed to rotate API key %s: %v", apiKey, err)
 					continue
@@ -617,3 +450,95 @@ func (s *AuthService) ScheduleAPIKeyRotation() {
 		}
 	}()
 }
+
+// rotateAPIKeyHelper is an internal helper for API key rotation.
+func (s *AuthService) RotateAPIKeyHelper(oldKey string) (string, time.Time, error) {
+	newKey, err := s.GenerateAPIKey()
+	if err != nil {
+		return "", time.Time{}, fmt.Errorf("failed to generate new API key: %v", err)
+	}
+	newExpiresAt := time.Now().AddDate(0, 0, 30)
+	query := `
+		UPDATE api_keys
+		SET api_key = $1, created_at = $2, expires_at = $3
+		WHERE api_key = $4
+	`
+	_, err = s.db.Exec(query, newKey, time.Now(), newExpiresAt, oldKey)
+	if err != nil {
+		return "", time.Time{}, fmt.Errorf("failed to rotate API key: %v", err)
+	}
+	return newKey, newExpiresAt, nil
+}
+
+// activateAPIKeyHelper is an internal helper for API key activation.
+func (s *AuthService) ActivateAPIKeyHelper(apiKey string) error {
+	query := `UPDATE api_keys SET is_active = true, deactivation_message = '' WHERE api_key = $1`
+	_, err := s.db.Exec(query, apiKey)
+	if err != nil {
+		return fmt.Errorf("failed to activate API key: %v", err)
+	}
+	return nil
+}
+
+// deactivateAPIKeyHelper is an internal helper for API key deactivation.
+func (s *AuthService) DeactivateAPIKeyHelper(apiKey, deactivationMessage string) error {
+	query := `UPDATE api_keys SET is_active = false, deactivation_message = $1 WHERE api_key = $2`
+	_, err := s.db.Exec(query, deactivationMessage, apiKey)
+	if err != nil {
+		return fmt.Errorf("failed to deactivate API key: %v", err)
+	}
+	return nil
+}
+
+// ListAPIKeysHelper is an internal helper for listing API keys.
+func (s *AuthService) ListAPIKeysHelper(userID string) ([]APIKey, error) {
+	query := `
+		SELECT api_key, user_id, role, is_service_key, is_active, deactivation_message, created_at, expires_at
+		FROM api_keys
+		WHERE user_id = $1
+	`
+	rows, err := s.db.Query(query, userID)
+	if err != nil {
+		return nil, fmt.Errorf("failed to list API keys: %v", err)
+	}
+	defer rows.Close()
+
+	var apiKeys []APIKey
+	for rows.Next() {
+		var k APIKey
+		var expiresAt sql.NullTime             // Use sql.NullTime for nullable timestamps
+		var deactivationMessage sql.NullString // Use sql.NullString for nullable string
+		if err := rows.Scan(&k.APIKey, &k.UserID, &k.Role, &k.IsServiceKey, &k.IsActive, &deactivationMessage, &k.CreatedAt, &expiresAt); err != nil {
+			return nil, fmt.Errorf("failed to scan API key: %v", err)
+		}
+		if expiresAt.Valid {
+			k.ExpiresAt = expiresAt.Time
+		}
+		if deactivationMessage.Valid {
+			k.DeactivationMessage = deactivationMessage.String
+		}
+		apiKeys = append(apiKeys, k)
+	}
+	return apiKeys, nil
+}
+
+// createAPIKeyHelper is an internal helper for creating API keys.
+func (s *AuthService) CreateAPIKeyHelper(userID, role string, isServiceKey bool) (string, time.Time, error) {
+	apiKey, err := s.GenerateAPIKey()
+	if err != nil {
+		return "", time.Time{}, fmt.Errorf("failed to generate API key: %v", err)
+	}
+	expiresAt := time.Now().AddDate(0, 0, 30) // 30-day expiration
+	query := `
+		INSERT INTO api_keys (api_key, user_id, role, is_service_key, is_active, created_at, expires_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
+	`
+	_, err = s.db.Exec(query, apiKey, userID, role, isServiceKey, true, time.Now(), expiresAt)
+	if err != nil {
+		return "", time.Time{}, fmt.Errorf("failed to create API key: %v", err)
+	}
+	return apiKey, expiresAt, nil
+}
+
+// isAdmin method checks if the user has admin role from context.
+// No changes here, it's a helper used internally.

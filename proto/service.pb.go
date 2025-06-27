@@ -499,7 +499,7 @@ func (x *CalculateRiskScoreResponse) GetRiskTier() string {
 	return ""
 }
 
-// Auth Service
+// User-related messages
 type CreateUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	FirstName     string                 `protobuf:"bytes,1,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
@@ -1104,6 +1104,7 @@ func (x *User) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// API Key-related messages (MOVED FROM AUTH SERVICE)
 type CreateAPIKeyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
@@ -1684,6 +1685,104 @@ func (x *APIKey) GetExpiresAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// Password management messages (NEW)
+type ChangePasswordRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	OldPassword   string                 `protobuf:"bytes,2,opt,name=old_password,json=oldPassword,proto3" json:"old_password,omitempty"`
+	NewPassword   string                 `protobuf:"bytes,3,opt,name=new_password,json=newPassword,proto3" json:"new_password,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangePasswordRequest) Reset() {
+	*x = ChangePasswordRequest{}
+	mi := &file_proto_service_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangePasswordRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangePasswordRequest) ProtoMessage() {}
+
+func (x *ChangePasswordRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangePasswordRequest.ProtoReflect.Descriptor instead.
+func (*ChangePasswordRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *ChangePasswordRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetOldPassword() string {
+	if x != nil {
+		return x.OldPassword
+	}
+	return ""
+}
+
+func (x *ChangePasswordRequest) GetNewPassword() string {
+	if x != nil {
+		return x.NewPassword
+	}
+	return ""
+}
+
+type ChangePasswordResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangePasswordResponse) Reset() {
+	*x = ChangePasswordResponse{}
+	mi := &file_proto_service_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangePasswordResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangePasswordResponse) ProtoMessage() {}
+
+func (x *ChangePasswordResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangePasswordResponse.ProtoReflect.Descriptor instead.
+func (*ChangePasswordResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{32}
+}
+
+// Auth-related messages
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
@@ -1694,7 +1793,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_proto_service_proto_msgTypes[31]
+	mi := &file_proto_service_proto_msgTypes[33]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1706,7 +1805,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[31]
+	mi := &file_proto_service_proto_msgTypes[33]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1719,7 +1818,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{31}
+	return file_proto_service_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *LoginRequest) GetEmail() string {
@@ -1749,7 +1848,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_proto_service_proto_msgTypes[32]
+	mi := &file_proto_service_proto_msgTypes[34]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1761,7 +1860,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[32]
+	mi := &file_proto_service_proto_msgTypes[34]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1774,7 +1873,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{32}
+	return file_proto_service_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *LoginResponse) GetUserId() string {
@@ -1822,7 +1921,7 @@ type InviteUserRequest struct {
 
 func (x *InviteUserRequest) Reset() {
 	*x = InviteUserRequest{}
-	mi := &file_proto_service_proto_msgTypes[33]
+	mi := &file_proto_service_proto_msgTypes[35]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1834,7 +1933,7 @@ func (x *InviteUserRequest) String() string {
 func (*InviteUserRequest) ProtoMessage() {}
 
 func (x *InviteUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[33]
+	mi := &file_proto_service_proto_msgTypes[35]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1847,7 +1946,7 @@ func (x *InviteUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InviteUserRequest.ProtoReflect.Descriptor instead.
 func (*InviteUserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{33}
+	return file_proto_service_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *InviteUserRequest) GetEmail() string {
@@ -1875,7 +1974,7 @@ type InviteUserResponse struct {
 
 func (x *InviteUserResponse) Reset() {
 	*x = InviteUserResponse{}
-	mi := &file_proto_service_proto_msgTypes[34]
+	mi := &file_proto_service_proto_msgTypes[36]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1887,7 +1986,7 @@ func (x *InviteUserResponse) String() string {
 func (*InviteUserResponse) ProtoMessage() {}
 
 func (x *InviteUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[34]
+	mi := &file_proto_service_proto_msgTypes[36]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1900,7 +1999,7 @@ func (x *InviteUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use InviteUserResponse.ProtoReflect.Descriptor instead.
 func (*InviteUserResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{34}
+	return file_proto_service_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *InviteUserResponse) GetInvitationId() string {
@@ -1933,7 +2032,7 @@ type ValidateInviteRequest struct {
 
 func (x *ValidateInviteRequest) Reset() {
 	*x = ValidateInviteRequest{}
-	mi := &file_proto_service_proto_msgTypes[35]
+	mi := &file_proto_service_proto_msgTypes[37]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1945,7 +2044,7 @@ func (x *ValidateInviteRequest) String() string {
 func (*ValidateInviteRequest) ProtoMessage() {}
 
 func (x *ValidateInviteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[35]
+	mi := &file_proto_service_proto_msgTypes[37]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1958,7 +2057,7 @@ func (x *ValidateInviteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidateInviteRequest.ProtoReflect.Descriptor instead.
 func (*ValidateInviteRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{35}
+	return file_proto_service_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *ValidateInviteRequest) GetToken() string {
@@ -1978,7 +2077,7 @@ type ValidateInviteResponse struct {
 
 func (x *ValidateInviteResponse) Reset() {
 	*x = ValidateInviteResponse{}
-	mi := &file_proto_service_proto_msgTypes[36]
+	mi := &file_proto_service_proto_msgTypes[38]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1990,7 +2089,7 @@ func (x *ValidateInviteResponse) String() string {
 func (*ValidateInviteResponse) ProtoMessage() {}
 
 func (x *ValidateInviteResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[36]
+	mi := &file_proto_service_proto_msgTypes[38]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2003,7 +2102,7 @@ func (x *ValidateInviteResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValidateInviteResponse.ProtoReflect.Descriptor instead.
 func (*ValidateInviteResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{36}
+	return file_proto_service_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *ValidateInviteResponse) GetEmail() string {
@@ -2020,7 +2119,7 @@ func (x *ValidateInviteResponse) GetIsAdmin() bool {
 	return false
 }
 
-// Scan Service Messages
+// Scan-related messages
 type ScanDomainRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
@@ -2030,7 +2129,7 @@ type ScanDomainRequest struct {
 
 func (x *ScanDomainRequest) Reset() {
 	*x = ScanDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[37]
+	mi := &file_proto_service_proto_msgTypes[39]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2042,7 +2141,7 @@ func (x *ScanDomainRequest) String() string {
 func (*ScanDomainRequest) ProtoMessage() {}
 
 func (x *ScanDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[37]
+	mi := &file_proto_service_proto_msgTypes[39]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2055,7 +2154,7 @@ func (x *ScanDomainRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanDomainRequest.ProtoReflect.Descriptor instead.
 func (*ScanDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{37}
+	return file_proto_service_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *ScanDomainRequest) GetDomain() string {
@@ -2075,7 +2174,7 @@ type ScanDomainResponse struct {
 
 func (x *ScanDomainResponse) Reset() {
 	*x = ScanDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[38]
+	mi := &file_proto_service_proto_msgTypes[40]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2087,7 +2186,7 @@ func (x *ScanDomainResponse) String() string {
 func (*ScanDomainResponse) ProtoMessage() {}
 
 func (x *ScanDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[38]
+	mi := &file_proto_service_proto_msgTypes[40]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2100,7 +2199,7 @@ func (x *ScanDomainResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanDomainResponse.ProtoReflect.Descriptor instead.
 func (*ScanDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{38}
+	return file_proto_service_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *ScanDomainResponse) GetScanId() string {
@@ -2126,7 +2225,7 @@ type GetDNSScanResultsByDomainRequest struct {
 
 func (x *GetDNSScanResultsByDomainRequest) Reset() {
 	*x = GetDNSScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[39]
+	mi := &file_proto_service_proto_msgTypes[41]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2138,7 +2237,7 @@ func (x *GetDNSScanResultsByDomainRequest) String() string {
 func (*GetDNSScanResultsByDomainRequest) ProtoMessage() {}
 
 func (x *GetDNSScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[39]
+	mi := &file_proto_service_proto_msgTypes[41]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2151,7 +2250,7 @@ func (x *GetDNSScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDNSScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
 func (*GetDNSScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{39}
+	return file_proto_service_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *GetDNSScanResultsByDomainRequest) GetDomain() string {
@@ -2170,7 +2269,7 @@ type GetDNSScanResultsByDomainResponse struct {
 
 func (x *GetDNSScanResultsByDomainResponse) Reset() {
 	*x = GetDNSScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[40]
+	mi := &file_proto_service_proto_msgTypes[42]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2182,7 +2281,7 @@ func (x *GetDNSScanResultsByDomainResponse) String() string {
 func (*GetDNSScanResultsByDomainResponse) ProtoMessage() {}
 
 func (x *GetDNSScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[40]
+	mi := &file_proto_service_proto_msgTypes[42]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2195,7 +2294,7 @@ func (x *GetDNSScanResultsByDomainResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use GetDNSScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
 func (*GetDNSScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{40}
+	return file_proto_service_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *GetDNSScanResultsByDomainResponse) GetResults() []*DNSScanResult {
@@ -2214,7 +2313,7 @@ type GetDNSScanResultByIDRequest struct {
 
 func (x *GetDNSScanResultByIDRequest) Reset() {
 	*x = GetDNSScanResultByIDRequest{}
-	mi := &file_proto_service_proto_msgTypes[41]
+	mi := &file_proto_service_proto_msgTypes[43]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2226,7 +2325,7 @@ func (x *GetDNSScanResultByIDRequest) String() string {
 func (*GetDNSScanResultByIDRequest) ProtoMessage() {}
 
 func (x *GetDNSScanResultByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[41]
+	mi := &file_proto_service_proto_msgTypes[43]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2239,7 +2338,7 @@ func (x *GetDNSScanResultByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDNSScanResultByIDRequest.ProtoReflect.Descriptor instead.
 func (*GetDNSScanResultByIDRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{41}
+	return file_proto_service_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *GetDNSScanResultByIDRequest) GetDnsScanId() string {
@@ -2258,7 +2357,7 @@ type GetDNSScanResultByIDResponse struct {
 
 func (x *GetDNSScanResultByIDResponse) Reset() {
 	*x = GetDNSScanResultByIDResponse{}
-	mi := &file_proto_service_proto_msgTypes[42]
+	mi := &file_proto_service_proto_msgTypes[44]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2270,7 +2369,7 @@ func (x *GetDNSScanResultByIDResponse) String() string {
 func (*GetDNSScanResultByIDResponse) ProtoMessage() {}
 
 func (x *GetDNSScanResultByIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[42]
+	mi := &file_proto_service_proto_msgTypes[44]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2283,7 +2382,7 @@ func (x *GetDNSScanResultByIDResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDNSScanResultByIDResponse.ProtoReflect.Descriptor instead.
 func (*GetDNSScanResultByIDResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{42}
+	return file_proto_service_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *GetDNSScanResultByIDResponse) GetResult() *DNSScanResult {
@@ -2306,7 +2405,7 @@ type DNSScanResult struct {
 
 func (x *DNSScanResult) Reset() {
 	*x = DNSScanResult{}
-	mi := &file_proto_service_proto_msgTypes[43]
+	mi := &file_proto_service_proto_msgTypes[45]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2318,7 +2417,7 @@ func (x *DNSScanResult) String() string {
 func (*DNSScanResult) ProtoMessage() {}
 
 func (x *DNSScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[43]
+	mi := &file_proto_service_proto_msgTypes[45]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2331,7 +2430,7 @@ func (x *DNSScanResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DNSScanResult.ProtoReflect.Descriptor instead.
 func (*DNSScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{43}
+	return file_proto_service_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *DNSScanResult) GetId() string {
@@ -2379,7 +2478,7 @@ type ScanTLSRequest struct {
 
 func (x *ScanTLSRequest) Reset() {
 	*x = ScanTLSRequest{}
-	mi := &file_proto_service_proto_msgTypes[44]
+	mi := &file_proto_service_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2391,7 +2490,7 @@ func (x *ScanTLSRequest) String() string {
 func (*ScanTLSRequest) ProtoMessage() {}
 
 func (x *ScanTLSRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[44]
+	mi := &file_proto_service_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2404,7 +2503,7 @@ func (x *ScanTLSRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanTLSRequest.ProtoReflect.Descriptor instead.
 func (*ScanTLSRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{44}
+	return file_proto_service_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *ScanTLSRequest) GetDomain() string {
@@ -2431,7 +2530,7 @@ type ScanTLSResponse struct {
 
 func (x *ScanTLSResponse) Reset() {
 	*x = ScanTLSResponse{}
-	mi := &file_proto_service_proto_msgTypes[45]
+	mi := &file_proto_service_proto_msgTypes[47]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2443,7 +2542,7 @@ func (x *ScanTLSResponse) String() string {
 func (*ScanTLSResponse) ProtoMessage() {}
 
 func (x *ScanTLSResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[45]
+	mi := &file_proto_service_proto_msgTypes[47]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2456,7 +2555,7 @@ func (x *ScanTLSResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanTLSResponse.ProtoReflect.Descriptor instead.
 func (*ScanTLSResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{45}
+	return file_proto_service_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *ScanTLSResponse) GetScanId() string {
@@ -2482,7 +2581,7 @@ type GetTLSScanResultsByDomainRequest struct {
 
 func (x *GetTLSScanResultsByDomainRequest) Reset() {
 	*x = GetTLSScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[46]
+	mi := &file_proto_service_proto_msgTypes[48]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2494,7 +2593,7 @@ func (x *GetTLSScanResultsByDomainRequest) String() string {
 func (*GetTLSScanResultsByDomainRequest) ProtoMessage() {}
 
 func (x *GetTLSScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[46]
+	mi := &file_proto_service_proto_msgTypes[48]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2507,7 +2606,7 @@ func (x *GetTLSScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTLSScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
 func (*GetTLSScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{46}
+	return file_proto_service_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *GetTLSScanResultsByDomainRequest) GetDomain() string {
@@ -2526,7 +2625,7 @@ type GetTLSScanResultsByDomainResponse struct {
 
 func (x *GetTLSScanResultsByDomainResponse) Reset() {
 	*x = GetTLSScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[47]
+	mi := &file_proto_service_proto_msgTypes[49]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2538,7 +2637,7 @@ func (x *GetTLSScanResultsByDomainResponse) String() string {
 func (*GetTLSScanResultsByDomainResponse) ProtoMessage() {}
 
 func (x *GetTLSScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[47]
+	mi := &file_proto_service_proto_msgTypes[49]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2551,7 +2650,7 @@ func (x *GetTLSScanResultsByDomainResponse) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use GetTLSScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
 func (*GetTLSScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{47}
+	return file_proto_service_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *GetTLSScanResultsByDomainResponse) GetResults() []*TLSScanResult {
@@ -2574,7 +2673,7 @@ type TLSScanResult struct {
 
 func (x *TLSScanResult) Reset() {
 	*x = TLSScanResult{}
-	mi := &file_proto_service_proto_msgTypes[48]
+	mi := &file_proto_service_proto_msgTypes[50]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2586,7 +2685,7 @@ func (x *TLSScanResult) String() string {
 func (*TLSScanResult) ProtoMessage() {}
 
 func (x *TLSScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[48]
+	mi := &file_proto_service_proto_msgTypes[50]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2599,7 +2698,7 @@ func (x *TLSScanResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TLSScanResult.ProtoReflect.Descriptor instead.
 func (*TLSScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{48}
+	return file_proto_service_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *TLSScanResult) GetId() string {
@@ -2647,7 +2746,7 @@ type ScanCrtShRequest struct {
 
 func (x *ScanCrtShRequest) Reset() {
 	*x = ScanCrtShRequest{}
-	mi := &file_proto_service_proto_msgTypes[49]
+	mi := &file_proto_service_proto_msgTypes[51]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2659,7 +2758,7 @@ func (x *ScanCrtShRequest) String() string {
 func (*ScanCrtShRequest) ProtoMessage() {}
 
 func (x *ScanCrtShRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[49]
+	mi := &file_proto_service_proto_msgTypes[51]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2672,7 +2771,7 @@ func (x *ScanCrtShRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanCrtShRequest.ProtoReflect.Descriptor instead.
 func (*ScanCrtShRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{49}
+	return file_proto_service_proto_rawDescGZIP(), []int{51}
 }
 
 func (x *ScanCrtShRequest) GetDomain() string {
@@ -2699,7 +2798,7 @@ type ScanCrtShResponse struct {
 
 func (x *ScanCrtShResponse) Reset() {
 	*x = ScanCrtShResponse{}
-	mi := &file_proto_service_proto_msgTypes[50]
+	mi := &file_proto_service_proto_msgTypes[52]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2711,7 +2810,7 @@ func (x *ScanCrtShResponse) String() string {
 func (*ScanCrtShResponse) ProtoMessage() {}
 
 func (x *ScanCrtShResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[50]
+	mi := &file_proto_service_proto_msgTypes[52]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2724,7 +2823,7 @@ func (x *ScanCrtShResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanCrtShResponse.ProtoReflect.Descriptor instead.
 func (*ScanCrtShResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{50}
+	return file_proto_service_proto_rawDescGZIP(), []int{52}
 }
 
 func (x *ScanCrtShResponse) GetScanId() string {
@@ -2750,7 +2849,7 @@ type GetCrtShScanResultsByDomainRequest struct {
 
 func (x *GetCrtShScanResultsByDomainRequest) Reset() {
 	*x = GetCrtShScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[51]
+	mi := &file_proto_service_proto_msgTypes[53]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2762,7 +2861,7 @@ func (x *GetCrtShScanResultsByDomainRequest) String() string {
 func (*GetCrtShScanResultsByDomainRequest) ProtoMessage() {}
 
 func (x *GetCrtShScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[51]
+	mi := &file_proto_service_proto_msgTypes[53]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2775,7 +2874,7 @@ func (x *GetCrtShScanResultsByDomainRequest) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use GetCrtShScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
 func (*GetCrtShScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{51}
+	return file_proto_service_proto_rawDescGZIP(), []int{53}
 }
 
 func (x *GetCrtShScanResultsByDomainRequest) GetDomain() string {
@@ -2794,7 +2893,7 @@ type GetCrtShScanResultsByDomainResponse struct {
 
 func (x *GetCrtShScanResultsByDomainResponse) Reset() {
 	*x = GetCrtShScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[52]
+	mi := &file_proto_service_proto_msgTypes[54]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2806,7 +2905,7 @@ func (x *GetCrtShScanResultsByDomainResponse) String() string {
 func (*GetCrtShScanResultsByDomainResponse) ProtoMessage() {}
 
 func (x *GetCrtShScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[52]
+	mi := &file_proto_service_proto_msgTypes[54]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2819,7 +2918,7 @@ func (x *GetCrtShScanResultsByDomainResponse) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use GetCrtShScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
 func (*GetCrtShScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{52}
+	return file_proto_service_proto_rawDescGZIP(), []int{54}
 }
 
 func (x *GetCrtShScanResultsByDomainResponse) GetResults() []*CrtShScanResult {
@@ -2842,7 +2941,7 @@ type CrtShScanResult struct {
 
 func (x *CrtShScanResult) Reset() {
 	*x = CrtShScanResult{}
-	mi := &file_proto_service_proto_msgTypes[53]
+	mi := &file_proto_service_proto_msgTypes[55]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2854,7 +2953,7 @@ func (x *CrtShScanResult) String() string {
 func (*CrtShScanResult) ProtoMessage() {}
 
 func (x *CrtShScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[53]
+	mi := &file_proto_service_proto_msgTypes[55]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2867,7 +2966,7 @@ func (x *CrtShScanResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CrtShScanResult.ProtoReflect.Descriptor instead.
 func (*CrtShScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{53}
+	return file_proto_service_proto_rawDescGZIP(), []int{55}
 }
 
 func (x *CrtShScanResult) GetId() string {
@@ -2915,7 +3014,7 @@ type ScanChaosRequest struct {
 
 func (x *ScanChaosRequest) Reset() {
 	*x = ScanChaosRequest{}
-	mi := &file_proto_service_proto_msgTypes[54]
+	mi := &file_proto_service_proto_msgTypes[56]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2927,7 +3026,7 @@ func (x *ScanChaosRequest) String() string {
 func (*ScanChaosRequest) ProtoMessage() {}
 
 func (x *ScanChaosRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[54]
+	mi := &file_proto_service_proto_msgTypes[56]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2940,7 +3039,7 @@ func (x *ScanChaosRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanChaosRequest.ProtoReflect.Descriptor instead.
 func (*ScanChaosRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{54}
+	return file_proto_service_proto_rawDescGZIP(), []int{56}
 }
 
 func (x *ScanChaosRequest) GetDomain() string {
@@ -2967,7 +3066,7 @@ type ScanChaosResponse struct {
 
 func (x *ScanChaosResponse) Reset() {
 	*x = ScanChaosResponse{}
-	mi := &file_proto_service_proto_msgTypes[55]
+	mi := &file_proto_service_proto_msgTypes[57]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2979,7 +3078,7 @@ func (x *ScanChaosResponse) String() string {
 func (*ScanChaosResponse) ProtoMessage() {}
 
 func (x *ScanChaosResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[55]
+	mi := &file_proto_service_proto_msgTypes[57]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2992,7 +3091,7 @@ func (x *ScanChaosResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanChaosResponse.ProtoReflect.Descriptor instead.
 func (*ScanChaosResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{55}
+	return file_proto_service_proto_rawDescGZIP(), []int{57}
 }
 
 func (x *ScanChaosResponse) GetScanId() string {
@@ -3018,7 +3117,7 @@ type GetChaosScanResultsByDomainRequest struct {
 
 func (x *GetChaosScanResultsByDomainRequest) Reset() {
 	*x = GetChaosScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[56]
+	mi := &file_proto_service_proto_msgTypes[58]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3030,7 +3129,7 @@ func (x *GetChaosScanResultsByDomainRequest) String() string {
 func (*GetChaosScanResultsByDomainRequest) ProtoMessage() {}
 
 func (x *GetChaosScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[56]
+	mi := &file_proto_service_proto_msgTypes[58]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3043,7 +3142,7 @@ func (x *GetChaosScanResultsByDomainRequest) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use GetChaosScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
 func (*GetChaosScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{56}
+	return file_proto_service_proto_rawDescGZIP(), []int{58}
 }
 
 func (x *GetChaosScanResultsByDomainRequest) GetDomain() string {
@@ -3062,7 +3161,7 @@ type GetChaosScanResultsByDomainResponse struct {
 
 func (x *GetChaosScanResultsByDomainResponse) Reset() {
 	*x = GetChaosScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[57]
+	mi := &file_proto_service_proto_msgTypes[59]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3074,7 +3173,7 @@ func (x *GetChaosScanResultsByDomainResponse) String() string {
 func (*GetChaosScanResultsByDomainResponse) ProtoMessage() {}
 
 func (x *GetChaosScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[57]
+	mi := &file_proto_service_proto_msgTypes[59]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3087,7 +3186,7 @@ func (x *GetChaosScanResultsByDomainResponse) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use GetChaosScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
 func (*GetChaosScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{57}
+	return file_proto_service_proto_rawDescGZIP(), []int{59}
 }
 
 func (x *GetChaosScanResultsByDomainResponse) GetResults() []*ChaosScanResult {
@@ -3110,7 +3209,7 @@ type ChaosScanResult struct {
 
 func (x *ChaosScanResult) Reset() {
 	*x = ChaosScanResult{}
-	mi := &file_proto_service_proto_msgTypes[58]
+	mi := &file_proto_service_proto_msgTypes[60]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3122,7 +3221,7 @@ func (x *ChaosScanResult) String() string {
 func (*ChaosScanResult) ProtoMessage() {}
 
 func (x *ChaosScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[58]
+	mi := &file_proto_service_proto_msgTypes[60]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3135,7 +3234,7 @@ func (x *ChaosScanResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChaosScanResult.ProtoReflect.Descriptor instead.
 func (*ChaosScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{58}
+	return file_proto_service_proto_rawDescGZIP(), []int{60}
 }
 
 func (x *ChaosScanResult) GetId() string {
@@ -3183,7 +3282,7 @@ type ScanShodanRequest struct {
 
 func (x *ScanShodanRequest) Reset() {
 	*x = ScanShodanRequest{}
-	mi := &file_proto_service_proto_msgTypes[59]
+	mi := &file_proto_service_proto_msgTypes[61]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3195,7 +3294,7 @@ func (x *ScanShodanRequest) String() string {
 func (*ScanShodanRequest) ProtoMessage() {}
 
 func (x *ScanShodanRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[59]
+	mi := &file_proto_service_proto_msgTypes[61]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3208,7 +3307,7 @@ func (x *ScanShodanRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanShodanRequest.ProtoReflect.Descriptor instead.
 func (*ScanShodanRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{59}
+	return file_proto_service_proto_rawDescGZIP(), []int{61}
 }
 
 func (x *ScanShodanRequest) GetDomain() string {
@@ -3235,7 +3334,7 @@ type ScanShodanResponse struct {
 
 func (x *ScanShodanResponse) Reset() {
 	*x = ScanShodanResponse{}
-	mi := &file_proto_service_proto_msgTypes[60]
+	mi := &file_proto_service_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3247,7 +3346,7 @@ func (x *ScanShodanResponse) String() string {
 func (*ScanShodanResponse) ProtoMessage() {}
 
 func (x *ScanShodanResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[60]
+	mi := &file_proto_service_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3260,7 +3359,7 @@ func (x *ScanShodanResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScanShodanResponse.ProtoReflect.Descriptor instead.
 func (*ScanShodanResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{60}
+	return file_proto_service_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *ScanShodanResponse) GetScanId() string {
@@ -3286,7 +3385,7 @@ type GetShodanScanResultsByDomainRequest struct {
 
 func (x *GetShodanScanResultsByDomainRequest) Reset() {
 	*x = GetShodanScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[61]
+	mi := &file_proto_service_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3298,7 +3397,7 @@ func (x *GetShodanScanResultsByDomainRequest) String() string {
 func (*GetShodanScanResultsByDomainRequest) ProtoMessage() {}
 
 func (x *GetShodanScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[61]
+	mi := &file_proto_service_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3311,7 +3410,7 @@ func (x *GetShodanScanResultsByDomainRequest) ProtoReflect() protoreflect.Messag
 
 // Deprecated: Use GetShodanScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
 func (*GetShodanScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{61}
+	return file_proto_service_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *GetShodanScanResultsByDomainRequest) GetDomain() string {
@@ -3330,7 +3429,7 @@ type GetShodanScanResultsByDomainResponse struct {
 
 func (x *GetShodanScanResultsByDomainResponse) Reset() {
 	*x = GetShodanScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[62]
+	mi := &file_proto_service_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -3342,7 +3441,7 @@ func (x *GetShodanScanResultsByDomainResponse) String() string {
 func (*GetShodanScanResultsByDomainResponse) ProtoMessage() {}
 
 func (x *GetShodanScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[62]
+	mi := &file_proto_service_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3355,1289 +3454,12 @@ func (x *GetShodanScanResultsByDomainResponse) ProtoReflect() protoreflect.Messa
 
 // Deprecated: Use GetShodanScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
 func (*GetShodanScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{62}
+	return file_proto_service_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *GetShodanScanResultsByDomainResponse) GetResults() []*ShodanScanResult {
 	if x != nil {
 		return x.Results
-	}
-	return nil
-}
-
-type ShodanScanResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	Result        *ShodanSecurityResult  `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ShodanScanResult) Reset() {
-	*x = ShodanScanResult{}
-	mi := &file_proto_service_proto_msgTypes[63]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ShodanScanResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ShodanScanResult) ProtoMessage() {}
-
-func (x *ShodanScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[63]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ShodanScanResult.ProtoReflect.Descriptor instead.
-func (*ShodanScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{63}
-}
-
-func (x *ShodanScanResult) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *ShodanScanResult) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ShodanScanResult) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-func (x *ShodanScanResult) GetResult() *ShodanSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-func (x *ShodanScanResult) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-type ScanOTXRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanOTXRequest) Reset() {
-	*x = ScanOTXRequest{}
-	mi := &file_proto_service_proto_msgTypes[64]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanOTXRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanOTXRequest) ProtoMessage() {}
-
-func (x *ScanOTXRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[64]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanOTXRequest.ProtoReflect.Descriptor instead.
-func (*ScanOTXRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{64}
-}
-
-func (x *ScanOTXRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ScanOTXRequest) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-type ScanOTXResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
-	Result        *OTXSecurityResult     `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanOTXResponse) Reset() {
-	*x = ScanOTXResponse{}
-	mi := &file_proto_service_proto_msgTypes[65]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanOTXResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanOTXResponse) ProtoMessage() {}
-
-func (x *ScanOTXResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[65]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanOTXResponse.ProtoReflect.Descriptor instead.
-func (*ScanOTXResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{65}
-}
-
-func (x *ScanOTXResponse) GetScanId() string {
-	if x != nil {
-		return x.ScanId
-	}
-	return ""
-}
-
-func (x *ScanOTXResponse) GetResult() *OTXSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-type GetOTXScanResultsByDomainRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetOTXScanResultsByDomainRequest) Reset() {
-	*x = GetOTXScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[66]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetOTXScanResultsByDomainRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOTXScanResultsByDomainRequest) ProtoMessage() {}
-
-func (x *GetOTXScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[66]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOTXScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
-func (*GetOTXScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{66}
-}
-
-func (x *GetOTXScanResultsByDomainRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-type GetOTXScanResultsByDomainResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Results       []*OTXScanResult       `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetOTXScanResultsByDomainResponse) Reset() {
-	*x = GetOTXScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[67]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetOTXScanResultsByDomainResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOTXScanResultsByDomainResponse) ProtoMessage() {}
-
-func (x *GetOTXScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[67]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOTXScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
-func (*GetOTXScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{67}
-}
-
-func (x *GetOTXScanResultsByDomainResponse) GetResults() []*OTXScanResult {
-	if x != nil {
-		return x.Results
-	}
-	return nil
-}
-
-type OTXScanResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	Result        *OTXSecurityResult     `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OTXScanResult) Reset() {
-	*x = OTXScanResult{}
-	mi := &file_proto_service_proto_msgTypes[68]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OTXScanResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OTXScanResult) ProtoMessage() {}
-
-func (x *OTXScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[68]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OTXScanResult.ProtoReflect.Descriptor instead.
-func (*OTXScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{68}
-}
-
-func (x *OTXScanResult) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *OTXScanResult) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *OTXScanResult) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-func (x *OTXScanResult) GetResult() *OTXSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-func (x *OTXScanResult) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-type ScanWhoisRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanWhoisRequest) Reset() {
-	*x = ScanWhoisRequest{}
-	mi := &file_proto_service_proto_msgTypes[69]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanWhoisRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanWhoisRequest) ProtoMessage() {}
-
-func (x *ScanWhoisRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[69]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanWhoisRequest.ProtoReflect.Descriptor instead.
-func (*ScanWhoisRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{69}
-}
-
-func (x *ScanWhoisRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ScanWhoisRequest) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-type ScanWhoisResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
-	Result        *WhoisSecurityResult   `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanWhoisResponse) Reset() {
-	*x = ScanWhoisResponse{}
-	mi := &file_proto_service_proto_msgTypes[70]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanWhoisResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanWhoisResponse) ProtoMessage() {}
-
-func (x *ScanWhoisResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[70]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanWhoisResponse.ProtoReflect.Descriptor instead.
-func (*ScanWhoisResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{70}
-}
-
-func (x *ScanWhoisResponse) GetScanId() string {
-	if x != nil {
-		return x.ScanId
-	}
-	return ""
-}
-
-func (x *ScanWhoisResponse) GetResult() *WhoisSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-type GetWhoisScanResultsByDomainRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetWhoisScanResultsByDomainRequest) Reset() {
-	*x = GetWhoisScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[71]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetWhoisScanResultsByDomainRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetWhoisScanResultsByDomainRequest) ProtoMessage() {}
-
-func (x *GetWhoisScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[71]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetWhoisScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
-func (*GetWhoisScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{71}
-}
-
-func (x *GetWhoisScanResultsByDomainRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-type GetWhoisScanResultsByDomainResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Results       []*WhoisScanResult     `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetWhoisScanResultsByDomainResponse) Reset() {
-	*x = GetWhoisScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[72]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetWhoisScanResultsByDomainResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetWhoisScanResultsByDomainResponse) ProtoMessage() {}
-
-func (x *GetWhoisScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[72]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetWhoisScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
-func (*GetWhoisScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{72}
-}
-
-func (x *GetWhoisScanResultsByDomainResponse) GetResults() []*WhoisScanResult {
-	if x != nil {
-		return x.Results
-	}
-	return nil
-}
-
-type WhoisScanResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	Result        *WhoisSecurityResult   `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *WhoisScanResult) Reset() {
-	*x = WhoisScanResult{}
-	mi := &file_proto_service_proto_msgTypes[73]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *WhoisScanResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*WhoisScanResult) ProtoMessage() {}
-
-func (x *WhoisScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[73]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use WhoisScanResult.ProtoReflect.Descriptor instead.
-func (*WhoisScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{73}
-}
-
-func (x *WhoisScanResult) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *WhoisScanResult) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *WhoisScanResult) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-func (x *WhoisScanResult) GetResult() *WhoisSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-func (x *WhoisScanResult) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-type ScanAbuseChRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanAbuseChRequest) Reset() {
-	*x = ScanAbuseChRequest{}
-	mi := &file_proto_service_proto_msgTypes[74]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanAbuseChRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanAbuseChRequest) ProtoMessage() {}
-
-func (x *ScanAbuseChRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[74]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanAbuseChRequest.ProtoReflect.Descriptor instead.
-func (*ScanAbuseChRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{74}
-}
-
-func (x *ScanAbuseChRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ScanAbuseChRequest) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-type ScanAbuseChResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
-	Result        *AbuseChSecurityResult `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanAbuseChResponse) Reset() {
-	*x = ScanAbuseChResponse{}
-	mi := &file_proto_service_proto_msgTypes[75]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanAbuseChResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanAbuseChResponse) ProtoMessage() {}
-
-func (x *ScanAbuseChResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[75]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanAbuseChResponse.ProtoReflect.Descriptor instead.
-func (*ScanAbuseChResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{75}
-}
-
-func (x *ScanAbuseChResponse) GetScanId() string {
-	if x != nil {
-		return x.ScanId
-	}
-	return ""
-}
-
-func (x *ScanAbuseChResponse) GetResult() *AbuseChSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-type GetAbuseChScanResultsByDomainRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetAbuseChScanResultsByDomainRequest) Reset() {
-	*x = GetAbuseChScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[76]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAbuseChScanResultsByDomainRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAbuseChScanResultsByDomainRequest) ProtoMessage() {}
-
-func (x *GetAbuseChScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[76]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAbuseChScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
-func (*GetAbuseChScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{76}
-}
-
-func (x *GetAbuseChScanResultsByDomainRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-type GetAbuseChScanResultsByDomainResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Results       []*AbuseChScanResult   `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetAbuseChScanResultsByDomainResponse) Reset() {
-	*x = GetAbuseChScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[77]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetAbuseChScanResultsByDomainResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAbuseChScanResultsByDomainResponse) ProtoMessage() {}
-
-func (x *GetAbuseChScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[77]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAbuseChScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
-func (*GetAbuseChScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{77}
-}
-
-func (x *GetAbuseChScanResultsByDomainResponse) GetResults() []*AbuseChScanResult {
-	if x != nil {
-		return x.Results
-	}
-	return nil
-}
-
-type AbuseChScanResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	Result        *AbuseChSecurityResult `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *AbuseChScanResult) Reset() {
-	*x = AbuseChScanResult{}
-	mi := &file_proto_service_proto_msgTypes[78]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *AbuseChScanResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AbuseChScanResult) ProtoMessage() {}
-
-func (x *AbuseChScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[78]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AbuseChScanResult.ProtoReflect.Descriptor instead.
-func (*AbuseChScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{78}
-}
-
-func (x *AbuseChScanResult) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *AbuseChScanResult) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *AbuseChScanResult) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-func (x *AbuseChScanResult) GetResult() *AbuseChSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-func (x *AbuseChScanResult) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-// New SANS ISC messages
-type ScanISCRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanISCRequest) Reset() {
-	*x = ScanISCRequest{}
-	mi := &file_proto_service_proto_msgTypes[79]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanISCRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanISCRequest) ProtoMessage() {}
-
-func (x *ScanISCRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[79]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanISCRequest.ProtoReflect.Descriptor instead.
-func (*ScanISCRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{79}
-}
-
-func (x *ScanISCRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ScanISCRequest) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-type ScanISCResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
-	Result        *ISCSecurityResult     `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ScanISCResponse) Reset() {
-	*x = ScanISCResponse{}
-	mi := &file_proto_service_proto_msgTypes[80]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ScanISCResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ScanISCResponse) ProtoMessage() {}
-
-func (x *ScanISCResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[80]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ScanISCResponse.ProtoReflect.Descriptor instead.
-func (*ScanISCResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{80}
-}
-
-func (x *ScanISCResponse) GetScanId() string {
-	if x != nil {
-		return x.ScanId
-	}
-	return ""
-}
-
-func (x *ScanISCResponse) GetResult() *ISCSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-type GetISCScanResultsByDomainRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetISCScanResultsByDomainRequest) Reset() {
-	*x = GetISCScanResultsByDomainRequest{}
-	mi := &file_proto_service_proto_msgTypes[81]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetISCScanResultsByDomainRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetISCScanResultsByDomainRequest) ProtoMessage() {}
-
-func (x *GetISCScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[81]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetISCScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
-func (*GetISCScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{81}
-}
-
-func (x *GetISCScanResultsByDomainRequest) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-type GetISCScanResultsByDomainResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Results       []*ISCScanResult       `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetISCScanResultsByDomainResponse) Reset() {
-	*x = GetISCScanResultsByDomainResponse{}
-	mi := &file_proto_service_proto_msgTypes[82]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetISCScanResultsByDomainResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetISCScanResultsByDomainResponse) ProtoMessage() {}
-
-func (x *GetISCScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[82]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetISCScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
-func (*GetISCScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{82}
-}
-
-func (x *GetISCScanResultsByDomainResponse) GetResults() []*ISCScanResult {
-	if x != nil {
-		return x.Results
-	}
-	return nil
-}
-
-type ISCScanResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
-	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
-	Result        *ISCSecurityResult     `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
-	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ISCScanResult) Reset() {
-	*x = ISCScanResult{}
-	mi := &file_proto_service_proto_msgTypes[83]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ISCScanResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ISCScanResult) ProtoMessage() {}
-
-func (x *ISCScanResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[83]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ISCScanResult.ProtoReflect.Descriptor instead.
-func (*ISCScanResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{83}
-}
-
-func (x *ISCScanResult) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *ISCScanResult) GetDomain() string {
-	if x != nil {
-		return x.Domain
-	}
-	return ""
-}
-
-func (x *ISCScanResult) GetDnsScanId() string {
-	if x != nil {
-		return x.DnsScanId
-	}
-	return ""
-}
-
-func (x *ISCScanResult) GetResult() *ISCSecurityResult {
-	if x != nil {
-		return x.Result
-	}
-	return nil
-}
-
-func (x *ISCScanResult) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-type ISCIncident struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Date          *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=date,proto3" json:"date,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Severity      string                 `protobuf:"bytes,4,opt,name=severity,proto3" json:"severity,omitempty"` // e.g., "Low", "Medium", "High"
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ISCIncident) Reset() {
-	*x = ISCIncident{}
-	mi := &file_proto_service_proto_msgTypes[84]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ISCIncident) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ISCIncident) ProtoMessage() {}
-
-func (x *ISCIncident) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[84]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ISCIncident.ProtoReflect.Descriptor instead.
-func (*ISCIncident) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{84}
-}
-
-func (x *ISCIncident) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *ISCIncident) GetDate() *timestamppb.Timestamp {
-	if x != nil {
-		return x.Date
-	}
-	return nil
-}
-
-func (x *ISCIncident) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *ISCIncident) GetSeverity() string {
-	if x != nil {
-		return x.Severity
-	}
-	return ""
-}
-
-type ISCSecurityResult struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Incidents     []*ISCIncident         `protobuf:"bytes,1,rep,name=incidents,proto3" json:"incidents,omitempty"`
-	OverallRisk   string                 `protobuf:"bytes,2,opt,name=overall_risk,json=overallRisk,proto3" json:"overall_risk,omitempty"`
-	Errors        []string               `protobuf:"bytes,3,rep,name=errors,proto3" json:"errors,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ISCSecurityResult) Reset() {
-	*x = ISCSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[85]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ISCSecurityResult) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ISCSecurityResult) ProtoMessage() {}
-
-func (x *ISCSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[85]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ISCSecurityResult.ProtoReflect.Descriptor instead.
-func (*ISCSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{85}
-}
-
-func (x *ISCSecurityResult) GetIncidents() []*ISCIncident {
-	if x != nil {
-		return x.Incidents
-	}
-	return nil
-}
-
-func (x *ISCSecurityResult) GetOverallRisk() string {
-	if x != nil {
-		return x.OverallRisk
-	}
-	return ""
-}
-
-func (x *ISCSecurityResult) GetErrors() []string {
-	if x != nil {
-		return x.Errors
 	}
 	return nil
 }
@@ -4668,7 +3490,7 @@ type DNSSecurityResult struct {
 
 func (x *DNSSecurityResult) Reset() {
 	*x = DNSSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[86]
+	mi := &file_proto_service_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4680,7 +3502,7 @@ func (x *DNSSecurityResult) String() string {
 func (*DNSSecurityResult) ProtoMessage() {}
 
 func (x *DNSSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[86]
+	mi := &file_proto_service_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4693,7 +3515,7 @@ func (x *DNSSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DNSSecurityResult.ProtoReflect.Descriptor instead.
 func (*DNSSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{86}
+	return file_proto_service_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *DNSSecurityResult) GetSpfRecord() string {
@@ -4835,7 +3657,7 @@ type TLSSecurityResult struct {
 
 func (x *TLSSecurityResult) Reset() {
 	*x = TLSSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[87]
+	mi := &file_proto_service_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4847,7 +3669,7 @@ func (x *TLSSecurityResult) String() string {
 func (*TLSSecurityResult) ProtoMessage() {}
 
 func (x *TLSSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[87]
+	mi := &file_proto_service_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4860,7 +3682,7 @@ func (x *TLSSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TLSSecurityResult.ProtoReflect.Descriptor instead.
 func (*TLSSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{87}
+	return file_proto_service_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *TLSSecurityResult) GetTlsVersion() string {
@@ -4963,7 +3785,7 @@ type CrtShCertificate struct {
 
 func (x *CrtShCertificate) Reset() {
 	*x = CrtShCertificate{}
-	mi := &file_proto_service_proto_msgTypes[88]
+	mi := &file_proto_service_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -4975,7 +3797,7 @@ func (x *CrtShCertificate) String() string {
 func (*CrtShCertificate) ProtoMessage() {}
 
 func (x *CrtShCertificate) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[88]
+	mi := &file_proto_service_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -4988,7 +3810,7 @@ func (x *CrtShCertificate) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CrtShCertificate.ProtoReflect.Descriptor instead.
 func (*CrtShCertificate) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{88}
+	return file_proto_service_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *CrtShCertificate) GetId() int64 {
@@ -5058,7 +3880,7 @@ type CrtShSecurityResult struct {
 
 func (x *CrtShSecurityResult) Reset() {
 	*x = CrtShSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[89]
+	mi := &file_proto_service_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5070,7 +3892,7 @@ func (x *CrtShSecurityResult) String() string {
 func (*CrtShSecurityResult) ProtoMessage() {}
 
 func (x *CrtShSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[89]
+	mi := &file_proto_service_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5083,7 +3905,7 @@ func (x *CrtShSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CrtShSecurityResult.ProtoReflect.Descriptor instead.
 func (*CrtShSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{89}
+	return file_proto_service_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *CrtShSecurityResult) GetCertificates() []*CrtShCertificate {
@@ -5117,7 +3939,7 @@ type ChaosSecurityResult struct {
 
 func (x *ChaosSecurityResult) Reset() {
 	*x = ChaosSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[90]
+	mi := &file_proto_service_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5129,7 +3951,7 @@ func (x *ChaosSecurityResult) String() string {
 func (*ChaosSecurityResult) ProtoMessage() {}
 
 func (x *ChaosSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[90]
+	mi := &file_proto_service_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5142,7 +3964,7 @@ func (x *ChaosSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ChaosSecurityResult.ProtoReflect.Descriptor instead.
 func (*ChaosSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{90}
+	return file_proto_service_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *ChaosSecurityResult) GetSubdomains() []string {
@@ -5159,19 +3981,95 @@ func (x *ChaosSecurityResult) GetErrors() []string {
 	return nil
 }
 
+type ShodanScanResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	Result        *ShodanSecurityResult  `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ShodanScanResult) Reset() {
+	*x = ShodanScanResult{}
+	mi := &file_proto_service_proto_msgTypes[70]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ShodanScanResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ShodanScanResult) ProtoMessage() {}
+
+func (x *ShodanScanResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[70]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ShodanScanResult.ProtoReflect.Descriptor instead.
+func (*ShodanScanResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{70}
+}
+
+func (x *ShodanScanResult) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ShodanScanResult) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ShodanScanResult) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+func (x *ShodanScanResult) GetResult() *ShodanSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *ShodanScanResult) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
 type ShodanLocation struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	City          string                 `protobuf:"bytes,1,opt,name=city,proto3" json:"city,omitempty"`
 	CountryName   string                 `protobuf:"bytes,2,opt,name=country_name,json=countryName,proto3" json:"country_name,omitempty"`
-	Latitude      float32                `protobuf:"fixed32,3,opt,name=latitude,proto3" json:"latitude,omitempty"`   // Changed from double to float
-	Longitude     float32                `protobuf:"fixed32,4,opt,name=longitude,proto3" json:"longitude,omitempty"` // Changed from double to float
+	Latitude      float32                `protobuf:"fixed32,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float32                `protobuf:"fixed32,4,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ShodanLocation) Reset() {
 	*x = ShodanLocation{}
-	mi := &file_proto_service_proto_msgTypes[91]
+	mi := &file_proto_service_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5183,7 +4081,7 @@ func (x *ShodanLocation) String() string {
 func (*ShodanLocation) ProtoMessage() {}
 
 func (x *ShodanLocation) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[91]
+	mi := &file_proto_service_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5196,7 +4094,7 @@ func (x *ShodanLocation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShodanLocation.ProtoReflect.Descriptor instead.
 func (*ShodanLocation) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{91}
+	return file_proto_service_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *ShodanLocation) GetCity() string {
@@ -5231,15 +4129,15 @@ type ShodanSSL struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Issuer        string                 `protobuf:"bytes,1,opt,name=issuer,proto3" json:"issuer,omitempty"`
 	Subject       string                 `protobuf:"bytes,2,opt,name=subject,proto3" json:"subject,omitempty"`
-	Expires       *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires,proto3" json:"expires,omitempty"`                   // Changed from string to Timestamp
-	NotAfter      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=not_after,json=notAfter,proto3" json:"not_after,omitempty"` // Added to align with plugin
+	Expires       *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=expires,proto3" json:"expires,omitempty"`
+	NotAfter      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=not_after,json=notAfter,proto3" json:"not_after,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ShodanSSL) Reset() {
 	*x = ShodanSSL{}
-	mi := &file_proto_service_proto_msgTypes[92]
+	mi := &file_proto_service_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5251,7 +4149,7 @@ func (x *ShodanSSL) String() string {
 func (*ShodanSSL) ProtoMessage() {}
 
 func (x *ShodanSSL) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[92]
+	mi := &file_proto_service_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5264,7 +4162,7 @@ func (x *ShodanSSL) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShodanSSL.ProtoReflect.Descriptor instead.
 func (*ShodanSSL) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{92}
+	return file_proto_service_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *ShodanSSL) GetIssuer() string {
@@ -5304,7 +4202,7 @@ type ShodanMetadata struct {
 
 func (x *ShodanMetadata) Reset() {
 	*x = ShodanMetadata{}
-	mi := &file_proto_service_proto_msgTypes[93]
+	mi := &file_proto_service_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5316,7 +4214,7 @@ func (x *ShodanMetadata) String() string {
 func (*ShodanMetadata) ProtoMessage() {}
 
 func (x *ShodanMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[93]
+	mi := &file_proto_service_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5329,7 +4227,7 @@ func (x *ShodanMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShodanMetadata.ProtoReflect.Descriptor instead.
 func (*ShodanMetadata) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{93}
+	return file_proto_service_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *ShodanMetadata) GetModule() string {
@@ -5353,7 +4251,7 @@ type ShodanHost struct {
 	Asn           string                 `protobuf:"bytes,10,opt,name=asn,proto3" json:"asn,omitempty"`
 	Org           string                 `protobuf:"bytes,11,opt,name=org,proto3" json:"org,omitempty"`
 	Isp           string                 `protobuf:"bytes,12,opt,name=isp,proto3" json:"isp,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=timestamp,proto3" json:"timestamp,omitempty"` // Changed from string to Timestamp
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,13,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	ShodanMeta    *ShodanMetadata        `protobuf:"bytes,14,opt,name=shodan_meta,json=shodanMeta,proto3" json:"shodan_meta,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -5361,7 +4259,7 @@ type ShodanHost struct {
 
 func (x *ShodanHost) Reset() {
 	*x = ShodanHost{}
-	mi := &file_proto_service_proto_msgTypes[94]
+	mi := &file_proto_service_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5373,7 +4271,7 @@ func (x *ShodanHost) String() string {
 func (*ShodanHost) ProtoMessage() {}
 
 func (x *ShodanHost) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[94]
+	mi := &file_proto_service_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5386,7 +4284,7 @@ func (x *ShodanHost) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShodanHost.ProtoReflect.Descriptor instead.
 func (*ShodanHost) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{94}
+	return file_proto_service_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *ShodanHost) GetIp() string {
@@ -5497,7 +4395,7 @@ type ShodanSecurityResult struct {
 
 func (x *ShodanSecurityResult) Reset() {
 	*x = ShodanSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[95]
+	mi := &file_proto_service_proto_msgTypes[75]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5509,7 +4407,7 @@ func (x *ShodanSecurityResult) String() string {
 func (*ShodanSecurityResult) ProtoMessage() {}
 
 func (x *ShodanSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[95]
+	mi := &file_proto_service_proto_msgTypes[75]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5522,7 +4420,7 @@ func (x *ShodanSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ShodanSecurityResult.ProtoReflect.Descriptor instead.
 func (*ShodanSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{95}
+	return file_proto_service_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *ShodanSecurityResult) GetHosts() []*ShodanHost {
@@ -5539,6 +4437,274 @@ func (x *ShodanSecurityResult) GetErrors() []string {
 	return nil
 }
 
+type ScanOTXRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanOTXRequest) Reset() {
+	*x = ScanOTXRequest{}
+	mi := &file_proto_service_proto_msgTypes[76]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanOTXRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanOTXRequest) ProtoMessage() {}
+
+func (x *ScanOTXRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[76]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanOTXRequest.ProtoReflect.Descriptor instead.
+func (*ScanOTXRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{76}
+}
+
+func (x *ScanOTXRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ScanOTXRequest) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+type ScanOTXResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
+	Result        *OTXSecurityResult     `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanOTXResponse) Reset() {
+	*x = ScanOTXResponse{}
+	mi := &file_proto_service_proto_msgTypes[77]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanOTXResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanOTXResponse) ProtoMessage() {}
+
+func (x *ScanOTXResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[77]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanOTXResponse.ProtoReflect.Descriptor instead.
+func (*ScanOTXResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{77}
+}
+
+func (x *ScanOTXResponse) GetScanId() string {
+	if x != nil {
+		return x.ScanId
+	}
+	return ""
+}
+
+func (x *ScanOTXResponse) GetResult() *OTXSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+type GetOTXScanResultsByDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOTXScanResultsByDomainRequest) Reset() {
+	*x = GetOTXScanResultsByDomainRequest{}
+	mi := &file_proto_service_proto_msgTypes[78]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOTXScanResultsByDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOTXScanResultsByDomainRequest) ProtoMessage() {}
+
+func (x *GetOTXScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[78]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOTXScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
+func (*GetOTXScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{78}
+}
+
+func (x *GetOTXScanResultsByDomainRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type GetOTXScanResultsByDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Results       []*OTXScanResult       `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetOTXScanResultsByDomainResponse) Reset() {
+	*x = GetOTXScanResultsByDomainResponse{}
+	mi := &file_proto_service_proto_msgTypes[79]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetOTXScanResultsByDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetOTXScanResultsByDomainResponse) ProtoMessage() {}
+
+func (x *GetOTXScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[79]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetOTXScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
+func (*GetOTXScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *GetOTXScanResultsByDomainResponse) GetResults() []*OTXScanResult {
+	if x != nil {
+		return x.Results
+	}
+	return nil
+}
+
+type OTXScanResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	Result        *OTXSecurityResult     `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OTXScanResult) Reset() {
+	*x = OTXScanResult{}
+	mi := &file_proto_service_proto_msgTypes[80]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OTXScanResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OTXScanResult) ProtoMessage() {}
+
+func (x *OTXScanResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[80]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OTXScanResult.ProtoReflect.Descriptor instead.
+func (*OTXScanResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{80}
+}
+
+func (x *OTXScanResult) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *OTXScanResult) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *OTXScanResult) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+func (x *OTXScanResult) GetResult() *OTXSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *OTXScanResult) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
 type OTXGeneralInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PulseCount    int32                  `protobuf:"varint,1,opt,name=pulse_count,json=pulseCount,proto3" json:"pulse_count,omitempty"`
@@ -5549,7 +4715,7 @@ type OTXGeneralInfo struct {
 
 func (x *OTXGeneralInfo) Reset() {
 	*x = OTXGeneralInfo{}
-	mi := &file_proto_service_proto_msgTypes[96]
+	mi := &file_proto_service_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5561,7 +4727,7 @@ func (x *OTXGeneralInfo) String() string {
 func (*OTXGeneralInfo) ProtoMessage() {}
 
 func (x *OTXGeneralInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[96]
+	mi := &file_proto_service_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5574,7 +4740,7 @@ func (x *OTXGeneralInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OTXGeneralInfo.ProtoReflect.Descriptor instead.
 func (*OTXGeneralInfo) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{96}
+	return file_proto_service_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *OTXGeneralInfo) GetPulseCount() int32 {
@@ -5594,14 +4760,14 @@ func (x *OTXGeneralInfo) GetPulses() []string {
 type OTXMalware struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Hash          string                 `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
-	Datetime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=datetime,proto3" json:"datetime,omitempty"` // Changed from string to Timestamp
+	Datetime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=datetime,proto3" json:"datetime,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OTXMalware) Reset() {
 	*x = OTXMalware{}
-	mi := &file_proto_service_proto_msgTypes[97]
+	mi := &file_proto_service_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5613,7 +4779,7 @@ func (x *OTXMalware) String() string {
 func (*OTXMalware) ProtoMessage() {}
 
 func (x *OTXMalware) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[97]
+	mi := &file_proto_service_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5626,7 +4792,7 @@ func (x *OTXMalware) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OTXMalware.ProtoReflect.Descriptor instead.
 func (*OTXMalware) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{97}
+	return file_proto_service_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *OTXMalware) GetHash() string {
@@ -5646,14 +4812,14 @@ func (x *OTXMalware) GetDatetime() *timestamppb.Timestamp {
 type OTXURL struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	Datetime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=datetime,proto3" json:"datetime,omitempty"` // Changed from string to Timestamp
+	Datetime      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=datetime,proto3" json:"datetime,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OTXURL) Reset() {
 	*x = OTXURL{}
-	mi := &file_proto_service_proto_msgTypes[98]
+	mi := &file_proto_service_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5665,7 +4831,7 @@ func (x *OTXURL) String() string {
 func (*OTXURL) ProtoMessage() {}
 
 func (x *OTXURL) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[98]
+	mi := &file_proto_service_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5678,7 +4844,7 @@ func (x *OTXURL) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OTXURL.ProtoReflect.Descriptor instead.
 func (*OTXURL) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{98}
+	return file_proto_service_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *OTXURL) GetUrl() string {
@@ -5700,14 +4866,14 @@ type OTXPassiveDNS struct {
 	Address       string                 `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Hostname      string                 `protobuf:"bytes,2,opt,name=hostname,proto3" json:"hostname,omitempty"`
 	Record        string                 `protobuf:"bytes,3,opt,name=record,proto3" json:"record,omitempty"`
-	Datetime      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=datetime,proto3" json:"datetime,omitempty"` // Changed from string to Timestamp
+	Datetime      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=datetime,proto3" json:"datetime,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OTXPassiveDNS) Reset() {
 	*x = OTXPassiveDNS{}
-	mi := &file_proto_service_proto_msgTypes[99]
+	mi := &file_proto_service_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5719,7 +4885,7 @@ func (x *OTXPassiveDNS) String() string {
 func (*OTXPassiveDNS) ProtoMessage() {}
 
 func (x *OTXPassiveDNS) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[99]
+	mi := &file_proto_service_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5732,7 +4898,7 @@ func (x *OTXPassiveDNS) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OTXPassiveDNS.ProtoReflect.Descriptor instead.
 func (*OTXPassiveDNS) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{99}
+	return file_proto_service_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *OTXPassiveDNS) GetAddress() string {
@@ -5776,7 +4942,7 @@ type OTXSecurityResult struct {
 
 func (x *OTXSecurityResult) Reset() {
 	*x = OTXSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[100]
+	mi := &file_proto_service_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5788,7 +4954,7 @@ func (x *OTXSecurityResult) String() string {
 func (*OTXSecurityResult) ProtoMessage() {}
 
 func (x *OTXSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[100]
+	mi := &file_proto_service_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5801,7 +4967,7 @@ func (x *OTXSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OTXSecurityResult.ProtoReflect.Descriptor instead.
 func (*OTXSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{100}
+	return file_proto_service_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *OTXSecurityResult) GetGeneralInfo() *OTXGeneralInfo {
@@ -5839,9 +5005,277 @@ func (x *OTXSecurityResult) GetErrors() []string {
 	return nil
 }
 
+type ScanWhoisRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanWhoisRequest) Reset() {
+	*x = ScanWhoisRequest{}
+	mi := &file_proto_service_proto_msgTypes[86]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanWhoisRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanWhoisRequest) ProtoMessage() {}
+
+func (x *ScanWhoisRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[86]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanWhoisRequest.ProtoReflect.Descriptor instead.
+func (*ScanWhoisRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{86}
+}
+
+func (x *ScanWhoisRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ScanWhoisRequest) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+type ScanWhoisResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
+	Result        *WhoisSecurityResult   `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanWhoisResponse) Reset() {
+	*x = ScanWhoisResponse{}
+	mi := &file_proto_service_proto_msgTypes[87]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanWhoisResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanWhoisResponse) ProtoMessage() {}
+
+func (x *ScanWhoisResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[87]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanWhoisResponse.ProtoReflect.Descriptor instead.
+func (*ScanWhoisResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{87}
+}
+
+func (x *ScanWhoisResponse) GetScanId() string {
+	if x != nil {
+		return x.ScanId
+	}
+	return ""
+}
+
+func (x *ScanWhoisResponse) GetResult() *WhoisSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+type GetWhoisScanResultsByDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWhoisScanResultsByDomainRequest) Reset() {
+	*x = GetWhoisScanResultsByDomainRequest{}
+	mi := &file_proto_service_proto_msgTypes[88]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWhoisScanResultsByDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWhoisScanResultsByDomainRequest) ProtoMessage() {}
+
+func (x *GetWhoisScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[88]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWhoisScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
+func (*GetWhoisScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{88}
+}
+
+func (x *GetWhoisScanResultsByDomainRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type GetWhoisScanResultsByDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Results       []*WhoisScanResult     `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWhoisScanResultsByDomainResponse) Reset() {
+	*x = GetWhoisScanResultsByDomainResponse{}
+	mi := &file_proto_service_proto_msgTypes[89]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWhoisScanResultsByDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWhoisScanResultsByDomainResponse) ProtoMessage() {}
+
+func (x *GetWhoisScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[89]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWhoisScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
+func (*GetWhoisScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{89}
+}
+
+func (x *GetWhoisScanResultsByDomainResponse) GetResults() []*WhoisScanResult {
+	if x != nil {
+		return x.Results
+	}
+	return nil
+}
+
+type WhoisScanResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	Result        *WhoisSecurityResult   `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WhoisScanResult) Reset() {
+	*x = WhoisScanResult{}
+	mi := &file_proto_service_proto_msgTypes[90]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WhoisScanResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WhoisScanResult) ProtoMessage() {}
+
+func (x *WhoisScanResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[90]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WhoisScanResult.ProtoReflect.Descriptor instead.
+func (*WhoisScanResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{90}
+}
+
+func (x *WhoisScanResult) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *WhoisScanResult) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *WhoisScanResult) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+func (x *WhoisScanResult) GetResult() *WhoisSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *WhoisScanResult) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
 type WhoisSecurityResult struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
-	Domain         string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"` // Added to provide context
+	Domain         string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
 	Registrar      string                 `protobuf:"bytes,2,opt,name=registrar,proto3" json:"registrar,omitempty"`
 	CreationDate   *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=creation_date,json=creationDate,proto3" json:"creation_date,omitempty"`
 	ExpiryDate     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=expiry_date,json=expiryDate,proto3" json:"expiry_date,omitempty"`
@@ -5853,7 +5287,7 @@ type WhoisSecurityResult struct {
 
 func (x *WhoisSecurityResult) Reset() {
 	*x = WhoisSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[101]
+	mi := &file_proto_service_proto_msgTypes[91]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5865,7 +5299,7 @@ func (x *WhoisSecurityResult) String() string {
 func (*WhoisSecurityResult) ProtoMessage() {}
 
 func (x *WhoisSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[101]
+	mi := &file_proto_service_proto_msgTypes[91]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5878,7 +5312,7 @@ func (x *WhoisSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WhoisSecurityResult.ProtoReflect.Descriptor instead.
 func (*WhoisSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{101}
+	return file_proto_service_proto_rawDescGZIP(), []int{91}
 }
 
 func (x *WhoisSecurityResult) GetDomain() string {
@@ -5928,7 +5362,7 @@ type AbuseChIOC struct {
 	IocType       string                 `protobuf:"bytes,1,opt,name=ioc_type,json=iocType,proto3" json:"ioc_type,omitempty"`
 	IocValue      string                 `protobuf:"bytes,2,opt,name=ioc_value,json=iocValue,proto3" json:"ioc_value,omitempty"`
 	ThreatType    string                 `protobuf:"bytes,3,opt,name=threat_type,json=threatType,proto3" json:"threat_type,omitempty"`
-	Confidence    float32                `protobuf:"fixed32,4,opt,name=confidence,proto3" json:"confidence,omitempty"` // Changed from double to float
+	Confidence    float32                `protobuf:"fixed32,4,opt,name=confidence,proto3" json:"confidence,omitempty"`
 	FirstSeen     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=first_seen,json=firstSeen,proto3" json:"first_seen,omitempty"`
 	LastSeen      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=last_seen,json=lastSeen,proto3" json:"last_seen,omitempty"`
 	MalwareAlias  []string               `protobuf:"bytes,7,rep,name=malware_alias,json=malwareAlias,proto3" json:"malware_alias,omitempty"`
@@ -5939,7 +5373,7 @@ type AbuseChIOC struct {
 
 func (x *AbuseChIOC) Reset() {
 	*x = AbuseChIOC{}
-	mi := &file_proto_service_proto_msgTypes[102]
+	mi := &file_proto_service_proto_msgTypes[92]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5951,7 +5385,7 @@ func (x *AbuseChIOC) String() string {
 func (*AbuseChIOC) ProtoMessage() {}
 
 func (x *AbuseChIOC) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[102]
+	mi := &file_proto_service_proto_msgTypes[92]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5964,7 +5398,7 @@ func (x *AbuseChIOC) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AbuseChIOC.ProtoReflect.Descriptor instead.
 func (*AbuseChIOC) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{102}
+	return file_proto_service_proto_rawDescGZIP(), []int{92}
 }
 
 func (x *AbuseChIOC) GetIocType() string {
@@ -6033,7 +5467,7 @@ type AbuseChSecurityResult struct {
 
 func (x *AbuseChSecurityResult) Reset() {
 	*x = AbuseChSecurityResult{}
-	mi := &file_proto_service_proto_msgTypes[103]
+	mi := &file_proto_service_proto_msgTypes[93]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6045,7 +5479,7 @@ func (x *AbuseChSecurityResult) String() string {
 func (*AbuseChSecurityResult) ProtoMessage() {}
 
 func (x *AbuseChSecurityResult) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_service_proto_msgTypes[103]
+	mi := &file_proto_service_proto_msgTypes[93]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6058,7 +5492,7 @@ func (x *AbuseChSecurityResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AbuseChSecurityResult.ProtoReflect.Descriptor instead.
 func (*AbuseChSecurityResult) Descriptor() ([]byte, []int) {
-	return file_proto_service_proto_rawDescGZIP(), []int{103}
+	return file_proto_service_proto_rawDescGZIP(), []int{93}
 }
 
 func (x *AbuseChSecurityResult) GetIocs() []*AbuseChIOC {
@@ -6069,6 +5503,670 @@ func (x *AbuseChSecurityResult) GetIocs() []*AbuseChIOC {
 }
 
 func (x *AbuseChSecurityResult) GetErrors() []string {
+	if x != nil {
+		return x.Errors
+	}
+	return nil
+}
+
+type ScanAbuseChRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanAbuseChRequest) Reset() {
+	*x = ScanAbuseChRequest{}
+	mi := &file_proto_service_proto_msgTypes[94]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanAbuseChRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanAbuseChRequest) ProtoMessage() {}
+
+func (x *ScanAbuseChRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[94]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanAbuseChRequest.ProtoReflect.Descriptor instead.
+func (*ScanAbuseChRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{94}
+}
+
+func (x *ScanAbuseChRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ScanAbuseChRequest) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+type ScanAbuseChResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
+	Result        *AbuseChSecurityResult `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanAbuseChResponse) Reset() {
+	*x = ScanAbuseChResponse{}
+	mi := &file_proto_service_proto_msgTypes[95]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanAbuseChResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanAbuseChResponse) ProtoMessage() {}
+
+func (x *ScanAbuseChResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[95]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanAbuseChResponse.ProtoReflect.Descriptor instead.
+func (*ScanAbuseChResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{95}
+}
+
+func (x *ScanAbuseChResponse) GetScanId() string {
+	if x != nil {
+		return x.ScanId
+	}
+	return ""
+}
+
+func (x *ScanAbuseChResponse) GetResult() *AbuseChSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+type GetAbuseChScanResultsByDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAbuseChScanResultsByDomainRequest) Reset() {
+	*x = GetAbuseChScanResultsByDomainRequest{}
+	mi := &file_proto_service_proto_msgTypes[96]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAbuseChScanResultsByDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAbuseChScanResultsByDomainRequest) ProtoMessage() {}
+
+func (x *GetAbuseChScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[96]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAbuseChScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
+func (*GetAbuseChScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{96}
+}
+
+func (x *GetAbuseChScanResultsByDomainRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type GetAbuseChScanResultsByDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Results       []*AbuseChScanResult   `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAbuseChScanResultsByDomainResponse) Reset() {
+	*x = GetAbuseChScanResultsByDomainResponse{}
+	mi := &file_proto_service_proto_msgTypes[97]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAbuseChScanResultsByDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAbuseChScanResultsByDomainResponse) ProtoMessage() {}
+
+func (x *GetAbuseChScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[97]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAbuseChScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
+func (*GetAbuseChScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{97}
+}
+
+func (x *GetAbuseChScanResultsByDomainResponse) GetResults() []*AbuseChScanResult {
+	if x != nil {
+		return x.Results
+	}
+	return nil
+}
+
+type AbuseChScanResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	Result        *AbuseChSecurityResult `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AbuseChScanResult) Reset() {
+	*x = AbuseChScanResult{}
+	mi := &file_proto_service_proto_msgTypes[98]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AbuseChScanResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AbuseChScanResult) ProtoMessage() {}
+
+func (x *AbuseChScanResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[98]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AbuseChScanResult.ProtoReflect.Descriptor instead.
+func (*AbuseChScanResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{98}
+}
+
+func (x *AbuseChScanResult) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *AbuseChScanResult) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *AbuseChScanResult) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+func (x *AbuseChScanResult) GetResult() *AbuseChSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *AbuseChScanResult) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+type ScanISCRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,2,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanISCRequest) Reset() {
+	*x = ScanISCRequest{}
+	mi := &file_proto_service_proto_msgTypes[99]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanISCRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanISCRequest) ProtoMessage() {}
+
+func (x *ScanISCRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[99]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanISCRequest.ProtoReflect.Descriptor instead.
+func (*ScanISCRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{99}
+}
+
+func (x *ScanISCRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ScanISCRequest) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+type ScanISCResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ScanId        string                 `protobuf:"bytes,1,opt,name=scan_id,json=scanId,proto3" json:"scan_id,omitempty"`
+	Result        *ISCSecurityResult     `protobuf:"bytes,2,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScanISCResponse) Reset() {
+	*x = ScanISCResponse{}
+	mi := &file_proto_service_proto_msgTypes[100]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScanISCResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScanISCResponse) ProtoMessage() {}
+
+func (x *ScanISCResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[100]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScanISCResponse.ProtoReflect.Descriptor instead.
+func (*ScanISCResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{100}
+}
+
+func (x *ScanISCResponse) GetScanId() string {
+	if x != nil {
+		return x.ScanId
+	}
+	return ""
+}
+
+func (x *ScanISCResponse) GetResult() *ISCSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+type GetISCScanResultsByDomainRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Domain        string                 `protobuf:"bytes,1,opt,name=domain,proto3" json:"domain,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetISCScanResultsByDomainRequest) Reset() {
+	*x = GetISCScanResultsByDomainRequest{}
+	mi := &file_proto_service_proto_msgTypes[101]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetISCScanResultsByDomainRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetISCScanResultsByDomainRequest) ProtoMessage() {}
+
+func (x *GetISCScanResultsByDomainRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[101]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetISCScanResultsByDomainRequest.ProtoReflect.Descriptor instead.
+func (*GetISCScanResultsByDomainRequest) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{101}
+}
+
+func (x *GetISCScanResultsByDomainRequest) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+type GetISCScanResultsByDomainResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Results       []*ISCScanResult       `protobuf:"bytes,1,rep,name=results,proto3" json:"results,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetISCScanResultsByDomainResponse) Reset() {
+	*x = GetISCScanResultsByDomainResponse{}
+	mi := &file_proto_service_proto_msgTypes[102]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetISCScanResultsByDomainResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetISCScanResultsByDomainResponse) ProtoMessage() {}
+
+func (x *GetISCScanResultsByDomainResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[102]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetISCScanResultsByDomainResponse.ProtoReflect.Descriptor instead.
+func (*GetISCScanResultsByDomainResponse) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{102}
+}
+
+func (x *GetISCScanResultsByDomainResponse) GetResults() []*ISCScanResult {
+	if x != nil {
+		return x.Results
+	}
+	return nil
+}
+
+type ISCScanResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Domain        string                 `protobuf:"bytes,2,opt,name=domain,proto3" json:"domain,omitempty"`
+	DnsScanId     string                 `protobuf:"bytes,3,opt,name=dns_scan_id,json=dnsScanId,proto3" json:"dns_scan_id,omitempty"`
+	Result        *ISCSecurityResult     `protobuf:"bytes,4,opt,name=result,proto3" json:"result,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ISCScanResult) Reset() {
+	*x = ISCScanResult{}
+	mi := &file_proto_service_proto_msgTypes[103]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ISCScanResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ISCScanResult) ProtoMessage() {}
+
+func (x *ISCScanResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[103]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ISCScanResult.ProtoReflect.Descriptor instead.
+func (*ISCScanResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{103}
+}
+
+func (x *ISCScanResult) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ISCScanResult) GetDomain() string {
+	if x != nil {
+		return x.Domain
+	}
+	return ""
+}
+
+func (x *ISCScanResult) GetDnsScanId() string {
+	if x != nil {
+		return x.DnsScanId
+	}
+	return ""
+}
+
+func (x *ISCScanResult) GetResult() *ISCSecurityResult {
+	if x != nil {
+		return x.Result
+	}
+	return nil
+}
+
+func (x *ISCScanResult) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+type ISCIncident struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Date          *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=date,proto3" json:"date,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Severity      string                 `protobuf:"bytes,4,opt,name=severity,proto3" json:"severity,omitempty"` // e.g., "Low", "Medium", "High"
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ISCIncident) Reset() {
+	*x = ISCIncident{}
+	mi := &file_proto_service_proto_msgTypes[104]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ISCIncident) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ISCIncident) ProtoMessage() {}
+
+func (x *ISCIncident) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[104]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ISCIncident.ProtoReflect.Descriptor instead.
+func (*ISCIncident) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{104}
+}
+
+func (x *ISCIncident) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ISCIncident) GetDate() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Date
+	}
+	return nil
+}
+
+func (x *ISCIncident) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ISCIncident) GetSeverity() string {
+	if x != nil {
+		return x.Severity
+	}
+	return ""
+}
+
+type ISCSecurityResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Incidents     []*ISCIncident         `protobuf:"bytes,1,rep,name=incidents,proto3" json:"incidents,omitempty"`
+	OverallRisk   string                 `protobuf:"bytes,2,opt,name=overall_risk,json=overallRisk,proto3" json:"overall_risk,omitempty"`
+	Errors        []string               `protobuf:"bytes,3,rep,name=errors,proto3" json:"errors,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ISCSecurityResult) Reset() {
+	*x = ISCSecurityResult{}
+	mi := &file_proto_service_proto_msgTypes[105]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ISCSecurityResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ISCSecurityResult) ProtoMessage() {}
+
+func (x *ISCSecurityResult) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_service_proto_msgTypes[105]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ISCSecurityResult.ProtoReflect.Descriptor instead.
+func (*ISCSecurityResult) Descriptor() ([]byte, []int) {
+	return file_proto_service_proto_rawDescGZIP(), []int{105}
+}
+
+func (x *ISCSecurityResult) GetIncidents() []*ISCIncident {
+	if x != nil {
+		return x.Incidents
+	}
+	return nil
+}
+
+func (x *ISCSecurityResult) GetOverallRisk() string {
+	if x != nil {
+		return x.OverallRisk
+	}
+	return ""
+}
+
+func (x *ISCSecurityResult) GetErrors() []string {
 	if x != nil {
 		return x.Errors
 	}
@@ -6190,7 +6288,12 @@ const file_proto_service_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"expires_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"@\n" +
+	"expires_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\texpiresAt\"v\n" +
+	"\x15ChangePasswordRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12!\n" +
+	"\fold_password\x18\x02 \x01(\tR\voldPassword\x12!\n" +
+	"\fnew_password\x18\x03 \x01(\tR\vnewPassword\"\x18\n" +
+	"\x16ChangePasswordResponse\"@\n" +
 	"\fLoginRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"\x95\x01\n" +
@@ -6294,91 +6397,7 @@ const file_proto_service_proto_rawDesc = "" +
 	"#GetShodanScanResultsByDomainRequest\x12\x16\n" +
 	"\x06domain\x18\x01 \x01(\tR\x06domain\"[\n" +
 	"$GetShodanScanResultsByDomainResponse\x123\n" +
-	"\aresults\x18\x01 \x03(\v2\x19.service.ShodanScanResultR\aresults\"\xcc\x01\n" +
-	"\x10ShodanScanResult\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x125\n" +
-	"\x06result\x18\x04 \x01(\v2\x1d.service.ShodanSecurityResultR\x06result\x129\n" +
-	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"H\n" +
-	"\x0eScanOTXRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"^\n" +
-	"\x0fScanOTXResponse\x12\x17\n" +
-	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x122\n" +
-	"\x06result\x18\x02 \x01(\v2\x1a.service.OTXSecurityResultR\x06result\":\n" +
-	" GetOTXScanResultsByDomainRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\"U\n" +
-	"!GetOTXScanResultsByDomainResponse\x120\n" +
-	"\aresults\x18\x01 \x03(\v2\x16.service.OTXScanResultR\aresults\"\xc6\x01\n" +
-	"\rOTXScanResult\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x122\n" +
-	"\x06result\x18\x04 \x01(\v2\x1a.service.OTXSecurityResultR\x06result\x129\n" +
-	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"J\n" +
-	"\x10ScanWhoisRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"b\n" +
-	"\x11ScanWhoisResponse\x12\x17\n" +
-	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x124\n" +
-	"\x06result\x18\x02 \x01(\v2\x1c.service.WhoisSecurityResultR\x06result\"<\n" +
-	"\"GetWhoisScanResultsByDomainRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\"Y\n" +
-	"#GetWhoisScanResultsByDomainResponse\x122\n" +
-	"\aresults\x18\x01 \x03(\v2\x18.service.WhoisScanResultR\aresults\"\xca\x01\n" +
-	"\x0fWhoisScanResult\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x124\n" +
-	"\x06result\x18\x04 \x01(\v2\x1c.service.WhoisSecurityResultR\x06result\x129\n" +
-	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"L\n" +
-	"\x12ScanAbuseChRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"f\n" +
-	"\x13ScanAbuseChResponse\x12\x17\n" +
-	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x126\n" +
-	"\x06result\x18\x02 \x01(\v2\x1e.service.AbuseChSecurityResultR\x06result\">\n" +
-	"$GetAbuseChScanResultsByDomainRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\"]\n" +
-	"%GetAbuseChScanResultsByDomainResponse\x124\n" +
-	"\aresults\x18\x01 \x03(\v2\x1a.service.AbuseChScanResultR\aresults\"\xce\x01\n" +
-	"\x11AbuseChScanResult\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x126\n" +
-	"\x06result\x18\x04 \x01(\v2\x1e.service.AbuseChSecurityResultR\x06result\x129\n" +
-	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"H\n" +
-	"\x0eScanISCRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"^\n" +
-	"\x0fScanISCResponse\x12\x17\n" +
-	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x122\n" +
-	"\x06result\x18\x02 \x01(\v2\x1a.service.ISCSecurityResultR\x06result\":\n" +
-	" GetISCScanResultsByDomainRequest\x12\x16\n" +
-	"\x06domain\x18\x01 \x01(\tR\x06domain\"U\n" +
-	"!GetISCScanResultsByDomainResponse\x120\n" +
-	"\aresults\x18\x01 \x03(\v2\x16.service.ISCScanResultR\aresults\"\xc6\x01\n" +
-	"\rISCScanResult\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
-	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
-	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x122\n" +
-	"\x06result\x18\x04 \x01(\v2\x1a.service.ISCSecurityResultR\x06result\x129\n" +
-	"\n" +
-	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x8b\x01\n" +
-	"\vISCIncident\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12.\n" +
-	"\x04date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x04date\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1a\n" +
-	"\bseverity\x18\x04 \x01(\tR\bseverity\"\x82\x01\n" +
-	"\x11ISCSecurityResult\x122\n" +
-	"\tincidents\x18\x01 \x03(\v2\x14.service.ISCIncidentR\tincidents\x12!\n" +
-	"\foverall_risk\x18\x02 \x01(\tR\voverallRisk\x12\x16\n" +
-	"\x06errors\x18\x03 \x03(\tR\x06errors\"\xfa\x04\n" +
+	"\aresults\x18\x01 \x03(\v2\x19.service.ShodanScanResultR\aresults\"\xfa\x04\n" +
 	"\x11DNSSecurityResult\x12\x1d\n" +
 	"\n" +
 	"spf_record\x18\x01 \x01(\tR\tspfRecord\x12\x1b\n" +
@@ -6443,7 +6462,14 @@ const file_proto_service_proto_rawDesc = "" +
 	"\n" +
 	"subdomains\x18\x01 \x03(\tR\n" +
 	"subdomains\x12\x16\n" +
-	"\x06errors\x18\x02 \x03(\tR\x06errors\"\x81\x01\n" +
+	"\x06errors\x18\x02 \x03(\tR\x06errors\"\xcc\x01\n" +
+	"\x10ShodanScanResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x125\n" +
+	"\x06result\x18\x04 \x01(\v2\x1d.service.ShodanSecurityResultR\x06result\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x81\x01\n" +
 	"\x0eShodanLocation\x12\x12\n" +
 	"\x04city\x18\x01 \x01(\tR\x04city\x12!\n" +
 	"\fcountry_name\x18\x02 \x01(\tR\vcountryName\x12\x1a\n" +
@@ -6476,7 +6502,24 @@ const file_proto_service_proto_rawDesc = "" +
 	"shodanMeta\"Y\n" +
 	"\x14ShodanSecurityResult\x12)\n" +
 	"\x05hosts\x18\x01 \x03(\v2\x13.service.ShodanHostR\x05hosts\x12\x16\n" +
-	"\x06errors\x18\x02 \x03(\tR\x06errors\"I\n" +
+	"\x06errors\x18\x02 \x03(\tR\x06errors\"H\n" +
+	"\x0eScanOTXRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"^\n" +
+	"\x0fScanOTXResponse\x12\x17\n" +
+	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x122\n" +
+	"\x06result\x18\x02 \x01(\v2\x1a.service.OTXSecurityResultR\x06result\":\n" +
+	" GetOTXScanResultsByDomainRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\"U\n" +
+	"!GetOTXScanResultsByDomainResponse\x120\n" +
+	"\aresults\x18\x01 \x03(\v2\x16.service.OTXScanResultR\aresults\"\xc6\x01\n" +
+	"\rOTXScanResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x122\n" +
+	"\x06result\x18\x04 \x01(\v2\x1a.service.OTXSecurityResultR\x06result\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"I\n" +
 	"\x0eOTXGeneralInfo\x12\x1f\n" +
 	"\vpulse_count\x18\x01 \x01(\x05R\n" +
 	"pulseCount\x12\x16\n" +
@@ -6499,7 +6542,24 @@ const file_proto_service_proto_rawDesc = "" +
 	"\x04urls\x18\x03 \x03(\v2\x0f.service.OTXURLR\x04urls\x127\n" +
 	"\vpassive_dns\x18\x04 \x03(\v2\x16.service.OTXPassiveDNSR\n" +
 	"passiveDns\x12\x16\n" +
-	"\x06errors\x18\x05 \x03(\tR\x06errors\"\x8a\x02\n" +
+	"\x06errors\x18\x05 \x03(\tR\x06errors\"J\n" +
+	"\x10ScanWhoisRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"b\n" +
+	"\x11ScanWhoisResponse\x12\x17\n" +
+	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x124\n" +
+	"\x06result\x18\x02 \x01(\v2\x1c.service.WhoisSecurityResultR\x06result\"<\n" +
+	"\"GetWhoisScanResultsByDomainRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\"Y\n" +
+	"#GetWhoisScanResultsByDomainResponse\x122\n" +
+	"\aresults\x18\x01 \x03(\v2\x18.service.WhoisScanResultR\aresults\"\xca\x01\n" +
+	"\x0fWhoisScanResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x124\n" +
+	"\x06result\x18\x04 \x01(\v2\x1c.service.WhoisSecurityResultR\x06result\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x8a\x02\n" +
 	"\x13WhoisSecurityResult\x12\x16\n" +
 	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1c\n" +
 	"\tregistrar\x18\x02 \x01(\tR\tregistrar\x12?\n" +
@@ -6524,7 +6584,70 @@ const file_proto_service_proto_rawDesc = "" +
 	"\x04tags\x18\b \x03(\tR\x04tags\"X\n" +
 	"\x15AbuseChSecurityResult\x12'\n" +
 	"\x04iocs\x18\x01 \x03(\v2\x13.service.AbuseChIOCR\x04iocs\x12\x16\n" +
-	"\x06errors\x18\x02 \x03(\tR\x06errors2\x8b\x0e\n" +
+	"\x06errors\x18\x02 \x03(\tR\x06errors\"L\n" +
+	"\x12ScanAbuseChRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"f\n" +
+	"\x13ScanAbuseChResponse\x12\x17\n" +
+	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x126\n" +
+	"\x06result\x18\x02 \x01(\v2\x1e.service.AbuseChSecurityResultR\x06result\">\n" +
+	"$GetAbuseChScanResultsByDomainRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\"]\n" +
+	"%GetAbuseChScanResultsByDomainResponse\x124\n" +
+	"\aresults\x18\x01 \x03(\v2\x1a.service.AbuseChScanResultR\aresults\"\xce\x01\n" +
+	"\x11AbuseChScanResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x126\n" +
+	"\x06result\x18\x04 \x01(\v2\x1e.service.AbuseChSecurityResultR\x06result\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"H\n" +
+	"\x0eScanISCRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x02 \x01(\tR\tdnsScanId\"^\n" +
+	"\x0fScanISCResponse\x12\x17\n" +
+	"\ascan_id\x18\x01 \x01(\tR\x06scanId\x122\n" +
+	"\x06result\x18\x02 \x01(\v2\x1a.service.ISCSecurityResultR\x06result\":\n" +
+	" GetISCScanResultsByDomainRequest\x12\x16\n" +
+	"\x06domain\x18\x01 \x01(\tR\x06domain\"U\n" +
+	"!GetISCScanResultsByDomainResponse\x120\n" +
+	"\aresults\x18\x01 \x03(\v2\x16.service.ISCScanResultR\aresults\"\xc6\x01\n" +
+	"\rISCScanResult\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06domain\x18\x02 \x01(\tR\x06domain\x12\x1e\n" +
+	"\vdns_scan_id\x18\x03 \x01(\tR\tdnsScanId\x122\n" +
+	"\x06result\x18\x04 \x01(\v2\x1a.service.ISCSecurityResultR\x06result\x129\n" +
+	"\n" +
+	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\"\x8b\x01\n" +
+	"\vISCIncident\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12.\n" +
+	"\x04date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x04date\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x1a\n" +
+	"\bseverity\x18\x04 \x01(\tR\bseverity\"\x82\x01\n" +
+	"\x11ISCSecurityResult\x122\n" +
+	"\tincidents\x18\x01 \x03(\v2\x14.service.ISCIncidentR\tincidents\x12!\n" +
+	"\foverall_risk\x18\x02 \x01(\tR\voverallRisk\x12\x16\n" +
+	"\x06errors\x18\x03 \x03(\tR\x06errors2\xb6\x04\n" +
+	"\vAuthService\x12E\n" +
+	"\n" +
+	"CreateUser\x12\x1a.service.CreateUserRequest\x1a\x1b.service.CreateUserResponse\x12<\n" +
+	"\aGetUser\x12\x17.service.GetUserRequest\x1a\x18.service.GetUserResponse\x12E\n" +
+	"\n" +
+	"UpdateUser\x12\x1a.service.UpdateUserRequest\x1a\x1b.service.UpdateUserResponse\x12E\n" +
+	"\n" +
+	"DeleteUser\x12\x1a.service.DeleteUserRequest\x1a\x1b.service.DeleteUserResponse\x12B\n" +
+	"\tListUsers\x12\x19.service.ListUsersRequest\x1a\x1a.service.ListUsersResponse\x126\n" +
+	"\x05Login\x12\x15.service.LoginRequest\x1a\x16.service.LoginResponse\x12E\n" +
+	"\n" +
+	"InviteUser\x12\x1a.service.InviteUserRequest\x1a\x1b.service.InviteUserResponse\x12Q\n" +
+	"\x0eValidateInvite\x12\x1e.service.ValidateInviteRequest\x1a\x1f.service.ValidateInviteResponse2\xf0\x03\n" +
+	"\vUserService\x12K\n" +
+	"\fCreateAPIKey\x12\x1c.service.CreateAPIKeyRequest\x1a\x1d.service.CreateAPIKeyResponse\x12K\n" +
+	"\fRotateAPIKey\x12\x1c.service.RotateAPIKeyRequest\x1a\x1d.service.RotateAPIKeyResponse\x12Q\n" +
+	"\x0eActivateAPIKey\x12\x1e.service.ActivateAPIKeyRequest\x1a\x1f.service.ActivateAPIKeyResponse\x12W\n" +
+	"\x10DeactivateAPIKey\x12 .service.DeactivateAPIKeyRequest\x1a!.service.DeactivateAPIKeyResponse\x12H\n" +
+	"\vListAPIKeys\x12\x1b.service.ListAPIKeysRequest\x1a\x1c.service.ListAPIKeysResponse\x12Q\n" +
+	"\x0eChangePassword\x12\x1e.service.ChangePasswordRequest\x1a\x1f.service.ChangePasswordResponse2\x8b\x0e\n" +
 	"\vScanService\x12E\n" +
 	"\n" +
 	"ScanDomain\x12\x1a.service.ScanDomainRequest\x1a\x1b.service.ScanDomainResponse\x12<\n" +
@@ -6546,31 +6669,12 @@ const file_proto_service_proto_rawDesc = "" +
 	"\x1bGetWhoisScanResultsByDomain\x12+.service.GetWhoisScanResultsByDomainRequest\x1a,.service.GetWhoisScanResultsByDomainResponse\x12~\n" +
 	"\x1dGetAbuseChScanResultsByDomain\x12-.service.GetAbuseChScanResultsByDomainRequest\x1a..service.GetAbuseChScanResultsByDomainResponse\x12r\n" +
 	"\x19GetISCScanResultsByDomain\x12).service.GetISCScanResultsByDomainRequest\x1a*.service.GetISCScanResultsByDomainResponse\x12c\n" +
-	"\x14GetDNSScanResultByID\x12$.service.GetDNSScanResultByIDRequest\x1a%.service.GetDNSScanResultByIDResponse2l\n" +
-	"\vUserService\x12]\n" +
-	"\x12CalculateRiskScore\x12\".service.CalculateRiskScoreRequest\x1a#.service.CalculateRiskScoreResponse2\xc6\a\n" +
-	"\vAuthService\x12E\n" +
-	"\n" +
-	"CreateUser\x12\x1a.service.CreateUserRequest\x1a\x1b.service.CreateUserResponse\x12<\n" +
-	"\aGetUser\x12\x17.service.GetUserRequest\x1a\x18.service.GetUserResponse\x12E\n" +
-	"\n" +
-	"UpdateUser\x12\x1a.service.UpdateUserRequest\x1a\x1b.service.UpdateUserResponse\x12E\n" +
-	"\n" +
-	"DeleteUser\x12\x1a.service.DeleteUserRequest\x1a\x1b.service.DeleteUserResponse\x12B\n" +
-	"\tListUsers\x12\x19.service.ListUsersRequest\x1a\x1a.service.ListUsersResponse\x12K\n" +
-	"\fCreateAPIKey\x12\x1c.service.CreateAPIKeyRequest\x1a\x1d.service.CreateAPIKeyResponse\x12K\n" +
-	"\fRotateAPIKey\x12\x1c.service.RotateAPIKeyRequest\x1a\x1d.service.RotateAPIKeyResponse\x12Q\n" +
-	"\x0eActivateAPIKey\x12\x1e.service.ActivateAPIKeyRequest\x1a\x1f.service.ActivateAPIKeyResponse\x12W\n" +
-	"\x10DeactivateAPIKey\x12 .service.DeactivateAPIKeyRequest\x1a!.service.DeactivateAPIKeyResponse\x12H\n" +
-	"\vListAPIKeys\x12\x1b.service.ListAPIKeysRequest\x1a\x1c.service.ListAPIKeysResponse\x126\n" +
-	"\x05Login\x12\x15.service.LoginRequest\x1a\x16.service.LoginResponse\x12E\n" +
-	"\n" +
-	"InviteUser\x12\x1a.service.InviteUserRequest\x1a\x1b.service.InviteUserResponse\x12Q\n" +
-	"\x0eValidateInvite\x12\x1e.service.ValidateInviteRequest\x1a\x1f.service.ValidateInviteResponse2\xfc\x01\n" +
+	"\x14GetDNSScanResultByID\x12$.service.GetDNSScanResultByIDRequest\x1a%.service.GetDNSScanResultByIDResponse2\xdb\x02\n" +
 	"\rReportService\x12Q\n" +
 	"\x0eGenerateReport\x12\x1e.service.GenerateReportRequest\x1a\x1f.service.GenerateReportResponse\x12H\n" +
 	"\vListReports\x12\x1b.service.ListReportsRequest\x1a\x1c.service.ListReportsResponse\x12N\n" +
-	"\rGetReportById\x12\x1d.service.GetReportByIdRequest\x1a\x1e.service.GetReportByIdResponseB\x1fZ\x1dgithub.com/moos3/sparta/protob\x06proto3"
+	"\rGetReportById\x12\x1d.service.GetReportByIdRequest\x1a\x1e.service.GetReportByIdResponse\x12]\n" +
+	"\x12CalculateRiskScore\x12\".service.CalculateRiskScoreRequest\x1a#.service.CalculateRiskScoreResponseB\x1fZ\x1dgithub.com/moos3/sparta/protob\x06proto3"
 
 var (
 	file_proto_service_proto_rawDescOnce sync.Once
@@ -6584,7 +6688,7 @@ func file_proto_service_proto_rawDescGZIP() []byte {
 	return file_proto_service_proto_rawDescData
 }
 
-var file_proto_service_proto_msgTypes = make([]protoimpl.MessageInfo, 104)
+var file_proto_service_proto_msgTypes = make([]protoimpl.MessageInfo, 106)
 var file_proto_service_proto_goTypes = []any{
 	(*GenerateReportRequest)(nil),                 // 0: service.GenerateReportRequest
 	(*GenerateReportResponse)(nil),                // 1: service.GenerateReportResponse
@@ -6617,232 +6721,236 @@ var file_proto_service_proto_goTypes = []any{
 	(*ListAPIKeysRequest)(nil),                    // 28: service.ListAPIKeysRequest
 	(*ListAPIKeysResponse)(nil),                   // 29: service.ListAPIKeysResponse
 	(*APIKey)(nil),                                // 30: service.APIKey
-	(*LoginRequest)(nil),                          // 31: service.LoginRequest
-	(*LoginResponse)(nil),                         // 32: service.LoginResponse
-	(*InviteUserRequest)(nil),                     // 33: service.InviteUserRequest
-	(*InviteUserResponse)(nil),                    // 34: service.InviteUserResponse
-	(*ValidateInviteRequest)(nil),                 // 35: service.ValidateInviteRequest
-	(*ValidateInviteResponse)(nil),                // 36: service.ValidateInviteResponse
-	(*ScanDomainRequest)(nil),                     // 37: service.ScanDomainRequest
-	(*ScanDomainResponse)(nil),                    // 38: service.ScanDomainResponse
-	(*GetDNSScanResultsByDomainRequest)(nil),      // 39: service.GetDNSScanResultsByDomainRequest
-	(*GetDNSScanResultsByDomainResponse)(nil),     // 40: service.GetDNSScanResultsByDomainResponse
-	(*GetDNSScanResultByIDRequest)(nil),           // 41: service.GetDNSScanResultByIDRequest
-	(*GetDNSScanResultByIDResponse)(nil),          // 42: service.GetDNSScanResultByIDResponse
-	(*DNSScanResult)(nil),                         // 43: service.DNSScanResult
-	(*ScanTLSRequest)(nil),                        // 44: service.ScanTLSRequest
-	(*ScanTLSResponse)(nil),                       // 45: service.ScanTLSResponse
-	(*GetTLSScanResultsByDomainRequest)(nil),      // 46: service.GetTLSScanResultsByDomainRequest
-	(*GetTLSScanResultsByDomainResponse)(nil),     // 47: service.GetTLSScanResultsByDomainResponse
-	(*TLSScanResult)(nil),                         // 48: service.TLSScanResult
-	(*ScanCrtShRequest)(nil),                      // 49: service.ScanCrtShRequest
-	(*ScanCrtShResponse)(nil),                     // 50: service.ScanCrtShResponse
-	(*GetCrtShScanResultsByDomainRequest)(nil),    // 51: service.GetCrtShScanResultsByDomainRequest
-	(*GetCrtShScanResultsByDomainResponse)(nil),   // 52: service.GetCrtShScanResultsByDomainResponse
-	(*CrtShScanResult)(nil),                       // 53: service.CrtShScanResult
-	(*ScanChaosRequest)(nil),                      // 54: service.ScanChaosRequest
-	(*ScanChaosResponse)(nil),                     // 55: service.ScanChaosResponse
-	(*GetChaosScanResultsByDomainRequest)(nil),    // 56: service.GetChaosScanResultsByDomainRequest
-	(*GetChaosScanResultsByDomainResponse)(nil),   // 57: service.GetChaosScanResultsByDomainResponse
-	(*ChaosScanResult)(nil),                       // 58: service.ChaosScanResult
-	(*ScanShodanRequest)(nil),                     // 59: service.ScanShodanRequest
-	(*ScanShodanResponse)(nil),                    // 60: service.ScanShodanResponse
-	(*GetShodanScanResultsByDomainRequest)(nil),   // 61: service.GetShodanScanResultsByDomainRequest
-	(*GetShodanScanResultsByDomainResponse)(nil),  // 62: service.GetShodanScanResultsByDomainResponse
-	(*ShodanScanResult)(nil),                      // 63: service.ShodanScanResult
-	(*ScanOTXRequest)(nil),                        // 64: service.ScanOTXRequest
-	(*ScanOTXResponse)(nil),                       // 65: service.ScanOTXResponse
-	(*GetOTXScanResultsByDomainRequest)(nil),      // 66: service.GetOTXScanResultsByDomainRequest
-	(*GetOTXScanResultsByDomainResponse)(nil),     // 67: service.GetOTXScanResultsByDomainResponse
-	(*OTXScanResult)(nil),                         // 68: service.OTXScanResult
-	(*ScanWhoisRequest)(nil),                      // 69: service.ScanWhoisRequest
-	(*ScanWhoisResponse)(nil),                     // 70: service.ScanWhoisResponse
-	(*GetWhoisScanResultsByDomainRequest)(nil),    // 71: service.GetWhoisScanResultsByDomainRequest
-	(*GetWhoisScanResultsByDomainResponse)(nil),   // 72: service.GetWhoisScanResultsByDomainResponse
-	(*WhoisScanResult)(nil),                       // 73: service.WhoisScanResult
-	(*ScanAbuseChRequest)(nil),                    // 74: service.ScanAbuseChRequest
-	(*ScanAbuseChResponse)(nil),                   // 75: service.ScanAbuseChResponse
-	(*GetAbuseChScanResultsByDomainRequest)(nil),  // 76: service.GetAbuseChScanResultsByDomainRequest
-	(*GetAbuseChScanResultsByDomainResponse)(nil), // 77: service.GetAbuseChScanResultsByDomainResponse
-	(*AbuseChScanResult)(nil),                     // 78: service.AbuseChScanResult
-	(*ScanISCRequest)(nil),                        // 79: service.ScanISCRequest
-	(*ScanISCResponse)(nil),                       // 80: service.ScanISCResponse
-	(*GetISCScanResultsByDomainRequest)(nil),      // 81: service.GetISCScanResultsByDomainRequest
-	(*GetISCScanResultsByDomainResponse)(nil),     // 82: service.GetISCScanResultsByDomainResponse
-	(*ISCScanResult)(nil),                         // 83: service.ISCScanResult
-	(*ISCIncident)(nil),                           // 84: service.ISCIncident
-	(*ISCSecurityResult)(nil),                     // 85: service.ISCSecurityResult
-	(*DNSSecurityResult)(nil),                     // 86: service.DNSSecurityResult
-	(*TLSSecurityResult)(nil),                     // 87: service.TLSSecurityResult
-	(*CrtShCertificate)(nil),                      // 88: service.CrtShCertificate
-	(*CrtShSecurityResult)(nil),                   // 89: service.CrtShSecurityResult
-	(*ChaosSecurityResult)(nil),                   // 90: service.ChaosSecurityResult
-	(*ShodanLocation)(nil),                        // 91: service.ShodanLocation
-	(*ShodanSSL)(nil),                             // 92: service.ShodanSSL
-	(*ShodanMetadata)(nil),                        // 93: service.ShodanMetadata
-	(*ShodanHost)(nil),                            // 94: service.ShodanHost
-	(*ShodanSecurityResult)(nil),                  // 95: service.ShodanSecurityResult
-	(*OTXGeneralInfo)(nil),                        // 96: service.OTXGeneralInfo
-	(*OTXMalware)(nil),                            // 97: service.OTXMalware
-	(*OTXURL)(nil),                                // 98: service.OTXURL
-	(*OTXPassiveDNS)(nil),                         // 99: service.OTXPassiveDNS
-	(*OTXSecurityResult)(nil),                     // 100: service.OTXSecurityResult
-	(*WhoisSecurityResult)(nil),                   // 101: service.WhoisSecurityResult
-	(*AbuseChIOC)(nil),                            // 102: service.AbuseChIOC
-	(*AbuseChSecurityResult)(nil),                 // 103: service.AbuseChSecurityResult
-	(*timestamppb.Timestamp)(nil),                 // 104: google.protobuf.Timestamp
+	(*ChangePasswordRequest)(nil),                 // 31: service.ChangePasswordRequest
+	(*ChangePasswordResponse)(nil),                // 32: service.ChangePasswordResponse
+	(*LoginRequest)(nil),                          // 33: service.LoginRequest
+	(*LoginResponse)(nil),                         // 34: service.LoginResponse
+	(*InviteUserRequest)(nil),                     // 35: service.InviteUserRequest
+	(*InviteUserResponse)(nil),                    // 36: service.InviteUserResponse
+	(*ValidateInviteRequest)(nil),                 // 37: service.ValidateInviteRequest
+	(*ValidateInviteResponse)(nil),                // 38: service.ValidateInviteResponse
+	(*ScanDomainRequest)(nil),                     // 39: service.ScanDomainRequest
+	(*ScanDomainResponse)(nil),                    // 40: service.ScanDomainResponse
+	(*GetDNSScanResultsByDomainRequest)(nil),      // 41: service.GetDNSScanResultsByDomainRequest
+	(*GetDNSScanResultsByDomainResponse)(nil),     // 42: service.GetDNSScanResultsByDomainResponse
+	(*GetDNSScanResultByIDRequest)(nil),           // 43: service.GetDNSScanResultByIDRequest
+	(*GetDNSScanResultByIDResponse)(nil),          // 44: service.GetDNSScanResultByIDResponse
+	(*DNSScanResult)(nil),                         // 45: service.DNSScanResult
+	(*ScanTLSRequest)(nil),                        // 46: service.ScanTLSRequest
+	(*ScanTLSResponse)(nil),                       // 47: service.ScanTLSResponse
+	(*GetTLSScanResultsByDomainRequest)(nil),      // 48: service.GetTLSScanResultsByDomainRequest
+	(*GetTLSScanResultsByDomainResponse)(nil),     // 49: service.GetTLSScanResultsByDomainResponse
+	(*TLSScanResult)(nil),                         // 50: service.TLSScanResult
+	(*ScanCrtShRequest)(nil),                      // 51: service.ScanCrtShRequest
+	(*ScanCrtShResponse)(nil),                     // 52: service.ScanCrtShResponse
+	(*GetCrtShScanResultsByDomainRequest)(nil),    // 53: service.GetCrtShScanResultsByDomainRequest
+	(*GetCrtShScanResultsByDomainResponse)(nil),   // 54: service.GetCrtShScanResultsByDomainResponse
+	(*CrtShScanResult)(nil),                       // 55: service.CrtShScanResult
+	(*ScanChaosRequest)(nil),                      // 56: service.ScanChaosRequest
+	(*ScanChaosResponse)(nil),                     // 57: service.ScanChaosResponse
+	(*GetChaosScanResultsByDomainRequest)(nil),    // 58: service.GetChaosScanResultsByDomainRequest
+	(*GetChaosScanResultsByDomainResponse)(nil),   // 59: service.GetChaosScanResultsByDomainResponse
+	(*ChaosScanResult)(nil),                       // 60: service.ChaosScanResult
+	(*ScanShodanRequest)(nil),                     // 61: service.ScanShodanRequest
+	(*ScanShodanResponse)(nil),                    // 62: service.ScanShodanResponse
+	(*GetShodanScanResultsByDomainRequest)(nil),   // 63: service.GetShodanScanResultsByDomainRequest
+	(*GetShodanScanResultsByDomainResponse)(nil),  // 64: service.GetShodanScanResultsByDomainResponse
+	(*DNSSecurityResult)(nil),                     // 65: service.DNSSecurityResult
+	(*TLSSecurityResult)(nil),                     // 66: service.TLSSecurityResult
+	(*CrtShCertificate)(nil),                      // 67: service.CrtShCertificate
+	(*CrtShSecurityResult)(nil),                   // 68: service.CrtShSecurityResult
+	(*ChaosSecurityResult)(nil),                   // 69: service.ChaosSecurityResult
+	(*ShodanScanResult)(nil),                      // 70: service.ShodanScanResult
+	(*ShodanLocation)(nil),                        // 71: service.ShodanLocation
+	(*ShodanSSL)(nil),                             // 72: service.ShodanSSL
+	(*ShodanMetadata)(nil),                        // 73: service.ShodanMetadata
+	(*ShodanHost)(nil),                            // 74: service.ShodanHost
+	(*ShodanSecurityResult)(nil),                  // 75: service.ShodanSecurityResult
+	(*ScanOTXRequest)(nil),                        // 76: service.ScanOTXRequest
+	(*ScanOTXResponse)(nil),                       // 77: service.ScanOTXResponse
+	(*GetOTXScanResultsByDomainRequest)(nil),      // 78: service.GetOTXScanResultsByDomainRequest
+	(*GetOTXScanResultsByDomainResponse)(nil),     // 79: service.GetOTXScanResultsByDomainResponse
+	(*OTXScanResult)(nil),                         // 80: service.OTXScanResult
+	(*OTXGeneralInfo)(nil),                        // 81: service.OTXGeneralInfo
+	(*OTXMalware)(nil),                            // 82: service.OTXMalware
+	(*OTXURL)(nil),                                // 83: service.OTXURL
+	(*OTXPassiveDNS)(nil),                         // 84: service.OTXPassiveDNS
+	(*OTXSecurityResult)(nil),                     // 85: service.OTXSecurityResult
+	(*ScanWhoisRequest)(nil),                      // 86: service.ScanWhoisRequest
+	(*ScanWhoisResponse)(nil),                     // 87: service.ScanWhoisResponse
+	(*GetWhoisScanResultsByDomainRequest)(nil),    // 88: service.GetWhoisScanResultsByDomainRequest
+	(*GetWhoisScanResultsByDomainResponse)(nil),   // 89: service.GetWhoisScanResultsByDomainResponse
+	(*WhoisScanResult)(nil),                       // 90: service.WhoisScanResult
+	(*WhoisSecurityResult)(nil),                   // 91: service.WhoisSecurityResult
+	(*AbuseChIOC)(nil),                            // 92: service.AbuseChIOC
+	(*AbuseChSecurityResult)(nil),                 // 93: service.AbuseChSecurityResult
+	(*ScanAbuseChRequest)(nil),                    // 94: service.ScanAbuseChRequest
+	(*ScanAbuseChResponse)(nil),                   // 95: service.ScanAbuseChResponse
+	(*GetAbuseChScanResultsByDomainRequest)(nil),  // 96: service.GetAbuseChScanResultsByDomainRequest
+	(*GetAbuseChScanResultsByDomainResponse)(nil), // 97: service.GetAbuseChScanResultsByDomainResponse
+	(*AbuseChScanResult)(nil),                     // 98: service.AbuseChScanResult
+	(*ScanISCRequest)(nil),                        // 99: service.ScanISCRequest
+	(*ScanISCResponse)(nil),                       // 100: service.ScanISCResponse
+	(*GetISCScanResultsByDomainRequest)(nil),      // 101: service.GetISCScanResultsByDomainRequest
+	(*GetISCScanResultsByDomainResponse)(nil),     // 102: service.GetISCScanResultsByDomainResponse
+	(*ISCScanResult)(nil),                         // 103: service.ISCScanResult
+	(*ISCIncident)(nil),                           // 104: service.ISCIncident
+	(*ISCSecurityResult)(nil),                     // 105: service.ISCSecurityResult
+	(*timestamppb.Timestamp)(nil),                 // 106: google.protobuf.Timestamp
 }
 var file_proto_service_proto_depIdxs = []int32{
-	104, // 0: service.GenerateReportResponse.created_at:type_name -> google.protobuf.Timestamp
-	104, // 1: service.Report.created_at:type_name -> google.protobuf.Timestamp
+	106, // 0: service.GenerateReportResponse.created_at:type_name -> google.protobuf.Timestamp
+	106, // 1: service.Report.created_at:type_name -> google.protobuf.Timestamp
 	3,   // 2: service.ListReportsResponse.reports:type_name -> service.Report
 	3,   // 3: service.GetReportByIdResponse.report:type_name -> service.Report
-	104, // 4: service.GetUserResponse.created_at:type_name -> google.protobuf.Timestamp
+	106, // 4: service.GetUserResponse.created_at:type_name -> google.protobuf.Timestamp
 	19,  // 5: service.ListUsersResponse.users:type_name -> service.User
-	104, // 6: service.User.created_at:type_name -> google.protobuf.Timestamp
-	104, // 7: service.CreateAPIKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
-	104, // 8: service.RotateAPIKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
+	106, // 6: service.User.created_at:type_name -> google.protobuf.Timestamp
+	106, // 7: service.CreateAPIKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
+	106, // 8: service.RotateAPIKeyResponse.expires_at:type_name -> google.protobuf.Timestamp
 	30,  // 9: service.ListAPIKeysResponse.api_keys:type_name -> service.APIKey
-	104, // 10: service.APIKey.created_at:type_name -> google.protobuf.Timestamp
-	104, // 11: service.APIKey.expires_at:type_name -> google.protobuf.Timestamp
-	104, // 12: service.InviteUserResponse.expires_at:type_name -> google.protobuf.Timestamp
-	86,  // 13: service.ScanDomainResponse.result:type_name -> service.DNSSecurityResult
-	43,  // 14: service.GetDNSScanResultsByDomainResponse.results:type_name -> service.DNSScanResult
-	43,  // 15: service.GetDNSScanResultByIDResponse.result:type_name -> service.DNSScanResult
-	86,  // 16: service.DNSScanResult.result:type_name -> service.DNSSecurityResult
-	104, // 17: service.DNSScanResult.created_at:type_name -> google.protobuf.Timestamp
-	87,  // 18: service.ScanTLSResponse.result:type_name -> service.TLSSecurityResult
-	48,  // 19: service.GetTLSScanResultsByDomainResponse.results:type_name -> service.TLSScanResult
-	87,  // 20: service.TLSScanResult.result:type_name -> service.TLSSecurityResult
-	104, // 21: service.TLSScanResult.created_at:type_name -> google.protobuf.Timestamp
-	89,  // 22: service.ScanCrtShResponse.result:type_name -> service.CrtShSecurityResult
-	53,  // 23: service.GetCrtShScanResultsByDomainResponse.results:type_name -> service.CrtShScanResult
-	89,  // 24: service.CrtShScanResult.result:type_name -> service.CrtShSecurityResult
-	104, // 25: service.CrtShScanResult.created_at:type_name -> google.protobuf.Timestamp
-	90,  // 26: service.ScanChaosResponse.result:type_name -> service.ChaosSecurityResult
-	58,  // 27: service.GetChaosScanResultsByDomainResponse.results:type_name -> service.ChaosScanResult
-	90,  // 28: service.ChaosScanResult.result:type_name -> service.ChaosSecurityResult
-	104, // 29: service.ChaosScanResult.created_at:type_name -> google.protobuf.Timestamp
-	95,  // 30: service.ScanShodanResponse.result:type_name -> service.ShodanSecurityResult
-	63,  // 31: service.GetShodanScanResultsByDomainResponse.results:type_name -> service.ShodanScanResult
-	95,  // 32: service.ShodanScanResult.result:type_name -> service.ShodanSecurityResult
-	104, // 33: service.ShodanScanResult.created_at:type_name -> google.protobuf.Timestamp
-	100, // 34: service.ScanOTXResponse.result:type_name -> service.OTXSecurityResult
-	68,  // 35: service.GetOTXScanResultsByDomainResponse.results:type_name -> service.OTXScanResult
-	100, // 36: service.OTXScanResult.result:type_name -> service.OTXSecurityResult
-	104, // 37: service.OTXScanResult.created_at:type_name -> google.protobuf.Timestamp
-	101, // 38: service.ScanWhoisResponse.result:type_name -> service.WhoisSecurityResult
-	73,  // 39: service.GetWhoisScanResultsByDomainResponse.results:type_name -> service.WhoisScanResult
-	101, // 40: service.WhoisScanResult.result:type_name -> service.WhoisSecurityResult
-	104, // 41: service.WhoisScanResult.created_at:type_name -> google.protobuf.Timestamp
-	103, // 42: service.ScanAbuseChResponse.result:type_name -> service.AbuseChSecurityResult
-	78,  // 43: service.GetAbuseChScanResultsByDomainResponse.results:type_name -> service.AbuseChScanResult
-	103, // 44: service.AbuseChScanResult.result:type_name -> service.AbuseChSecurityResult
-	104, // 45: service.AbuseChScanResult.created_at:type_name -> google.protobuf.Timestamp
-	85,  // 46: service.ScanISCResponse.result:type_name -> service.ISCSecurityResult
-	83,  // 47: service.GetISCScanResultsByDomainResponse.results:type_name -> service.ISCScanResult
-	85,  // 48: service.ISCScanResult.result:type_name -> service.ISCSecurityResult
-	104, // 49: service.ISCScanResult.created_at:type_name -> google.protobuf.Timestamp
-	104, // 50: service.ISCIncident.date:type_name -> google.protobuf.Timestamp
-	84,  // 51: service.ISCSecurityResult.incidents:type_name -> service.ISCIncident
-	104, // 52: service.TLSSecurityResult.cert_not_before:type_name -> google.protobuf.Timestamp
-	104, // 53: service.TLSSecurityResult.cert_not_after:type_name -> google.protobuf.Timestamp
-	104, // 54: service.CrtShCertificate.not_before:type_name -> google.protobuf.Timestamp
-	104, // 55: service.CrtShCertificate.not_after:type_name -> google.protobuf.Timestamp
-	88,  // 56: service.CrtShSecurityResult.certificates:type_name -> service.CrtShCertificate
-	104, // 57: service.ShodanSSL.expires:type_name -> google.protobuf.Timestamp
-	104, // 58: service.ShodanSSL.not_after:type_name -> google.protobuf.Timestamp
-	91,  // 59: service.ShodanHost.location:type_name -> service.ShodanLocation
-	92,  // 60: service.ShodanHost.ssl:type_name -> service.ShodanSSL
-	104, // 61: service.ShodanHost.timestamp:type_name -> google.protobuf.Timestamp
-	93,  // 62: service.ShodanHost.shodan_meta:type_name -> service.ShodanMetadata
-	94,  // 63: service.ShodanSecurityResult.hosts:type_name -> service.ShodanHost
-	104, // 64: service.OTXMalware.datetime:type_name -> google.protobuf.Timestamp
-	104, // 65: service.OTXURL.datetime:type_name -> google.protobuf.Timestamp
-	104, // 66: service.OTXPassiveDNS.datetime:type_name -> google.protobuf.Timestamp
-	96,  // 67: service.OTXSecurityResult.general_info:type_name -> service.OTXGeneralInfo
-	97,  // 68: service.OTXSecurityResult.malware:type_name -> service.OTXMalware
-	98,  // 69: service.OTXSecurityResult.urls:type_name -> service.OTXURL
-	99,  // 70: service.OTXSecurityResult.passive_dns:type_name -> service.OTXPassiveDNS
-	104, // 71: service.WhoisSecurityResult.creation_date:type_name -> google.protobuf.Timestamp
-	104, // 72: service.WhoisSecurityResult.expiry_date:type_name -> google.protobuf.Timestamp
-	104, // 73: service.AbuseChIOC.first_seen:type_name -> google.protobuf.Timestamp
-	104, // 74: service.AbuseChIOC.last_seen:type_name -> google.protobuf.Timestamp
-	102, // 75: service.AbuseChSecurityResult.iocs:type_name -> service.AbuseChIOC
-	37,  // 76: service.ScanService.ScanDomain:input_type -> service.ScanDomainRequest
-	44,  // 77: service.ScanService.ScanTLS:input_type -> service.ScanTLSRequest
-	49,  // 78: service.ScanService.ScanCrtSh:input_type -> service.ScanCrtShRequest
-	54,  // 79: service.ScanService.ScanChaos:input_type -> service.ScanChaosRequest
-	59,  // 80: service.ScanService.ScanShodan:input_type -> service.ScanShodanRequest
-	64,  // 81: service.ScanService.ScanOTX:input_type -> service.ScanOTXRequest
-	69,  // 82: service.ScanService.ScanWhois:input_type -> service.ScanWhoisRequest
-	74,  // 83: service.ScanService.ScanAbuseCh:input_type -> service.ScanAbuseChRequest
-	79,  // 84: service.ScanService.ScanISC:input_type -> service.ScanISCRequest
-	39,  // 85: service.ScanService.GetDNSScanResultsByDomain:input_type -> service.GetDNSScanResultsByDomainRequest
-	46,  // 86: service.ScanService.GetTLSScanResultsByDomain:input_type -> service.GetTLSScanResultsByDomainRequest
-	51,  // 87: service.ScanService.GetCrtShScanResultsByDomain:input_type -> service.GetCrtShScanResultsByDomainRequest
-	56,  // 88: service.ScanService.GetChaosScanResultsByDomain:input_type -> service.GetChaosScanResultsByDomainRequest
-	61,  // 89: service.ScanService.GetShodanScanResultsByDomain:input_type -> service.GetShodanScanResultsByDomainRequest
-	66,  // 90: service.ScanService.GetOTXScanResultsByDomain:input_type -> service.GetOTXScanResultsByDomainRequest
-	71,  // 91: service.ScanService.GetWhoisScanResultsByDomain:input_type -> service.GetWhoisScanResultsByDomainRequest
-	76,  // 92: service.ScanService.GetAbuseChScanResultsByDomain:input_type -> service.GetAbuseChScanResultsByDomainRequest
-	81,  // 93: service.ScanService.GetISCScanResultsByDomain:input_type -> service.GetISCScanResultsByDomainRequest
-	41,  // 94: service.ScanService.GetDNSScanResultByID:input_type -> service.GetDNSScanResultByIDRequest
-	7,   // 95: service.UserService.CalculateRiskScore:input_type -> service.CalculateRiskScoreRequest
-	9,   // 96: service.AuthService.CreateUser:input_type -> service.CreateUserRequest
-	11,  // 97: service.AuthService.GetUser:input_type -> service.GetUserRequest
-	13,  // 98: service.AuthService.UpdateUser:input_type -> service.UpdateUserRequest
-	15,  // 99: service.AuthService.DeleteUser:input_type -> service.DeleteUserRequest
-	17,  // 100: service.AuthService.ListUsers:input_type -> service.ListUsersRequest
-	20,  // 101: service.AuthService.CreateAPIKey:input_type -> service.CreateAPIKeyRequest
-	22,  // 102: service.AuthService.RotateAPIKey:input_type -> service.RotateAPIKeyRequest
-	24,  // 103: service.AuthService.ActivateAPIKey:input_type -> service.ActivateAPIKeyRequest
-	26,  // 104: service.AuthService.DeactivateAPIKey:input_type -> service.DeactivateAPIKeyRequest
-	28,  // 105: service.AuthService.ListAPIKeys:input_type -> service.ListAPIKeysRequest
-	31,  // 106: service.AuthService.Login:input_type -> service.LoginRequest
-	33,  // 107: service.AuthService.InviteUser:input_type -> service.InviteUserRequest
-	35,  // 108: service.AuthService.ValidateInvite:input_type -> service.ValidateInviteRequest
+	106, // 10: service.APIKey.created_at:type_name -> google.protobuf.Timestamp
+	106, // 11: service.APIKey.expires_at:type_name -> google.protobuf.Timestamp
+	106, // 12: service.InviteUserResponse.expires_at:type_name -> google.protobuf.Timestamp
+	65,  // 13: service.ScanDomainResponse.result:type_name -> service.DNSSecurityResult
+	45,  // 14: service.GetDNSScanResultsByDomainResponse.results:type_name -> service.DNSScanResult
+	45,  // 15: service.GetDNSScanResultByIDResponse.result:type_name -> service.DNSScanResult
+	65,  // 16: service.DNSScanResult.result:type_name -> service.DNSSecurityResult
+	106, // 17: service.DNSScanResult.created_at:type_name -> google.protobuf.Timestamp
+	66,  // 18: service.ScanTLSResponse.result:type_name -> service.TLSSecurityResult
+	50,  // 19: service.GetTLSScanResultsByDomainResponse.results:type_name -> service.TLSScanResult
+	66,  // 20: service.TLSScanResult.result:type_name -> service.TLSSecurityResult
+	106, // 21: service.TLSScanResult.created_at:type_name -> google.protobuf.Timestamp
+	68,  // 22: service.ScanCrtShResponse.result:type_name -> service.CrtShSecurityResult
+	55,  // 23: service.GetCrtShScanResultsByDomainResponse.results:type_name -> service.CrtShScanResult
+	68,  // 24: service.CrtShScanResult.result:type_name -> service.CrtShSecurityResult
+	106, // 25: service.CrtShScanResult.created_at:type_name -> google.protobuf.Timestamp
+	69,  // 26: service.ScanChaosResponse.result:type_name -> service.ChaosSecurityResult
+	60,  // 27: service.GetChaosScanResultsByDomainResponse.results:type_name -> service.ChaosScanResult
+	69,  // 28: service.ChaosScanResult.result:type_name -> service.ChaosSecurityResult
+	106, // 29: service.ChaosScanResult.created_at:type_name -> google.protobuf.Timestamp
+	75,  // 30: service.ScanShodanResponse.result:type_name -> service.ShodanSecurityResult
+	70,  // 31: service.GetShodanScanResultsByDomainResponse.results:type_name -> service.ShodanScanResult
+	106, // 32: service.TLSSecurityResult.cert_not_before:type_name -> google.protobuf.Timestamp
+	106, // 33: service.TLSSecurityResult.cert_not_after:type_name -> google.protobuf.Timestamp
+	106, // 34: service.CrtShCertificate.not_before:type_name -> google.protobuf.Timestamp
+	106, // 35: service.CrtShCertificate.not_after:type_name -> google.protobuf.Timestamp
+	67,  // 36: service.CrtShSecurityResult.certificates:type_name -> service.CrtShCertificate
+	75,  // 37: service.ShodanScanResult.result:type_name -> service.ShodanSecurityResult
+	106, // 38: service.ShodanScanResult.created_at:type_name -> google.protobuf.Timestamp
+	106, // 39: service.ShodanSSL.expires:type_name -> google.protobuf.Timestamp
+	106, // 40: service.ShodanSSL.not_after:type_name -> google.protobuf.Timestamp
+	71,  // 41: service.ShodanHost.location:type_name -> service.ShodanLocation
+	72,  // 42: service.ShodanHost.ssl:type_name -> service.ShodanSSL
+	106, // 43: service.ShodanHost.timestamp:type_name -> google.protobuf.Timestamp
+	73,  // 44: service.ShodanHost.shodan_meta:type_name -> service.ShodanMetadata
+	74,  // 45: service.ShodanSecurityResult.hosts:type_name -> service.ShodanHost
+	85,  // 46: service.ScanOTXResponse.result:type_name -> service.OTXSecurityResult
+	80,  // 47: service.GetOTXScanResultsByDomainResponse.results:type_name -> service.OTXScanResult
+	85,  // 48: service.OTXScanResult.result:type_name -> service.OTXSecurityResult
+	106, // 49: service.OTXScanResult.created_at:type_name -> google.protobuf.Timestamp
+	106, // 50: service.OTXMalware.datetime:type_name -> google.protobuf.Timestamp
+	106, // 51: service.OTXURL.datetime:type_name -> google.protobuf.Timestamp
+	106, // 52: service.OTXPassiveDNS.datetime:type_name -> google.protobuf.Timestamp
+	81,  // 53: service.OTXSecurityResult.general_info:type_name -> service.OTXGeneralInfo
+	82,  // 54: service.OTXSecurityResult.malware:type_name -> service.OTXMalware
+	83,  // 55: service.OTXSecurityResult.urls:type_name -> service.OTXURL
+	84,  // 56: service.OTXSecurityResult.passive_dns:type_name -> service.OTXPassiveDNS
+	91,  // 57: service.ScanWhoisResponse.result:type_name -> service.WhoisSecurityResult
+	90,  // 58: service.GetWhoisScanResultsByDomainResponse.results:type_name -> service.WhoisScanResult
+	91,  // 59: service.WhoisScanResult.result:type_name -> service.WhoisSecurityResult
+	106, // 60: service.WhoisScanResult.created_at:type_name -> google.protobuf.Timestamp
+	106, // 61: service.WhoisSecurityResult.creation_date:type_name -> google.protobuf.Timestamp
+	106, // 62: service.WhoisSecurityResult.expiry_date:type_name -> google.protobuf.Timestamp
+	106, // 63: service.AbuseChIOC.first_seen:type_name -> google.protobuf.Timestamp
+	106, // 64: service.AbuseChIOC.last_seen:type_name -> google.protobuf.Timestamp
+	92,  // 65: service.AbuseChSecurityResult.iocs:type_name -> service.AbuseChIOC
+	93,  // 66: service.ScanAbuseChResponse.result:type_name -> service.AbuseChSecurityResult
+	98,  // 67: service.GetAbuseChScanResultsByDomainResponse.results:type_name -> service.AbuseChScanResult
+	93,  // 68: service.AbuseChScanResult.result:type_name -> service.AbuseChSecurityResult
+	106, // 69: service.AbuseChScanResult.created_at:type_name -> google.protobuf.Timestamp
+	105, // 70: service.ScanISCResponse.result:type_name -> service.ISCSecurityResult
+	103, // 71: service.GetISCScanResultsByDomainResponse.results:type_name -> service.ISCScanResult
+	105, // 72: service.ISCScanResult.result:type_name -> service.ISCSecurityResult
+	106, // 73: service.ISCScanResult.created_at:type_name -> google.protobuf.Timestamp
+	106, // 74: service.ISCIncident.date:type_name -> google.protobuf.Timestamp
+	104, // 75: service.ISCSecurityResult.incidents:type_name -> service.ISCIncident
+	9,   // 76: service.AuthService.CreateUser:input_type -> service.CreateUserRequest
+	11,  // 77: service.AuthService.GetUser:input_type -> service.GetUserRequest
+	13,  // 78: service.AuthService.UpdateUser:input_type -> service.UpdateUserRequest
+	15,  // 79: service.AuthService.DeleteUser:input_type -> service.DeleteUserRequest
+	17,  // 80: service.AuthService.ListUsers:input_type -> service.ListUsersRequest
+	33,  // 81: service.AuthService.Login:input_type -> service.LoginRequest
+	35,  // 82: service.AuthService.InviteUser:input_type -> service.InviteUserRequest
+	37,  // 83: service.AuthService.ValidateInvite:input_type -> service.ValidateInviteRequest
+	20,  // 84: service.UserService.CreateAPIKey:input_type -> service.CreateAPIKeyRequest
+	22,  // 85: service.UserService.RotateAPIKey:input_type -> service.RotateAPIKeyRequest
+	24,  // 86: service.UserService.ActivateAPIKey:input_type -> service.ActivateAPIKeyRequest
+	26,  // 87: service.UserService.DeactivateAPIKey:input_type -> service.DeactivateAPIKeyRequest
+	28,  // 88: service.UserService.ListAPIKeys:input_type -> service.ListAPIKeysRequest
+	31,  // 89: service.UserService.ChangePassword:input_type -> service.ChangePasswordRequest
+	39,  // 90: service.ScanService.ScanDomain:input_type -> service.ScanDomainRequest
+	46,  // 91: service.ScanService.ScanTLS:input_type -> service.ScanTLSRequest
+	51,  // 92: service.ScanService.ScanCrtSh:input_type -> service.ScanCrtShRequest
+	56,  // 93: service.ScanService.ScanChaos:input_type -> service.ScanChaosRequest
+	61,  // 94: service.ScanService.ScanShodan:input_type -> service.ScanShodanRequest
+	76,  // 95: service.ScanService.ScanOTX:input_type -> service.ScanOTXRequest
+	86,  // 96: service.ScanService.ScanWhois:input_type -> service.ScanWhoisRequest
+	94,  // 97: service.ScanService.ScanAbuseCh:input_type -> service.ScanAbuseChRequest
+	99,  // 98: service.ScanService.ScanISC:input_type -> service.ScanISCRequest
+	41,  // 99: service.ScanService.GetDNSScanResultsByDomain:input_type -> service.GetDNSScanResultsByDomainRequest
+	48,  // 100: service.ScanService.GetTLSScanResultsByDomain:input_type -> service.GetTLSScanResultsByDomainRequest
+	53,  // 101: service.ScanService.GetCrtShScanResultsByDomain:input_type -> service.GetCrtShScanResultsByDomainRequest
+	58,  // 102: service.ScanService.GetChaosScanResultsByDomain:input_type -> service.GetChaosScanResultsByDomainRequest
+	63,  // 103: service.ScanService.GetShodanScanResultsByDomain:input_type -> service.GetShodanScanResultsByDomainRequest
+	78,  // 104: service.ScanService.GetOTXScanResultsByDomain:input_type -> service.GetOTXScanResultsByDomainRequest
+	88,  // 105: service.ScanService.GetWhoisScanResultsByDomain:input_type -> service.GetWhoisScanResultsByDomainRequest
+	96,  // 106: service.ScanService.GetAbuseChScanResultsByDomain:input_type -> service.GetAbuseChScanResultsByDomainRequest
+	101, // 107: service.ScanService.GetISCScanResultsByDomain:input_type -> service.GetISCScanResultsByDomainRequest
+	43,  // 108: service.ScanService.GetDNSScanResultByID:input_type -> service.GetDNSScanResultByIDRequest
 	0,   // 109: service.ReportService.GenerateReport:input_type -> service.GenerateReportRequest
 	2,   // 110: service.ReportService.ListReports:input_type -> service.ListReportsRequest
 	5,   // 111: service.ReportService.GetReportById:input_type -> service.GetReportByIdRequest
-	38,  // 112: service.ScanService.ScanDomain:output_type -> service.ScanDomainResponse
-	45,  // 113: service.ScanService.ScanTLS:output_type -> service.ScanTLSResponse
-	50,  // 114: service.ScanService.ScanCrtSh:output_type -> service.ScanCrtShResponse
-	55,  // 115: service.ScanService.ScanChaos:output_type -> service.ScanChaosResponse
-	60,  // 116: service.ScanService.ScanShodan:output_type -> service.ScanShodanResponse
-	65,  // 117: service.ScanService.ScanOTX:output_type -> service.ScanOTXResponse
-	70,  // 118: service.ScanService.ScanWhois:output_type -> service.ScanWhoisResponse
-	75,  // 119: service.ScanService.ScanAbuseCh:output_type -> service.ScanAbuseChResponse
-	80,  // 120: service.ScanService.ScanISC:output_type -> service.ScanISCResponse
-	40,  // 121: service.ScanService.GetDNSScanResultsByDomain:output_type -> service.GetDNSScanResultsByDomainResponse
-	47,  // 122: service.ScanService.GetTLSScanResultsByDomain:output_type -> service.GetTLSScanResultsByDomainResponse
-	52,  // 123: service.ScanService.GetCrtShScanResultsByDomain:output_type -> service.GetCrtShScanResultsByDomainResponse
-	57,  // 124: service.ScanService.GetChaosScanResultsByDomain:output_type -> service.GetChaosScanResultsByDomainResponse
-	62,  // 125: service.ScanService.GetShodanScanResultsByDomain:output_type -> service.GetShodanScanResultsByDomainResponse
-	67,  // 126: service.ScanService.GetOTXScanResultsByDomain:output_type -> service.GetOTXScanResultsByDomainResponse
-	72,  // 127: service.ScanService.GetWhoisScanResultsByDomain:output_type -> service.GetWhoisScanResultsByDomainResponse
-	77,  // 128: service.ScanService.GetAbuseChScanResultsByDomain:output_type -> service.GetAbuseChScanResultsByDomainResponse
-	82,  // 129: service.ScanService.GetISCScanResultsByDomain:output_type -> service.GetISCScanResultsByDomainResponse
-	42,  // 130: service.ScanService.GetDNSScanResultByID:output_type -> service.GetDNSScanResultByIDResponse
-	8,   // 131: service.UserService.CalculateRiskScore:output_type -> service.CalculateRiskScoreResponse
-	10,  // 132: service.AuthService.CreateUser:output_type -> service.CreateUserResponse
-	12,  // 133: service.AuthService.GetUser:output_type -> service.GetUserResponse
-	14,  // 134: service.AuthService.UpdateUser:output_type -> service.UpdateUserResponse
-	16,  // 135: service.AuthService.DeleteUser:output_type -> service.DeleteUserResponse
-	18,  // 136: service.AuthService.ListUsers:output_type -> service.ListUsersResponse
-	21,  // 137: service.AuthService.CreateAPIKey:output_type -> service.CreateAPIKeyResponse
-	23,  // 138: service.AuthService.RotateAPIKey:output_type -> service.RotateAPIKeyResponse
-	25,  // 139: service.AuthService.ActivateAPIKey:output_type -> service.ActivateAPIKeyResponse
-	27,  // 140: service.AuthService.DeactivateAPIKey:output_type -> service.DeactivateAPIKeyResponse
-	29,  // 141: service.AuthService.ListAPIKeys:output_type -> service.ListAPIKeysResponse
-	32,  // 142: service.AuthService.Login:output_type -> service.LoginResponse
-	34,  // 143: service.AuthService.InviteUser:output_type -> service.InviteUserResponse
-	36,  // 144: service.AuthService.ValidateInvite:output_type -> service.ValidateInviteResponse
-	1,   // 145: service.ReportService.GenerateReport:output_type -> service.GenerateReportResponse
-	4,   // 146: service.ReportService.ListReports:output_type -> service.ListReportsResponse
-	6,   // 147: service.ReportService.GetReportById:output_type -> service.GetReportByIdResponse
-	112, // [112:148] is the sub-list for method output_type
-	76,  // [76:112] is the sub-list for method input_type
+	7,   // 112: service.ReportService.CalculateRiskScore:input_type -> service.CalculateRiskScoreRequest
+	10,  // 113: service.AuthService.CreateUser:output_type -> service.CreateUserResponse
+	12,  // 114: service.AuthService.GetUser:output_type -> service.GetUserResponse
+	14,  // 115: service.AuthService.UpdateUser:output_type -> service.UpdateUserResponse
+	16,  // 116: service.AuthService.DeleteUser:output_type -> service.DeleteUserResponse
+	18,  // 117: service.AuthService.ListUsers:output_type -> service.ListUsersResponse
+	34,  // 118: service.AuthService.Login:output_type -> service.LoginResponse
+	36,  // 119: service.AuthService.InviteUser:output_type -> service.InviteUserResponse
+	38,  // 120: service.AuthService.ValidateInvite:output_type -> service.ValidateInviteResponse
+	21,  // 121: service.UserService.CreateAPIKey:output_type -> service.CreateAPIKeyResponse
+	23,  // 122: service.UserService.RotateAPIKey:output_type -> service.RotateAPIKeyResponse
+	25,  // 123: service.UserService.ActivateAPIKey:output_type -> service.ActivateAPIKeyResponse
+	27,  // 124: service.UserService.DeactivateAPIKey:output_type -> service.DeactivateAPIKeyResponse
+	29,  // 125: service.UserService.ListAPIKeys:output_type -> service.ListAPIKeysResponse
+	32,  // 126: service.UserService.ChangePassword:output_type -> service.ChangePasswordResponse
+	40,  // 127: service.ScanService.ScanDomain:output_type -> service.ScanDomainResponse
+	47,  // 128: service.ScanService.ScanTLS:output_type -> service.ScanTLSResponse
+	52,  // 129: service.ScanService.ScanCrtSh:output_type -> service.ScanCrtShResponse
+	57,  // 130: service.ScanService.ScanChaos:output_type -> service.ScanChaosResponse
+	62,  // 131: service.ScanService.ScanShodan:output_type -> service.ScanShodanResponse
+	77,  // 132: service.ScanService.ScanOTX:output_type -> service.ScanOTXResponse
+	87,  // 133: service.ScanService.ScanWhois:output_type -> service.ScanWhoisResponse
+	95,  // 134: service.ScanService.ScanAbuseCh:output_type -> service.ScanAbuseChResponse
+	100, // 135: service.ScanService.ScanISC:output_type -> service.ScanISCResponse
+	42,  // 136: service.ScanService.GetDNSScanResultsByDomain:output_type -> service.GetDNSScanResultsByDomainResponse
+	49,  // 137: service.ScanService.GetTLSScanResultsByDomain:output_type -> service.GetTLSScanResultsByDomainResponse
+	54,  // 138: service.ScanService.GetCrtShScanResultsByDomain:output_type -> service.GetCrtShScanResultsByDomainResponse
+	59,  // 139: service.ScanService.GetChaosScanResultsByDomain:output_type -> service.GetChaosScanResultsByDomainResponse
+	64,  // 140: service.ScanService.GetShodanScanResultsByDomain:output_type -> service.GetShodanScanResultsByDomainResponse
+	79,  // 141: service.ScanService.GetOTXScanResultsByDomain:output_type -> service.GetOTXScanResultsByDomainResponse
+	89,  // 142: service.ScanService.GetWhoisScanResultsByDomain:output_type -> service.GetWhoisScanResultsByDomainResponse
+	97,  // 143: service.ScanService.GetAbuseChScanResultsByDomain:output_type -> service.GetAbuseChScanResultsByDomainResponse
+	102, // 144: service.ScanService.GetISCScanResultsByDomain:output_type -> service.GetISCScanResultsByDomainResponse
+	44,  // 145: service.ScanService.GetDNSScanResultByID:output_type -> service.GetDNSScanResultByIDResponse
+	1,   // 146: service.ReportService.GenerateReport:output_type -> service.GenerateReportResponse
+	4,   // 147: service.ReportService.ListReports:output_type -> service.ListReportsResponse
+	6,   // 148: service.ReportService.GetReportById:output_type -> service.GetReportByIdResponse
+	8,   // 149: service.ReportService.CalculateRiskScore:output_type -> service.CalculateRiskScoreResponse
+	113, // [113:150] is the sub-list for method output_type
+	76,  // [76:113] is the sub-list for method input_type
 	76,  // [76:76] is the sub-list for extension type_name
 	76,  // [76:76] is the sub-list for extension extendee
 	0,   // [0:76] is the sub-list for field type_name
@@ -6859,7 +6967,7 @@ func file_proto_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_service_proto_rawDesc), len(file_proto_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   104,
+			NumMessages:   106,
 			NumExtensions: 0,
 			NumServices:   4,
 		},

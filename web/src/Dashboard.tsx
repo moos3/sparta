@@ -20,17 +20,17 @@ import PeopleIcon from '@mui/icons-material/People';
 import MailIcon from '@mui/icons-material/Mail';
 import LogoutIcon from '@mui/icons-material/Logout';
 import DescriptionIcon from '@mui/icons-material/Description';
+import PersonIcon from '@mui/icons-material/Person'; // NEW: Icon for Profile
 
-import { AuthContext } from './App'; // Import AuthContext
-
+import { AuthContext } from './AuthContext';
 const drawerWidth = 240;
 
 function Dashboard() {
-    const authContext = useContext(AuthContext); // Access AuthContext
+    const authContext = useContext(AuthContext);
     if (!authContext) {
         throw new Error("Dashboard must be used within an AuthContext.Provider");
     }
-    const { user, setUser } = authContext; // Destructure user and setUser
+    const { user, setUser } = authContext;
 
     const navigate = useNavigate();
 
@@ -92,6 +92,14 @@ function Dashboard() {
                                 <DescriptionIcon />
                             </ListItemIcon>
                             <ListItemText primary="Reports" />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <ListItemButton onClick={() => navigate('/profile')}>
+                            <ListItemIcon>
+                                <PersonIcon /> {/* NEW Icon */}
+                            </ListItemIcon>
+                            <ListItemText primary="Profile" /> {/* NEW Nav Item */}
                         </ListItemButton>
                     </ListItem>
                     {user && user.isAdmin && (

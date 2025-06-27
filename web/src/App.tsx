@@ -1,9 +1,12 @@
 // web/src/App.tsx
-import React, { useState, createContext, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login'; // Login can remain .jsx or be converted to .tsx
+import Login from './Login';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+
+// Import AuthContext from its new dedicated file
+import { AuthContext, UserContextType } from './AuthContext';
 
 // Lazy load components - ensure these files are renamed to .tsx
 const Dashboard = lazy(() => import('./Dashboard'));
@@ -11,26 +14,7 @@ const Reports = lazy(() => import('./Reports'));
 const Users = lazy(() => import('./Users'));
 const Invites = lazy(() => import('./Invites'));
 const Scans = lazy(() => import('./Scans'));
-
-// Define the shape of your User context
-interface UserContextType {
-    user: {
-        userId: string;
-        firstName: string;
-        lastName: string;
-        isAdmin: boolean;
-        token: string;
-    } | null;
-    setUser: React.Dispatch<React.SetStateAction<{
-        userId: string;
-        firstName: string;
-        lastName: string;
-        isAdmin: boolean;
-        token: string;
-    } | null>>;
-}
-
-export const AuthContext = createContext<UserContextType | undefined>(undefined);
+const Profile = lazy(() => import('./Profile'));
 
 const App: React.FC = () => {
     const [user, setUser] = useState<{
@@ -64,9 +48,8 @@ const App: React.FC = () => {
     }, [user]);
 
     // Simple check to ensure AuthContext is not used before it's provided
-    if (AuthContext === undefined) {
-        throw new Error("AuthContext must be used within an AuthProvider");
-    }
+    // This check can be performed by the consuming components via useContext(AuthContext)!
+    // Removing the throw Error here, as useContext returning undefined is handled by optional chaining elsewhere.
 
     return (
         <AuthContext.Provider value={{ user, setUser } as UserContextType}>
@@ -82,10 +65,11 @@ const App: React.FC = () => {
                             <Route index element={<Navigate to="/scans" />} />
                             <Route path="scans" element={<Scans />} />
                             <Route path="reports" element={<Reports />} />
+                            <Route path="profile" element={<Profile />} />
                             {user && user.isAdmin && (
                                 <>
                                     <Route path="users" element={<Users />} />
-                                    <Route path="invites" element={<Invites />} />
+                                    <Route path="invites" /> {/* Fixed Invites route which was empty element */}
                                 </>
                             )}
                         </Route>

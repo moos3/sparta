@@ -137,10 +137,11 @@ func main() {
 	)
 
 	s := server.New(db, authService, emailService, pluginMap)
-	reportService := server.NewReportService(db, pluginMap) // New ReportService
+	reportService := server.NewReportService(db, pluginMap)
 
-	pb.RegisterAuthServiceServer(grpcServer, authService)
-	pb.RegisterUserServiceServer(grpcServer, s)
+	pb.RegisterAuthServiceServer(grpcServer, authService)     // Register AuthService
+	pb.RegisterUserServiceServer(grpcServer, s)               // Register UserService
+	pb.RegisterScanServiceServer(grpcServer, s)               // Register ScanService
 	pb.RegisterReportServiceServer(grpcServer, reportService) // Register ReportService
 
 	authService.ScheduleAPIKeyRotation()

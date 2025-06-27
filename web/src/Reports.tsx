@@ -1,33 +1,39 @@
 // web/src/Reports.tsx
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react'; // Added useMemo
 import { Box, Typography, TextField, Button, List, ListItem, ListItemText, Paper, Alert, CircularProgress, Grid } from '@mui/material';
-import { GenerateReportRequest, GenerateReportResponse, ListReportsRequest, ListReportsResponse, GetReportByIdRequest, GetReportByIdResponse, Report } from './proto/service'; // Import message types
-import { ReportServiceClient } from './proto/service.client'; // Import client
-import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport'; // Import transport
-import { AuthContext } from './App';
-import { Timestamp } from './proto/google/protobuf/timestamp'; // Import Timestamp for formatting
+import { GenerateReportRequest, GenerateReportResponse, ListReportsRequest, ListReportsResponse, GetReportByIdRequest, GetReportByIdResponse, Report } from './proto/service';
+import { ReportServiceClient } from './proto/service.client';
+import { GrpcWebFetchTransport } from '@protobuf-ts/grpcweb-transport';
+import { AuthContext } from './AuthContext';
+import { Timestamp } from './proto/google/protobuf/timestamp';
+import { RpcOptions } from '@protobuf-ts/runtime-rpc';
 
-const transport = new GrpcWebFetchTransport({
-    baseUrl: 'http://localhost:8080',
-    // Add interceptor to include x-api-key header
-    interceptors: [{
-        intercept(method, next) {
-            return async req => {
-                const authContext = useContext(AuthContext);
-                const userToken = authContext?.user?.token; // Get token from context
-                if (userToken) {
-                    req.headers.set('x-api-key', userToken);
-                }
-                return await next(method, req);
-            };
-        }
-    }]
-});
-const reportClient = new ReportServiceClient(transport); // Instantiate client
+// REMOVE GLOBAL transport and reportClient HERE
 
 const Reports: React.FC = () => {
     const authContext = useContext(AuthContext);
     const user = authContext?.user;
+
+    // NEW: Instantiate transport and client inside the component using useMemo
+    const reportClient = useMemo(() => {
+        const transport = new GrpcWebFetchTransport({
+            baseUrl: 'http://localhost:8080',
+            interceptors: [{
+                intercept(next) {
+                    console.log("Interceptor: Intercept function invoked (Reports from useMemo)."); // Added for debug
+                    return async (req) => {
+                        const userToken = localStorage.getItem('sparta_token');
+                        console.log("Interceptor (Reports from useMemo): User token:", userToken); // Added for debug
+                        if (userToken) {
+                            req.headers.set('x-api-key', userToken);
+                        }
+                        return await next(req);
+                    };
+                }
+            }]
+        });
+        return new ReportServiceClient(transport);
+    }, []); // Empty dependency array means it's created once
 
     const [reports, setReports] = useState<Report[]>([]);
     const [domain, setDomain] = useState<string>('');
@@ -49,7 +55,8 @@ const Reports: React.FC = () => {
             return;
         }
 
-        reportClient.listReports(request).then((response: ListReportsResponse) => {
+        reportClient.listReports(request).then((callResponse) => {
+            const response: ListReportsResponse = callResponse.response;
             setLoading(false);
             setReports(response.reports);
         }).catch((err: any) => {
@@ -84,7 +91,8 @@ const Reports: React.FC = () => {
 
         const request: GenerateReportRequest = { domain: domain };
 
-        reportClient.generateReport(request).then((response: GenerateReportResponse) => {
+        reportClient.generateReport(request).then((callResponse) => {
+            const response: GenerateReportResponse = callResponse.response;
             setLoading(false);
             setSuccess(`Report generated for ${domain} with ID: ${response.reportId}`);
             setDomain('');
@@ -114,9 +122,10 @@ const Reports: React.FC = () => {
 
         const request: GetReportByIdRequest = { reportId: reportId };
 
-        reportClient.getReportById(request).then((response: GetReportByIdResponse) => {
+        reportClient.getReportById(request).then((callResponse) => {
+            const response: GetReportByIdResponse = callResponse.response;
             setLoading(false);
-            setSelectedReport(response.report || null); // Ensure it's null if undefined
+            setSelectedReport(response.report || null);
         }).catch((err: any) => {
             setLoading(false);
             setError(`Error fetching report by ID: ${err.message}`);
@@ -125,7 +134,6 @@ const Reports: React.FC = () => {
 
     const formatTimestamp = (timestamp: Timestamp | undefined) => {
         if (!timestamp) return 'N/A';
-        // protobuf-ts Timestamp has toJsDate() method
         return timestamp.toDate().toLocaleString();
     };
 
